@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+<!--NOTE: for some reason the robot arm is 0.82 above origin along the z axis -->
+
+<xacro:macro name="space2" params="base">
+ <!-- including the workspace macro -->
+    <xacro:include filename="$(find thtr_robot_env)/urdf/inc/workspaces/workspace_macro.xacro" />
+  
+    <xacro:property name="value_file"    value="$(find thtr_robot_env)/urdf/inc/workspaces/space2.yaml" />
+    <xacro:property name="measurements"   value="${xacro.load_yaml(value_file)}" />
+
+    <!-- measurements and parameters for robot_table-->
+    <xacro:property name="table" value="${measurements['robot_table']}"/>
+    
+   <!--Loading distance values from yaml file -->
+    <xacro:property name="distances" value="${measurements['distances']}"/>
+    
+    <!-- measurements and parameters for crates-->
+    <xacro:property name="crates" value="${measurements['crate_dimensions']}"/>
+    
+    <xacro:property name="tags_value_file"    value="$(find thtr_robot_env)/urdf/inc/workspaces/tag_coords.yaml" />
+    <xacro:property name="yamlmeasurements"   value="${xacro.load_yaml(tags_value_file)}" />
+    
+    <!-- measurements and parameters for robot_table-->
+    <xacro:property name="crate_0" value="${yamlmeasurements['crate0']}"/>
+
+    <!-- measurements and parameters for dummyboxes-->
+    <xacro:property name="dummybox1" value="${measurements['dummybox1']}"/>
+    <xacro:property name="dummybox2" value="${measurements['dummybox2']}"/>        
+    <xacro:property name="dummybox3" value="${measurements['dummybox3']}"/>
+    <xacro:property name="controlbox" value="${measurements['controlbox']}"/>
+    <xacro:property name="ceiling" value="${measurements['ceiling']}"/>
+    <xacro:property name="wall1" value="${measurements['wall1']}"/>
+    <xacro:property name="wall2" value="${measurements['wall2']}"/>
+        
+    <!-- creating the box under the robot arm -->
+    <xacro:support_box
+    	name="robot_table"
+    	vis_size_xyz= "${table['side']} ${table['side']} ${table['height']}"
+    	coll_size_xyz= "${table['side'] - 0.001} ${table['side'] - 0.001} ${table['height'] - 0.001}"
+    	box_col="grey" />
+    	
+    <joint name="robot_table_to_world" type="fixed">
+      <parent link="${base}" />
+      <child link="robot_table" />
+      <origin xyz="0 0 -${table['height'] / 2.0}" rpy="0 0 0" />
+    </joint>
+    
+        <!-- REVY -->
+    <!-- REVY -->
+    <!-- creating the first crate -->
+		<!--xacro:crate1 
+				name="crate0"
+				base="${base}"
+        thickness ="${crate_0['thickness']}"
+        width="${crate_0['width']}"
+        length="${crate_0['length']}"
+        height="${crate_0['height']}"
+				origin_xyz="${crate_0['origin']['x']} ${crate_0['origin']['y']} ${crate_0['origin']['z']}"/-->
+    <!-- REVY -->				
+        <!-- REVY -->
+        
+    <!-- measurements and parameters for crates_box1 which is the front-right box-->
+    <!--xacro:property name="firstbox" value="${measurements['front_box1']}"/-->
+    
+    <!-- the idea is we can use a yaml file for the x y and z calculations -->
+    
+    <!--xacro:property name="firstbox_x" value="0"/>
+    <xacro:property name="firstbox_y" value="${firstbox['length'] / 2.0 + table['side'] / 2.0 + distances['y_val'] - distances['crate_gap_y']}"/>
+    <xacro:property name="firstbox_z" value="${-table['height'] + firstbox['height'] /2.0 }"/>
+    
+   <xacro:support_box
+   	name="crates_box1"
+    	vis_size_xyz= "${firstbox['width']} ${firstbox['length']} ${firstbox['height']}" 
+    	coll_size_xyz= "${firstbox['width'] - 0.001} ${firstbox['length'] - 0.001} ${firstbox['height'] - 0.001}" 
+    	box_col="brown"  />
+    	
+    <joint name="crates_box1_to_baselink" type="fixed">
+    <origin xyz= "${firstbox_x} ${firstbox_y} ${firstbox_z}"/>
+      <parent link="${base}" />
+      <child link="crates_box1" />
+    </joint>
+
+    <xacro:property name="crate1_x" value="${-firstbox['width'] / 2.0}"/>
+    <xacro:property name="crate1_y" value="${-firstbox['length'] / 2.0}"/>
+    <xacro:property name="crate1_z" value="${firstbox['height'] / 2.0}"/>
+    
+    <xacro:crate name="crate1"/>
+    	
+    <joint name="crate1_to_crates_box1" type="fixed">
+      <origin xyz= "${crate1_x} ${crate1_y} ${crate1_z}"/>
+      <parent link="crates_box1" />
+      <child link="crate1" />
+    </joint> 
+    
+  
+   <xacro:property name="secondbox" value="${measurements['front_box2']}"/-->
+   
+   <!--Calculations for placing the box -->
+    <!--xacro:property name="secondbox_x" value="${firstbox_x - distances['crate_gap_x'] - secondbox['width']}"/>
+    <xacro:property name="secondbox_y" value="${secondbox['length'] / 2.0 + table['side'] / 2.0 + distances['y_val']}"/>
+    <xacro:property name="secondbox_z" value="${-table['height'] + secondbox['height'] / 2.0}"/>
+    
+   <xacro:support_box
+    	name="crates_box2"
+    	vis_size_xyz= "${secondbox['width']} ${secondbox['length']} ${secondbox['height']}" 
+    	coll_size_xyz= "${secondbox['width'] - 0.001} ${secondbox['length'] - 0.001} ${secondbox['height'] - 0.001}" 
+    	box_col="brown" />
+   	
+    <joint name="crates_box2_to_baselink" type="fixed">
+    <origin xyz= "${secondbox_x} ${secondbox_y} ${secondbox_z}"/>
+      <parent link="${base}" />
+      <child link="crates_box2" />
+    </joint> 
+    
+    <xacro:property name="crate2_x" value="${-secondbox['width'] / 2.0}"/>
+    <xacro:property name="crate2_y" value="${-secondbox['length'] / 2.0}"/>
+    <xacro:property name="crate2_z" value="${secondbox['height'] / 2.0}"/>
+    
+    <xacro:crate name="crate2"/>
+    	
+    <joint name="crate2_to_crates_box1" type="fixed">
+      <origin xyz= "${crate2_x} ${crate2_y} ${crate2_z}"/>
+      <parent link="crates_box2" />
+      <child link="crate2" />
+    </joint>
+
+   <xacro:support_box
+   	name="controlbox"
+    	vis_size_xyz= "${controlbox['width']} ${controlbox['length']} ${controlbox['height']}" 
+    	coll_size_xyz= "${controlbox['width'] - 0.001} ${controlbox['length'] - 0.001} ${controlbox['height'] - 0.001}" 
+    	box_col="kaki"  />
+    	
+    <joint name="controlbox_to_baselink" type="fixed">
+    <origin xyz= "-0.4 0.0 ${-table['height'] + controlbox['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="controlbox" />
+    </joint>
+    
+   <xacro:support_box
+   	name="dummybox1"
+    	vis_size_xyz= "${dummybox1['width']} ${dummybox1['length']} ${dummybox1['height']}" 
+    	coll_size_xyz= "${dummybox1['width'] - 0.001} ${dummybox1['length'] - 0.001} ${dummybox1['height'] - 0.001}" 
+    	box_col="beige"  />
+    	
+    <joint name="dummybox1_to_baselink" type="fixed">
+    <origin xyz= "0.32 0.7 ${-table['height'] + dummybox1['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="dummybox1" />
+    </joint>
+
+
+   <xacro:support_box
+   	name="dummybox2"
+    	vis_size_xyz= "${dummybox2['width']} ${dummybox2['length']} ${dummybox2['height']}" 
+    	coll_size_xyz= "${dummybox2['width'] - 0.001} ${dummybox2['length'] - 0.001} ${dummybox2['height'] - 0.001}" 
+    	box_col="darkbrown"  />
+    	
+    <joint name="dummybox2_to_baselink" type="fixed">
+    <origin xyz= "0.7 0 ${-table['height'] + dummybox2['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="dummybox2" />
+    </joint>
+
+
+   <xacro:support_box
+   	name="dummybox3"
+    	vis_size_xyz= "${dummybox3['width']} ${dummybox3['length']} ${dummybox3['height']}" 
+    	coll_size_xyz= "${dummybox3['width'] - 0.001} ${dummybox3['length'] - 0.001} ${dummybox3['height'] - 0.001}" 
+    	box_col="beige"  />
+    	
+    <joint name="dummybox3_to_baselink" type="fixed">
+    <origin xyz= "0 -0.5 ${-table['height'] + dummybox3['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="dummybox3" />
+    </joint>
+
+
+
+   <xacro:support_box
+   	name="ceiling"
+    	vis_size_xyz= "${ceiling['width']} ${ceiling['length']} ${ceiling['height']}" 
+    	coll_size_xyz= "${ceiling['width'] - 0.001} ${ceiling['length'] - 0.001} ${ceiling['height'] - 0.001}" 
+    	box_col="white"  />
+    	
+    <joint name="ceiling_to_baselink" type="fixed">
+    <origin xyz= "0 0 1.6"/>
+      <parent link="${base}" />
+      <child link="ceiling" />
+    </joint-->
+
+
+   <!--xacro:support_box
+   	name="wall1"
+    	vis_size_xyz= "${wall1['width']} ${wall1['length']} ${wall1['height']}" 
+    	coll_size_xyz= "${wall1['width'] - 0.001} ${wall1['length'] - 0.001} ${wall1['height'] - 0.001}" 
+    	box_col="white"  />
+    	
+    <joint name="wall1_to_baselink" type="fixed">
+    <origin xyz= "0 2.25 ${-table['height'] + wall1['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="wall1" />
+    </joint>
+
+
+
+   <xacro:support_box
+   	name="wall2"
+    	vis_size_xyz= "${wall2['width']} ${wall2['length']} ${wall2['height']}" 
+    	coll_size_xyz= "${wall2['width'] - 0.001} ${wall2['length'] - 0.001} ${wall2['height'] - 0.001}" 
+    	box_col="white"  />
+    	
+    <joint name="wall2_to_baselink" type="fixed">
+    <origin xyz= "0 -2.25 ${-table['height'] + wall2['height'] / 2.0}"/>
+      <parent link="${base}" />
+      <child link="wall2" />
+    </joint-->
+
+
+
+
+
+
+
+        
+</xacro:macro>
+    
+</robot>

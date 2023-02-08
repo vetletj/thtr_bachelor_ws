@@ -1,0 +1,17 @@
+#Camera Information
+dimensions:
+  length: 0.111
+  width: 0.047
+  height: 0.0311
+
+#obtained after calibration procedure, with respect to base link
+cam1_coords:
+  x: -0.159285
+  y: 0.667895
+  z: 0.714351
+
+#currently obtained through geometry, must be confirmed with calibration
+cam2_coords:
+  x: -0.0835
+  y: 0.0
+  z: 0.0

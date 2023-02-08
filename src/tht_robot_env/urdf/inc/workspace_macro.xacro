@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+ <!-- To make things easier on my eyes -->
+    <material name="green">
+    	<color rgba="0.043 0.165 0.082 0.8"/>
+    </material>
+
+    <material name="boxcolour">
+    	<color rgba="0.725 0.498 0.184 0.8"/>
+   </material>
+    
+
+ <xacro:macro name="support_box" params="name origin_xyz origin_rpy size_xyz">
+   <link name="${name}">
+    	<visual>
+    		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
+    		<geometry>
+    			<box size="${size_xyz}"/>
+    		</geometry>
+    		<material name="boxcolour"/>
+    	</visual>
+    	<collision>
+    		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
+    		<geometry>
+    			<box size="${size_xyz}"/>
+    		</geometry>
+    	</collision>
+    </link>
+    </xacro:macro>
+ 
+    
+    <xacro:macro name="crate" params="name origin_xyz origin_rpy">
+   <link name="${name}">
+    	<visual>
+    		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
+    		<geometry>
+    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    		</geometry>
+    		<material name="green"/>
+    	</visual>
+    	<collision>
+    		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
+    		<geometry>
+    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    		</geometry>
+    	</collision>
+    </link>
+    </xacro:macro>
+    
+</robot>

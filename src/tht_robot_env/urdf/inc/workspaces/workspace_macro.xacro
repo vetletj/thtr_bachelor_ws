@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+    
+<!-- centre point of the box is at (width/2 , length/2, height/2) -->
+ <xacro:macro name="support_box" params="name vis_size_xyz coll_size_xyz box_col">
+   <link name="${name}">
+    	<visual>
+    		<origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		<geometry>
+    			<box size="${vis_size_xyz}"/>
+    		</geometry>
+    		<material name="${box_col}"/>
+    	</visual>
+    	<collision>
+    		<origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		<geometry>
+    			<box size="${coll_size_xyz}"/>
+    		</geometry>
+    	</collision>
+    </link>
+    </xacro:macro>
+ 
+    <!--NOTE: while positioning the mesh of the crate in the workspace, keep in mind that the centre point of the crate is one of the bottom corners and not the geometric centre of the crate -->
+    
+    <xacro:macro name="crate" params="name">
+   <link name="${name}">
+    	<visual>
+    		<origin xyz= "0 0 0" rpy ="${pi/2.0} 0 ${pi/2.0}"/>
+    		<geometry>
+    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    		</geometry>
+    	</visual>
+    	<collision>
+    		<origin xyz= "0 0 0" rpy ="${pi/2.0} 0 ${pi/2.0}"/>
+    		<geometry>
+    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    		</geometry>
+    	</collision>
+    </link>
+    </xacro:macro>
+    
+    
+    <xacro:macro name="crate1" params="name base thickness width length height origin_xyz">
+        <!-- this si side 1 -->
+        <link name="${name}_side1">
+            <visual>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${thickness} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </visual>
+            <collision>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${thickness} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </collision>
+        </link>
+
+        <link name="${name}_side2">
+            <visual>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${thickness} ${width} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </visual>
+            <collision>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${thickness} ${width} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </collision>
+        </link>
+
+        <link name="${name}_side3">
+            <visual>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${thickness} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </visual>
+            <collision>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${thickness} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </collision>
+        </link>
+
+        <link name="${name}_side4">
+            <visual>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${thickness} ${width} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </visual>
+            <collision>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${thickness} ${width} ${height}"/> <!--length ones-->
+    		    </geometry>
+            </collision>
+        </link>
+
+        <link name="${name}_side5">
+            <visual>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${width} ${thickness}"/> <!--length ones-->
+    		    </geometry>
+            </visual>
+            <collision>
+                <origin xyz= "0 0 0" rpy ="0 0 0"/>
+    		    <geometry>
+    			    <box size = "${length} ${width} ${thickness}"/> <!--length ones-->
+    		    </geometry>
+            </collision>
+        </link>
+
+        <joint name="side1_side2" type="fixed">
+            <origin xyz="${-length/2.0} ${-width/2.0} 0" rpy="0 0 0"/>
+    	    <parent link="${name}_side1" />
+            <child link="${name}_side2" />
+        </joint>
+
+        <joint name="side2_side3" type="fixed">
+            <origin xyz="${length/2.0} ${-width/2.0} 0" rpy="0 0 0"/>
+    	    <parent link="${name}_side2" />
+            <child link="${name}_side3" />
+        </joint>
+
+        <joint name="side3_side4" type="fixed">
+            <origin xyz="${length/2.0} ${width/2.0} 0" rpy="0 0 0"/>
+    	    <parent link="${name}_side3" />
+            <child link="${name}_side4" />
+        </joint>
+
+        <joint name="side5_side1" type="fixed">
+            <origin xyz="0 ${-width/2.0} ${-height/2.0}" rpy="0 0 0"/>
+    	    <parent link="${name}_side1" />
+            <child link="${name}_side5" />
+        </joint>
+        
+        <joint name="base_side1" type="fixed">
+            <origin xyz="${origin_xyz}" rpy="0 0 0"/>
+    	    <parent link="${base}" />
+            <child link="${name}_side1" />
+        </joint>
+
+    </xacro:macro>
+  
+  
+    
+</robot>
