@@ -377,7 +377,7 @@
     
     <joint name="tool0-calib" type="fixed">
       <!-- default toolframe - X+ left, Y+ up, Z+ front -->
-      <origin xyz="0 ${offset} -0.01" rpy="0 0 0"/>
+      <origin xyz="0 ${offset} 0" rpy="0 0 0"/>
       <parent link="${prefix}tool0"/>
       <child link="calib_board"/>
     </joint>
