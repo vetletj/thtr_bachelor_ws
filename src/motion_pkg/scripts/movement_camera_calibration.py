@@ -21,9 +21,6 @@ scene = moveit_commander.PlanningSceneInterface()
 group_name = "manipulator"
 move_group = moveit_commander.MoveGroupCommander(group_name)
 
-#up = [-2.5890535847263143, -2.180785651606902, 0.7321361632517993, -1.6947975508798923, 2.5890364566936235, 0.0004057191601143373]
-#group_variable_values = up
-
 
 # Create a DisplayTrajectory ROS publisher which is used to display trajectories in Rviz
 display_trajectory_publisher = rospy.Publisher(
@@ -76,11 +73,9 @@ def moveRobot(x, y, z): # Moves robot in given directions.
 
 def rotateRobot(roll, pitch, yaw):
     scale = 1
-    #waypoints = []
     
 
     wpose = move_group.get_current_pose().pose
-    #waypoints.append(copy.deepcopy(wpose))
     
     orientation = [wpose.orientation.x, wpose.orientation.y, wpose.orientation.z, wpose.orientation.w]
     (existing_roll, existing_pitch, existing_yaw) = tf.transformations.euler_from_quaternion(orientation)
@@ -108,24 +103,6 @@ def rotateRobot(roll, pitch, yaw):
         wpose.orientation.y = quaternions[1]
         wpose.orientation.z = quaternions[2]
         wpose.orientation.w = quaternions[3]
-        #waypoints.append(copy.deepcopy(wpose))
-    
-    '''  
-    if(ox!= 0):
-        wpose.orientation.x += scale * ox  # rotation
-        waypoints.append(copy.deepcopy(wpose))
-        
-    if(oy!= 0):
-        wpose.orientation.y += scale * oy  # rotation
-        waypoints.append(copy.deepcopy(wpose))
-        
-    if(oz!= 0):
-        wpose.orientation.z += scale * oz  # rotation
-        waypoints.append(copy.deepcopy(wpose))
-            
-    if(w!= 0):
-        wpose.orientation.w += scale * w  # rotation
-        waypoints.append(copy.deepcopy(wpose))   '''
     
     move_group.set_pose_target(wpose)
     
@@ -142,6 +119,8 @@ def rotateRobot(roll, pitch, yaw):
     
 start = rospy.get_time    
 
-moveRobot(0.2, -0.1, 0)    
+moveRobot(0, 0, 0.5)    
 rospy.sleep(2)
-rotateRobot(math.pi/2, -math.pi/2, 0)
+
+moveRobot(0, 0, 0.6)    
+moveRobot(0, 0, 0.5)
