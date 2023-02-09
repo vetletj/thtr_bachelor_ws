@@ -12,6 +12,7 @@
   <arg name="safety_k_position" default="20" doc="Used to set k position in the safety controller" />
 
   <arg name="robot_model" value="ur10e" />
+  
 
   <!-- use common launch file and pass all arguments to it -->
   <include file="$(find thtr_robot_env)/launch/tht_load_ur.launch" pass_all_args="true"/>
