@@ -71,10 +71,10 @@ print("")
 input("Press Enter when ready to start calibration...")
 # We can get the joint values from the group and adjust some of the values:
 joint_goal = move_group.get_current_joint_values()
-joint_goal[0] = 0   # Joint_1 = 0°
+joint_goal[0] = pi/2   # Joint_1 = 0°
 joint_goal[1] = -pi/3   # Joint_2 = -60°
-joint_goal[2] = pi/2    # Joint_3 = 90°
-joint_goal[3] = -2*pi/3   # Joint_4 = -120°
+joint_goal[2] = 2.1293    # Joint_3 = 122°
+joint_goal[3] = -2.6529   # Joint_4 = -152°
 joint_goal[4] = pi/2 # Joint_5 = 90°
 joint_goal[5] = 0   # Joint_6 = 0°
 

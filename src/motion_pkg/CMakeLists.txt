@@ -160,6 +160,7 @@ catkin_install_python(PROGRAMS
 	scripts/move_Andrija_test.py
 	scripts/moveWaypoints.py
 	scripts/move_camera_cali.py
+	scripts/movement_camera_calibration.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
