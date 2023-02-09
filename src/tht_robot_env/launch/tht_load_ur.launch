@@ -12,7 +12,7 @@
   <arg name="safety_k_position" default="20" doc="Used to set k position in the safety controller" />
 
   <arg name="robot_model" />
-
+  
   <!-- Load the top-level (ie: stand-alone and complete) xacro for the UR
        variant defined by the set of yaml parameter files (so to load a UR5
        onto the ROS parameter server, provide paths to the .yaml files which
@@ -40,4 +40,7 @@
     safety_pos_margin:=$(arg safety_pos_margin)
     safety_k_position:=$(arg safety_k_position)"
     />
+
+   
+
 </launch>
