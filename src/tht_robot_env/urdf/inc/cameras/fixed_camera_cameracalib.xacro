@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+	<!-- Create yaml file with measurements for the fixed_gripper-->
+	<xacro:property name="file"    value="$(find thtr_robot_env)/urdf/inc/cameras/cam_info_cameracalib.yaml"/>
+  <xacro:property name="measurements"   value="${xacro.load_yaml(file)}"/>
+
+	<!-- measurements for camera dimensions-->
+  <xacro:property name="camera" value="${measurements['dimensions']}"/>
+    
+  <!-- measurements for camera coordinates-->
+  <xacro:property name="coords" value="${measurements['cam1_coords']}"/>
+    
+<xacro:macro name="fixed_cam" params="base">
+	<link name="OAK_camera">
+		<visual>
+			<geometry>
+    				<box size="${camera['length']} ${camera['width']} ${camera['height']}"/>
+    			</geometry>
+    			<material name="silver"/>
+		</visual>
+		<collision>
+			<geometry>
+    				<box size="${camera['length']} ${camera['width']} ${camera['height']}"/>
+    			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="camera_to_world" type="fixed">
+		<origin xyz="${coords['x']} ${coords['y']} ${coords['z']}" rpy="${-pi} 0 0"/>
+		<parent link="${base}" />
+      		<child link="OAK_camera" />
+	</joint>
+
+	<link name="camera_stand">
+		<visual>
+			<geometry>
+    			<cylinder radius="0.02" length="1.4"/>
+    		</geometry>
+    		<material name="black"/>
+		</visual>
+		<collision>
+			<geometry>
+    			<cylinder radius="0.01" length="1.35"/>
+    		</geometry>
+		</collision>
+	</link>
+	
+    <joint name="stand_to_camera" type="fixed">
+    	<origin xyz="0 -0.02 0.7" rpy="0 0 0"/>
+      <parent link="OAK_camera" />
+      <child link="camera_stand" />
+    </joint> 
+
+</xacro:macro>
+</robot>
