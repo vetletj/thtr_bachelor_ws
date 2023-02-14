@@ -74,9 +74,10 @@ def moveRobot(x, y, z): # Moves robot in given directions.
 def rotateRobot(roll, pitch, yaw):
     scale = 1
     
+    waypoints = []
 
     wpose = move_group.get_current_pose().pose
-    
+    wpose_start = wpose
     orientation = [wpose.orientation.x, wpose.orientation.y, wpose.orientation.z, wpose.orientation.w]
     (existing_roll, existing_pitch, existing_yaw) = tf.transformations.euler_from_quaternion(orientation)
     
@@ -103,8 +104,45 @@ def rotateRobot(roll, pitch, yaw):
         wpose.orientation.y = quaternions[1]
         wpose.orientation.z = quaternions[2]
         wpose.orientation.w = quaternions[3]
+        
     
-    move_group.set_pose_target(wpose)
+        
+        #move_group.set_pose_target(wpose)
+    
+    
+    waypoints.append(copy.deepcopy(wpose))
+    waypoints.append(copy.deepcopy(wpose_start))
+
+    # We want the Cartesian path to be interpolated at a resolution of 1 cm
+    # which is why we will specify 0.01 as the eef_step in Cartesian
+    # translation.  We will disable the jump threshold by setting it to 0.0 disabling:
+    (plan, fraction) = move_group.compute_cartesian_path(
+                                    waypoints,   # waypoints to follow
+                                    0.01,        # eef_step
+                                    0.0)         # jump_threshold
+
+    #Displaying trajectory in Rviz
+
+    display_trajectory = moveit_msgs.msg.DisplayTrajectory()
+    display_trajectory.trajectory_start = robot.get_current_state()
+    display_trajectory.trajectory.append(plan)
+    #publish
+    display_trajectory_publisher.publish(display_trajectory)
+
+    rospy.sleep(2)
+    move_group.execute(plan, wait=True)
+    print("moved!")
+    
+    '''
+    # `go()` returns a boolean indicating whether the planning and execution was successful.
+    success = move_group.go(wait=True)
+    # Calling `stop()` ensures that there is no residual movement
+    move_group.stop()
+    # It is always good to clear your targets after planning with poses.
+    # Note: there is no equivalent function for clear_joint_value_targets().
+    move_group.clear_pose_targets()
+    
+    move_group.set_pose_target(wpose_start)
     
     # `go()` returns a boolean indicating whether the planning and execution was successful.
     success = move_group.go(wait=True)
@@ -113,14 +151,10 @@ def rotateRobot(roll, pitch, yaw):
     # It is always good to clear your targets after planning with poses.
     # Note: there is no equivalent function for clear_joint_value_targets().
     move_group.clear_pose_targets()
-    print("moved!")
+    '''
     
-    
-    
-start = rospy.get_time    
+#start = rospy.get_time    
 
 moveRobot(0, 0, 0.5)    
 rospy.sleep(2)
-
-moveRobot(0, 0, 0.6)    
-moveRobot(0, 0, 0.5)
+rotateRobot(math.pi/2, 0, 0)
