@@ -28,3 +28,11 @@ Workspace for bachelor at tht robotics
     * Terminal 3: `roslaunch thtr_robot_env tht_view_ur10eworkspace.launch`
 
 
+
+Run environment with moveit:
+1. source thtr, setup.bash
+2. roslaunch thtr_robot_env load_rosparam_robot_description.launch
+
+1. new terminal
+2. source thtr, setup.bash
+3. roslaunch ur10e_moveit_config demo.launch
