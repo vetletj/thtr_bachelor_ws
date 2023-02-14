@@ -31,7 +31,7 @@ display_trajectory_publisher = rospy.Publisher(
 
 
 
-def moveRobot(x, y, z): # Moves robot in given directions. 
+def moveRobot(x, y, z): # Moves robot in given directions. x- red, y- blue, z- green
     scale = 1
     waypoints = []
 
@@ -71,7 +71,12 @@ def moveRobot(x, y, z): # Moves robot in given directions.
     move_group.execute(plan, wait=True)
     print("moved!")
 
-def rotateRobot(roll, pitch, yaw):
+def rotateRobot(roll, pitch, yaw): 
+    
+    '''
+    Rotates robot roll, pitch yaw. Roll is red arrow in Rviz. Pitch is blue arrow in Rviz. 
+    Yaw is green arrow (remember z is flipped, positive is downwards.).
+    '''
     scale = 1
     
     waypoints = []
@@ -105,56 +110,75 @@ def rotateRobot(roll, pitch, yaw):
         wpose.orientation.z = quaternions[2]
         wpose.orientation.w = quaternions[3]
         
+        move_group.set_pose_target(wpose)
     
+    
+    # `go()` returns a boolean indicating whether the planning and execution was successful.
+    success = move_group.go(wait=True)
+    # Calling `stop()` ensures that there is no residual movement
+    move_group.stop()
+    # It is always good to clear your targets after planning with poses.
+    # Note: there is no equivalent function for clear_joint_value_targets().
+    move_group.clear_pose_targets()
+    
+def rotateAroundJoint(joint, rotation):
+    '''
+    Function that rotates given joint with given rotation
+    Joint 0-5
+    '''  
+    goal_of_joints = move_group.get_current_joint_values()
+    goal_of_joints[joint] = goal_of_joints[joint] + rotation
+    
+    if(goal_of_joints[joint] > 2*math.pi):
+        goal_of_joints[joint] = goal_of_joints[joint] - 2*math.pi
         
-        #move_group.set_pose_target(wpose)
-    
-    
-    waypoints.append(copy.deepcopy(wpose))
-    waypoints.append(copy.deepcopy(wpose_start))
+    # The go command can be called with joint values, poses, or without any
+    # parameters if you have already set the pose or joint target for the group
+    move_group.go(goal_of_joints, wait=True)
 
-    # We want the Cartesian path to be interpolated at a resolution of 1 cm
-    # which is why we will specify 0.01 as the eef_step in Cartesian
-    # translation.  We will disable the jump threshold by setting it to 0.0 disabling:
-    (plan, fraction) = move_group.compute_cartesian_path(
-                                    waypoints,   # waypoints to follow
-                                    0.01,        # eef_step
-                                    0.0)         # jump_threshold
-
-    #Displaying trajectory in Rviz
-
-    display_trajectory = moveit_msgs.msg.DisplayTrajectory()
-    display_trajectory.trajectory_start = robot.get_current_state()
-    display_trajectory.trajectory.append(plan)
-    #publish
-    display_trajectory_publisher.publish(display_trajectory)
-
-    rospy.sleep(2)
-    move_group.execute(plan, wait=True)
-    print("moved!")
-    
-    '''
-    # `go()` returns a boolean indicating whether the planning and execution was successful.
-    success = move_group.go(wait=True)
-    # Calling `stop()` ensures that there is no residual movement
+    # Calling ``stop()`` ensures that there is no residual movement
     move_group.stop()
-    # It is always good to clear your targets after planning with poses.
-    # Note: there is no equivalent function for clear_joint_value_targets().
-    move_group.clear_pose_targets()
     
-    move_group.set_pose_target(wpose_start)
-    
-    # `go()` returns a boolean indicating whether the planning and execution was successful.
-    success = move_group.go(wait=True)
-    # Calling `stop()` ensures that there is no residual movement
-    move_group.stop()
-    # It is always good to clear your targets after planning with poses.
-    # Note: there is no equivalent function for clear_joint_value_targets().
-    move_group.clear_pose_targets()
+def rotationCalibration():
     '''
+    Rotates for image calibration skew.
+    '''
+    rotateAroundJoint(4, -math.pi/6)
+    rotateAroundJoint(4, 2*math.pi/6)
+    rotateAroundJoint(4, -math.pi/6)
     
+    rotateAroundJoint(3, -math.pi/6)
+    rotateAroundJoint(3, 2*math.pi/6)
+    rotateAroundJoint(3, -math.pi/6)    
 #start = rospy.get_time    
 
-moveRobot(0, 0, 0.5)    
+def moveSquare(scale):
+    
+    rotationCalibration()
+    moveRobot(0.25*scale ,0 ,0)
+    rotationCalibration()
+    moveRobot(0, 0, 0.25*scale)
+    rotationCalibration()
+    moveRobot(-0.25*scale ,0 ,0)
+    rotationCalibration()
+    moveRobot(-0.25*scale ,0 ,0)
+    rotationCalibration()
+    moveRobot(0, 0, -0.25*scale)
+    rotationCalibration()
+    moveRobot(0, 0, -0.25*scale)
+    rotationCalibration()
+    moveRobot(0.25*scale ,0 ,0)
+    rotationCalibration()
+    moveRobot(0.25*scale ,0 ,0)
+    rotationCalibration()
+    moveRobot(0, 0, 0.25*scale)
+    moveRobot(-0.25*scale ,0 ,0)
+    
+    
 rospy.sleep(2)
-rotateRobot(math.pi/2, 0, 0)
+
+moveRobot(0,-0.125,0)
+moveSquare(0.5)
+moveRobot(0,-0.125,0)
+moveSquare(1)
+ 
