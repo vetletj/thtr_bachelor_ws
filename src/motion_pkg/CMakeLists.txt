@@ -161,6 +161,9 @@ catkin_install_python(PROGRAMS
 	scripts/moveWaypoints.py
 	scripts/move_camera_cali.py
 	scripts/movement_camera_calibration.py
+	scripts/movement_camera_calibration_vetle.py
+	scripts/move_group_python_interface_tutorial.py
+	scripts/move_group_python_interface.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
