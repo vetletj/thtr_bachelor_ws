@@ -1,7 +1,7 @@
 # thtr_bachelor_ws
 Workspace for bachelor at tht robotics
 
-## How to launch tht robotics robot description
+## How to launch tht robotics robot description with physical robot
 1. Catkin_make and source tht_bachelor_ws
 2. Run each command below in a new terminal, sourcing the workspace each time (should happen automatic from .bashrc).
     * Terminal 1: 
@@ -16,7 +16,8 @@ Workspace for bachelor at tht robotics
         ```bash
         rviz
         ```
-3. Go into RViz window
+3. Setup computer ip-adress (host IP) on URCaps and start stat program. 
+4. Go into RViz window
     * Change "Fixed Frame" to "Base_link"
     * Add "Motion planning"
 
