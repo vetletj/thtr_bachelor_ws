@@ -164,6 +164,7 @@ catkin_install_python(PROGRAMS
 	scripts/movement_camera_calibration_vetle.py
 	scripts/move_group_python_interface_tutorial.py
 	scripts/move_group_python_interface.py
+	scripts/move_menu.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
