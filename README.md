@@ -53,9 +53,11 @@ roslaunch ur10e_moveit_config demo.launch load_robot_description:=false
     * Change "Fixed Frame" to "Base_link"
     * Add "Motion planning"
 
-## Physical UR10e robot settings
+## UR10e robot settings
 1. Setup connection with physical robot
     * Robot IP-adress: 169.254.1.11
     * Robot Subnet mask: 255.255.0.0
 2. Test conntection: `ping 169.254.1.11`
 
+## DepthAI OAK-D Camera
+* Camera IP-adress: `169.254.1.222`
