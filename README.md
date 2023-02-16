@@ -58,17 +58,3 @@ roslaunch ur10e_moveit_config demo.launch load_robot_description:=false
     * Robot Subnet mask: 255.255.0.0
 2. Test conntection: `ping 169.254.1.11`
 
-## Extra
-Camera feed
-	1. Open new terminal and source catkin_ws
-	2. roslaunch realsense2_camera rs_camera.launch
-	3. Open new terminal and source catkin_ws
-	4. Launch rviz
-	5. Add camera and depth field
-	
-real robot:
-	roslaunch ur_robot_driver ur10e_bringup.launch robot_ip:=169.254.1.11
-	roslaunch ur10e_moveit_config ur10e_moveit_planning_execution.launch 
-
-
-
