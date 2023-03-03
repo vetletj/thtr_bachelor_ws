@@ -158,6 +158,8 @@ include_directories(
 catkin_install_python(PROGRAMS
 	scripts/movement_camera_calibration.py
 	scripts/move_menu.py
+	scripts/OAK_pro_camera_test.py
+	scripts/test_aruco.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
