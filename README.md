@@ -28,7 +28,7 @@ Workspace for bachelor at tht robotics
         ```bash
         roslaunch ur_gazebo ur10e_bringup.launch
         ```
-    * Terminal 2: 
+    * Terminal 2:  
         ```bash
         roslaunch ur10e_moveit_config moveit_planning_execution.launch sim:=true
         ```
