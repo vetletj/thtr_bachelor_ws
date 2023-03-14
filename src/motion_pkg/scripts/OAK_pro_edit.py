@@ -1,3 +1,4 @@
+#!/usr/bin/env python3  
 # Script for testing the OAK D poe pro camera
 
 # importing modules
@@ -7,7 +8,48 @@ import os
 import numpy as np
 import cv2.aruco as aruco
 import math as m
+from tf.transformations import quaternion_matrix
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+import geometry_msgs.msg
+import tf
 
+#Moveit node
+moveit_commander.roscpp_initialize(sys.argv)
+rospy.init_node("moveRobot", anonymous=True)
+
+
+robot = moveit_commander.RobotCommander()
+scene = moveit_commander.PlanningSceneInterface()
+group_name = "manipulator"
+move_group = moveit_commander.MoveGroupCommander(group_name)
+
+
+# Create a DisplayTrajectory ROS publisher which is used to display trajectories in Rviz
+display_trajectory_publisher = rospy.Publisher(
+    "/move_group/display_planned_path",
+    moveit_msgs.msg.DisplayTrajectory,
+    queue_size=20,
+)
+
+#Tf node
+rospy.init_node('tf_listener')
+listener = tf.TransformListener
+
+rate = rospy.Rate(10.0)
+while not rospy.is_shutdown():
+    try:
+        robTransform = listener.lookupTransform('/base_lin','/end_effector',rospy.Time(0))
+    except:
+        continue
+    
+allCharucoCorners = np.array([])
+allCharucoIds = np.array([])
+allRotationVectors = np.array([])
+allTranlationVectors = np.array([]
+                                
+                                )
 def quat2ang(quat):
     #normalise quaternions
     norm = m.sqrt(x*x + y*y + z*z + w*w)
@@ -28,7 +70,7 @@ def quat2ang(quat):
         ry = y/s
         rz = z/s
     #normalize rotation
-    norm = sqrt(rx*rx+ry*ry+rz*rz)
+    norm = m.sqrt(rx*rx+ry*ry+rz*rz)
     rx = rx /norm*angle
     ry = ry/norm*angle
     rz = rz/norm*angle
@@ -49,19 +91,41 @@ def ang2quat(ang):
     
     return quat
 
-allCharucoCorners = np.array([])
-allCharucoIds = np.array([])
-allRobotPoses = np.array([])
+def transformToRotationVector(transform):
+    global allRotationVectors
+    global allTranlationVectors
+    
+    
+    rotation = transform.transform.rotation
+    translation = transform.transform.translation
+    
+    rvec = quat2ang(rotation)
+    allRotationVectors.append(rvec)
+    
+    tvec = np.array([[translation.x], [translation.y], [translation.z]])
+    allTranlationVectors.append(tvec)
+    return
+
 
 def addSample():
     
-    if(charucoIds == 24 and charucoCorners.shape[0] == 24):
-        p.append(allCharucoCorners, charucoCorners)
-        np.append(allCharucoIds,charucoIds)
+    if charucoIds is not None:
+        global allCharucoCorners
+        global allCharucoIds
+        
+        allCharucoCorners = np.append(allCharucoCorners, charucoCorners)
+        allCharucoIds = np.append(allCharucoIds,charucoIds)
+        transformToRotationVector(robTransform)
         print("Sample saved.")
     else:
         print("All CharucoCorners not detected. ")
+        
 def calibrate():
+    
+    cameraMatrix, distCoeffs, reprojError, r_camera2end, t_camera2end = cv2.calibrateCameraCharuco(allCharucoCorners, allCharucoIds, board, imageSize)
+    R_camera2gripper, T_camera2gripper = cv2.calibrateHandEye(allRotationVectors, allTranlationVectors, r_camera2end, t_camera2end)
+    
+    
     return   
 
 # create pipeline
@@ -171,6 +235,9 @@ with dai.Device(pipeline, deviceInfo) as device:
         board = aruco.CharucoBoard_create(7, 5, 0.04, 0.02, dictionary)
         params = aruco.DetectorParameters_create()
         params.cornerRefinementMethod = aruco.CORNER_REFINE_NONE
+        height, width = frameCopy.shape[:2]
+        imageSize = [width, height]
+
         
         markerCorners, markerIds, _ = aruco.detectMarkers(frameCopy, dictionary, parameters=params)
         if markerIds is not None and len(markerIds) > 0:
@@ -191,8 +258,10 @@ with dai.Device(pipeline, deviceInfo) as device:
         key = cv2.waitKey(1)
         if key == ord('q'):
             break
-        elif key == ord('s'):
+        elif key == ord('s'): # Add sample 
             addSample()
             print(allCharucoCorners)
             print(allCharucoIds)
+        elif key == ord('c'): #Calibrate
+            calibrate()
         
