@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/src/Universal_Robots_ROS_Driver/controller_stopper",
+    "git.autorefresh": true,
+}
