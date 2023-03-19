@@ -32,6 +32,19 @@
       		<child link="OAK_camera" />
 	</joint>
 
+	<!-- ROS-Industrial 'base' frame - base_link to UR 'Base' Coordinates transform -->
+    <link name="OAK_camera_rot"/>
+    <joint name="OAK_link-OAK_fixed_joint" type="fixed">
+      <!-- Note the rotation over Z of pi radians - as base_link is REP-103
+           aligned (i.e., has X+ forward, Y+ left and Z+ up), this is needed
+           to correctly align 'base' with the 'Base' coordinate system of
+           the UR controller.
+      -->
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 0"/>
+      <parent link="OAK_camera"/>
+      <child link="OAK_camera_rot"/>
+    </joint>
+
 	<link name="camera_stand">
 		<visual>
 			<geometry>
