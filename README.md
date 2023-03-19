@@ -31,7 +31,7 @@ roslaunch tht_depthai tht_rgb_publisher.launch
     ```
 * Realsense D435i:
 ```bash 
-roslaunch realsense2_camera rs_rgbd.launch
+roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30
 ```
 5. Launch charuco tracker:
 * For OAK-D camera: 
