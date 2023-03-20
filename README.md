@@ -46,7 +46,10 @@ roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color 
 ```bash 
 roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false publish_dummy:=false start_rviz:=true
 ```
-
+7. Launch easy hand publish calibration:
+```bash 
+roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OAK_camera calibration_file:=
+```
 
 
 ## How to launch tht robotics robot description with physical robot
