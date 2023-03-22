@@ -13,7 +13,7 @@ rospy.init_node('tf_move_group_pose_planning', anonymous=True)
 move_group = moveit_commander.MoveGroupCommander('manipulator')
 
 # Define the end-effector link
-end_effector_link = 'your_end_effector_link'
+end_effector_link = 'pointer'
 
 # Set the reference frame for the pose
 reference_frame = 'base_link'
