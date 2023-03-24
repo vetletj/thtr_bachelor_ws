@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>thtr_robot_env</name>
+  <name>tht_robot_env</name>
   <version>1.2.5</version>
   <description>
       URDF description for thtRobotics workspace and motion scripts

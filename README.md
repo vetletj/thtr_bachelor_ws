@@ -1,15 +1,15 @@
-# thtr_bachelor_ws
+# tht_bachelor_ws
 Workspace for bachelor at tht robotics
 
 ## Full launch sequence for hand-to-eye calibration with OAK-D camera
 1. Launch robot description.
 * For physical robot:
 ```bash 
-roslaunch thtr_robot_env tht_bachelor_bringup.launch
+roslaunch tht_robot_env tht_bachelor_bringup.launch
 ```
 * For simulated robot:
 ```bash 
-roslaunch thtr_robot_env load_rosparam_robot_description.launch
+roslaunch tht_robot_env load_rosparam_robot_description.launch
 ```
 2. Launch MoveIt planner:
 * For physical robot:
@@ -61,7 +61,7 @@ roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color c
 2. Run each command below in a new terminal, sourcing the workspace each time (should happen automatic from .bashrc).
     * Terminal 1: 
         ```bash
-        roslaunch thtr_robot_env tht_bachelor_bringup.launch
+        roslaunch tht_robot_env tht_bachelor_bringup.launch
         ```
     * Terminal 2: 
         ```bash
@@ -98,7 +98,7 @@ roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color c
 ## Simulated robot and enviorment:
 1. Launch tht robot description from xacro files: 
 ```bash
-roslaunch thtr_robot_env load_rosparam_robot_description.launch
+roslaunch tht_robot_env load_rosparam_robot_description.launch
 ```
 2. Launch fake driver, controller and moveit planner:
 ```bash

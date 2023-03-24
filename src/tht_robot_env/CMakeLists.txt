@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(thtr_robot_env)
+project(tht_robot_env)
 
 find_package(catkin REQUIRED)
 
