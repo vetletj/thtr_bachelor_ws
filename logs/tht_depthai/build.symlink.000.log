@@ -1,0 +1,15 @@
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/libnodelet_stereo.so
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/mobilenet_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/stereo_inertial_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/tht_rgb_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/rgb_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/crop_control_service
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/yolov4_spatial_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/rgb_subscriber_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/stereo_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/tht_depthai/rgb_stereo_node
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/tht_depthai.pc
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/tht_depthai/markerPublisher/markerPublisher.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/tht_depthai/markerPublisher/cmake.lock
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/tht_depthai/cmake/tht_depthaiConfig-version.cmake
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/tht_depthai/cmake/tht_depthaiConfig.cmake

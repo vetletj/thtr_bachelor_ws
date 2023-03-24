@@ -1,0 +1,2 @@
+universal_robot/universal_robots
+/home/thtstation1/thtr_bachelor_ws/devel/.private/universal_robots/cmake.lock /home/thtstation1/thtr_bachelor_ws/devel/./cmake.lock

@@ -1,0 +1,8 @@
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/camera_calibration.pc
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/python3/dist-packages/camera_calibration/__init__.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/camera_calibration/tarfile_calibration.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/camera_calibration/cameracheck.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/camera_calibration/cameracalibrator.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/camera_calibration/cmake.lock
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/camera_calibration/cmake/camera_calibrationConfig-version.cmake
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/camera_calibration/cmake/camera_calibrationConfig.cmake

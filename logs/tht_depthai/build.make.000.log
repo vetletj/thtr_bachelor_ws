@@ -1,0 +1,148 @@
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target roscpp_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target rosgraph_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target nodelet_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target rosgraph_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target depthai_ros_msgs_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target roscpp_generate_messages_eus[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_cpp[0m
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target nodelet_generate_messages_lisp
+[  0%] Built target roscpp_generate_messages_eus
+[  0%] Built target roscpp_generate_messages_lisp
+[  0%] Built target rosgraph_msgs_generate_messages_eus
+[  0%] Built target rosgraph_msgs_generate_messages_cpp
+[  0%] Built target depthai_ros_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target stereo_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_py[0m
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target roscpp_generate_messages_cpp[0m
+[  0%] Built target sensor_msgs_generate_messages_nodejs
+[  0%] Built target geometry_msgs_generate_messages_py
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target bond_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target bond_generate_messages_eus[0m
+[  0%] Built target sensor_msgs_generate_messages_py
+[  0%] Built target stereo_msgs_generate_messages_py
+[35m[1mScanning dependencies of target bond_generate_messages_lisp[0m
+[  0%] Built target sensor_msgs_generate_messages_eus
+[  0%] Built target bond_generate_messages_cpp
+[  0%] Built target bond_generate_messages_eus
+[  0%] Built target sensor_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target std_msgs_generate_messages_lisp[0m
+[35m[1mScanning dependencies of target rosgraph_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_py[0m
+[  0%] Built target std_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_cpp[0m
+[  0%] Built target rosgraph_msgs_generate_messages_py
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target roscpp_generate_messages_py[0m
+[  0%] Built target bond_generate_messages_lisp
+[  0%] Built target roscpp_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target sensor_msgs_generate_messages_cpp
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target depthai_ros_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target vision_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_eus[0m
+[  0%] Built target roscpp_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target vision_msgs_generate_messages_eus
+[35m[1mScanning dependencies of target roscpp_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target stereo_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target depthai_ros_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target rosgraph_msgs_generate_messages_lisp[0m
+[  0%] Built target geometry_msgs_generate_messages_eus
+[35m[1mScanning dependencies of target depthai_ros_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target vision_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target depthai_ros_msgs_generate_messages_py[0m
+[  0%] Built target depthai_ros_msgs_generate_messages_eus
+[  0%] Built target depthai_ros_msgs_generate_messages_cpp
+[  0%] Built target rosgraph_msgs_generate_messages_lisp
+[  0%] Built target stereo_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target vision_msgs_generate_messages_nodejs[0m
+[  0%] Built target roscpp_generate_messages_nodejs
+[  0%] Built target depthai_ros_msgs_generate_messages_py
+[  0%] Built target depthai_ros_msgs_generate_messages_nodejs
+[  0%] Built target vision_msgs_generate_messages_cpp
+[35m[1mScanning dependencies of target vision_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target stereo_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target stereo_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_eus[0m
+[  0%] Built target vision_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target rosgraph_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target nodelet_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target stereo_msgs_generate_messages_lisp[0m
+[  0%] Built target nodelet_generate_messages_cpp
+[  0%] Built target stereo_msgs_generate_messages_eus
+[  0%] Built target stereo_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target vision_msgs_generate_messages_py
+[  0%] Built target stereo_msgs_generate_messages_lisp
+[  0%] Built target rosgraph_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target nodelet_generate_messages_eus[0m
+[35m[1mScanning dependencies of target nodelet_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target bond_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target bond_generate_messages_py[0m
+[35m[1mScanning dependencies of target nodelet_generate_messages_py[0m
+[35m[1mScanning dependencies of target vision_msgs_generate_messages_lisp[0m
+[  0%] Built target bond_generate_messages_nodejs
+[  0%] Built target nodelet_generate_messages_nodejs
+[  0%] Built target vision_msgs_generate_messages_lisp
+[  0%] Built target nodelet_generate_messages_py
+[  0%] Built target bond_generate_messages_py
+[  0%] Built target nodelet_generate_messages_eus
+[35m[1mScanning dependencies of target rgb_subscriber_node[0m
+[35m[1mScanning dependencies of target tht_rgb_node[0m
+[35m[1mScanning dependencies of target stereo_node[0m
+[35m[1mScanning dependencies of target stereo_inertial_node[0m
+[35m[1mScanning dependencies of target rgb_node[0m
+[35m[1mScanning dependencies of target rgb_stereo_node[0m
+[35m[1mScanning dependencies of target yolov4_spatial_node[0m
+[  5%] [32mBuilding CXX object CMakeFiles/rgb_subscriber_node.dir/ros1_src/rgb_video_subscriber.cpp.o[0m
+[ 10%] [32mBuilding CXX object CMakeFiles/stereo_inertial_node.dir/ros1_src/stereo_inertial_publisher.cpp.o[0m
+[ 15%] [32mBuilding CXX object CMakeFiles/tht_rgb_node.dir/ros1_src/tht_rgb_publisher.cpp.o[0m
+[ 20%] [32mBuilding CXX object CMakeFiles/rgb_node.dir/ros1_src/rgb_publisher.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/rgb_stereo_node.dir/ros1_src/rgb_stereo_node.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/stereo_node.dir/ros1_src/stereo_publisher.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/yolov4_spatial_node.dir/ros1_src/yolov4_spatial_publisher.cpp.o[0m
+[35m[1mScanning dependencies of target mobilenet_node[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/mobilenet_node.dir/ros1_src/mobilenet_publisher.cpp.o[0m
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/rgb_subscriber_node.dir/build.make:63: CMakeFiles/rgb_subscriber_node.dir/ros1_src/rgb_video_subscriber.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:485: CMakeFiles/rgb_subscriber_node.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[35m[1mScanning dependencies of target crop_control_service[0m
+[ 45%] [32mBuilding CXX object CMakeFiles/crop_control_service.dir/ros1_src/crop_control_service.cpp.o[0m
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/tht_rgb_node.dir/build.make:63: CMakeFiles/tht_rgb_node.dir/ros1_src/tht_rgb_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:333: CMakeFiles/tht_rgb_node.dir/all] Error 2
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/yolov4_spatial_node.dir/build.make:63: CMakeFiles/yolov4_spatial_node.dir/ros1_src/yolov4_spatial_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1685: CMakeFiles/yolov4_spatial_node.dir/all] Error 2
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/stereo_node.dir/build.make:63: CMakeFiles/stereo_node.dir/ros1_src/stereo_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:257: CMakeFiles/stereo_node.dir/all] Error 2
+[ 50%] [32m[1mLinking CXX executable /home/thtstation1/thtr_bachelor_ws/devel/.private/tht_depthai/lib/tht_depthai/crop_control_service[0m
+[ 50%] Built target crop_control_service
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/stereo_inertial_node.dir/build.make:63: CMakeFiles/stereo_inertial_node.dir/ros1_src/stereo_inertial_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:409: CMakeFiles/stereo_inertial_node.dir/all] Error 2
+[ 55%] [32m[1mLinking CXX executable /home/thtstation1/thtr_bachelor_ws/devel/.private/tht_depthai/lib/tht_depthai/rgb_node[0m
+[ 55%] Built target rgb_node
+[ 60%] [32m[1mLinking CXX executable /home/thtstation1/thtr_bachelor_ws/devel/.private/tht_depthai/lib/tht_depthai/rgb_stereo_node[0m
+[ 60%] Built target rgb_stereo_node
+[ 65%] [32m[1mLinking CXX executable /home/thtstation1/thtr_bachelor_ws/devel/.private/tht_depthai/lib/tht_depthai/mobilenet_node[0m
+[ 65%] Built target mobilenet_node
+make: *** [Makefile:141: all] Error 2

@@ -1,0 +1,22 @@
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/rgb_subscriber_node.dir/build.make:63: CMakeFiles/rgb_subscriber_node.dir/ros1_src/rgb_video_subscriber.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:485: CMakeFiles/rgb_subscriber_node.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/tht_rgb_node.dir/build.make:63: CMakeFiles/tht_rgb_node.dir/ros1_src/tht_rgb_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:333: CMakeFiles/tht_rgb_node.dir/all] Error 2
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/yolov4_spatial_node.dir/build.make:63: CMakeFiles/yolov4_spatial_node.dir/ros1_src/yolov4_spatial_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1685: CMakeFiles/yolov4_spatial_node.dir/all] Error 2
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/stereo_node.dir/build.make:63: CMakeFiles/stereo_node.dir/ros1_src/stereo_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:257: CMakeFiles/stereo_node.dir/all] Error 2
+[01m[Kc++:[m[K [01;31m[Kfatal error: [m[KKilled signal terminated program cc1plus
+compilation terminated.
+make[2]: *** [CMakeFiles/stereo_inertial_node.dir/build.make:63: CMakeFiles/stereo_inertial_node.dir/ros1_src/stereo_inertial_publisher.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:409: CMakeFiles/stereo_inertial_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

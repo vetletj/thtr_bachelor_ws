@@ -1,0 +1,9 @@
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/move_menu.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/OAK_pro_camera_test.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/test_aruco.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/calib_test.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/movement_camera_calibration.py
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/motion_pkg/cmake.lock
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/motion_pkg.pc
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/motion_pkg/cmake/motion_pkgConfig-version.cmake
+Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/motion_pkg/cmake/motion_pkgConfig.cmake

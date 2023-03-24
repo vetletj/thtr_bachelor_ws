@@ -1,0 +1,22 @@
+In file included from [01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/src/hardware_interface.cpp:30[m[K:
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:[m[K In constructor ‘[01m[Kur_driver::HardwareInterface::HardwareInterface()[m[K’:
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:283:20:[m[K [01;35m[Kwarning: [m[K‘[01m[Kur_driver::HardwareInterface::cartesian_pose_command_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  283 |   urcl::vector6d_t [01;35m[Kcartesian_pose_command_[m[K;
+      |                    [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:272:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kurcl::vector6d_t ur_driver::HardwareInterface::joint_positions_[m[K’ [[01;35m[K-Wreorder[m[K]
+  272 |   urcl::vector6d_t [01;35m[Kjoint_positions_[m[K;
+      |                    [01;35m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/src/hardware_interface.cpp:58:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   58 | [01;35m[KHardwareInterface[m[K::HardwareInterface()
+      | [01;35m[K^~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/src/hardware_interface.cpp:30[m[K:
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:[m[K In constructor ‘[01m[Kur_driver::HardwareInterface::HardwareInterface()[m[K’:
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:283:20:[m[K [01;35m[Kwarning: [m[K‘[01m[Kur_driver::HardwareInterface::cartesian_pose_command_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  283 |   urcl::vector6d_t [01;35m[Kcartesian_pose_command_[m[K;
+      |                    [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/ur_robot_driver/hardware_interface.h:272:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kurcl::vector6d_t ur_driver::HardwareInterface::joint_positions_[m[K’ [[01;35m[K-Wreorder[m[K]
+  272 |   urcl::vector6d_t [01;35m[Kjoint_positions_[m[K;
+      |                    [01;35m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/thtstation1/thtr_bachelor_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/src/hardware_interface.cpp:58:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   58 | [01;35m[KHardwareInterface[m[K::HardwareInterface()
+      | [01;35m[K^~~~~~~~~~~~~~~~~[m[K
