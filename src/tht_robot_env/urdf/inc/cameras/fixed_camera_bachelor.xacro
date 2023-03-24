@@ -2,14 +2,14 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
 	<!-- Create yaml file with measurements for the fixed_gripper-->
-	<xacro:property name="file"    value="$(find thtr_robot_env)/urdf/inc/cameras/cam_info.yaml"/>
+	<xacro:property name="file"    value="$(find tht_robot_env)/urdf/inc/cameras/cam_info.yaml"/>
   <xacro:property name="measurements"   value="${xacro.load_yaml(file)}"/>
 
 	<!-- measurements for camera dimensions-->
   <xacro:property name="camera" value="${measurements['dimensions']}"/>
 
   <!-- Create yaml file with calibration transform for the fixed camera-->
-	<xacro:property name="file"    value="$(find thtr_robot_env)/urdf/inc/cameras/easy_handeye_eye_on_base.yaml"/>
+	<xacro:property name="file"    value="$(find tht_robot_env)/urdf/inc/cameras/easy_handeye_eye_on_base.yaml"/>
   <xacro:property name="cali_measurements"   value="${xacro.load_yaml(file)}"/>
     
   <!-- measurements for camera coordinates-->

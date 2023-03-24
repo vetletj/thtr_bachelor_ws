@@ -35,14 +35,14 @@
     	<visual>
     		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
     		<geometry>
-    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    			<mesh filename="package://tht_robot_env/meshes/crate.dae"/>
     		</geometry>
     		<material name="green"/>
     	</visual>
     	<collision>
     		<origin xyz= "${origin_xyz}" rpy ="${origin_rpy}"/>
     		<geometry>
-    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    			<mesh filename="package://tht_robot_env/meshes/crate.dae"/>
     		</geometry>
     	</collision>
     </link>

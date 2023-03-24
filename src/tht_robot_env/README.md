@@ -1,4 +1,4 @@
-# thtr_robot_env
+# tht_robot_env
 Package for physical robot environment
 
 # ROS (Noetic) Workspace for Noyce

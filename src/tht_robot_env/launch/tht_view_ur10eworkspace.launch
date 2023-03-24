@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find thtr_robot_env)/launch/tht_load_ur10eworkspace.launch"/>
+  <include file="$(find tht_robot_env)/launch/tht_load_ur10eworkspace.launch"/>
 
   <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find thtr_robot_env)/config/viewrobottf.rviz" required="true" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tht_robot_env)/config/viewrobottf.rviz" required="true" />
 </launch>

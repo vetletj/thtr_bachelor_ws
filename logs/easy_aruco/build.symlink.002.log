@@ -1,7 +1,0 @@
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_aruco/easy_aruco_node
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_aruco/create_charuco_board.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_aruco/create_aruco_marker.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_aruco/cmake.lock
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/easy_aruco.pc
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/easy_aruco/cmake/easy_arucoConfig-version.cmake
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/easy_aruco/cmake/easy_arucoConfig.cmake

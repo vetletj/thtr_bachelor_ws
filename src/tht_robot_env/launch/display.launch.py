@@ -43,7 +43,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="thtr_robot_env",
+            default_value="tht_robot_env",
             description="Description package with robot URDF/XACRO files. Usually the argument \
         is not set, it enables use of a custom description.",
         )

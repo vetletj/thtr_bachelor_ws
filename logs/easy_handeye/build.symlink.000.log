@@ -1,9 +1,0 @@
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/easy_handeye.pc
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_handeye/robot.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_handeye/handeye_calibration_commander.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_handeye/publish.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_handeye/calibrate.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/easy_handeye/cmake.lock
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/lib/python3/dist-packages/easy_handeye/__init__.py
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/easy_handeye/cmake/easy_handeyeConfig-version.cmake
-Symlinking /home/thtstation1/thtr_bachelor_ws/devel/share/easy_handeye/cmake/easy_handeyeConfig.cmake

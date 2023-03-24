@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
   <group ns="load_ur10e__">
-    <include file="$(find thtr_robot_env)/launch/tht_load_ur10eworkspace.launch"/>
+    <include file="$(find tht_robot_env)/launch/tht_load_ur10eworkspace.launch"/>
   </group>
 
   <group ns="view_ur10e__">
-    <include file="$(find thtr_robot_env)/launch/tht_view_ur10eworkspace.launch"/>
+    <include file="$(find tht_robot_env)/launch/tht_view_ur10eworkspace.launch"/>
   </group>
 </launch>

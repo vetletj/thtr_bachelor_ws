@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
 	<!-- Create yaml file with measurements for the fixed_gripper-->
-	<xacro:property name="file"    value="$(find thtr_robot_env)/urdf/inc/cameras/cam_info.yaml"/>
+	<xacro:property name="file"    value="$(find tht_robot_env)/urdf/inc/cameras/cam_info.yaml"/>
   <xacro:property name="measurements"   value="${xacro.load_yaml(file)}"/>
 
 	<!-- measurements for camera dimensions-->

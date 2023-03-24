@@ -30,7 +30,7 @@
        include the ur_macro.xacro file into it. Then write a new .launch file
        to load it onto the parameter server.
   -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find thtr_robot_env)/urdf/ur.urdf.xacro'
+  <param name="robot_description" command="$(find xacro)/xacro '$(find tht_robot_env)/urdf/ur.urdf.xacro'
     joint_limit_params:=$(arg joint_limit_params)
     kinematics_params:=$(arg kinematics_params)
     physical_params:=$(arg physical_params)

@@ -4,9 +4,9 @@
 
 <xacro:macro name="space2" params="base">
  <!-- including the workspace macro -->
-    <xacro:include filename="$(find thtr_robot_env)/urdf/inc/workspaces/workspace_macro.xacro" />
+    <xacro:include filename="$(find tht_robot_env)/urdf/inc/workspaces/workspace_macro.xacro" />
   
-    <xacro:property name="value_file"    value="$(find thtr_robot_env)/urdf/inc/workspaces/space2.yaml" />
+    <xacro:property name="value_file"    value="$(find tht_robot_env)/urdf/inc/workspaces/space2.yaml" />
     <xacro:property name="measurements"   value="${xacro.load_yaml(value_file)}" />
 
     <!-- measurements and parameters for robot_table-->
@@ -18,7 +18,7 @@
     <!-- measurements and parameters for crates-->
     <xacro:property name="crates" value="${measurements['crate_dimensions']}"/>
     
-    <xacro:property name="tags_value_file"    value="$(find thtr_robot_env)/urdf/inc/workspaces/tag_coords.yaml" />
+    <xacro:property name="tags_value_file"    value="$(find tht_robot_env)/urdf/inc/workspaces/tag_coords.yaml" />
     <xacro:property name="yamlmeasurements"   value="${xacro.load_yaml(tags_value_file)}" />
     
     <!-- measurements and parameters for robot_table-->

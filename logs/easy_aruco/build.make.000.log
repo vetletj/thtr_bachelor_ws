@@ -1,8 +1,0 @@
-[35m[1mScanning dependencies of target easy_aruco_node[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/easy_aruco_node.dir/src/Utils.cpp.o[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/easy_aruco_node.dir/src/CharucoBoardDetector.cpp.o[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/easy_aruco_node.dir/src/ArucoMarkerDetector.cpp.o[0m
-[ 66%] [32mBuilding CXX object CMakeFiles/easy_aruco_node.dir/src/Detector.cpp.o[0m
-[ 83%] [32mBuilding CXX object CMakeFiles/easy_aruco_node.dir/src/easy_aruco_node.cpp.o[0m
-[100%] [32m[1mLinking CXX executable /home/thtstation1/thtr_bachelor_ws/devel/.private/easy_aruco/lib/easy_aruco/easy_aruco_node[0m
-[100%] Built target easy_aruco_node

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:include filename="$(find thtr_robot_env)/urdf/inc/ur_transmissions.xacro" />
-  <xacro:include filename="$(find thtr_robot_env)/urdf/inc/ur_common.xacro" />
+  <xacro:include filename="$(find tht_robot_env)/urdf/inc/ur_transmissions.xacro" />
+  <xacro:include filename="$(find tht_robot_env)/urdf/inc/ur_common.xacro" />
 
   <xacro:macro name="ur_robot" params="    
     prefix
@@ -363,14 +363,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://thtr_robot_env/meshes/camera_calib_A4_Tool.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://tht_robot_env/meshes/camera_calib_A4_Tool.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="black"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://thtr_robot_env/meshes/camera_calib_A4_Tool.stl"  scale="0.001 0.001 0.001"/>
+          <mesh filename="package://tht_robot_env/meshes/camera_calib_A4_Tool.stl"  scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>    
@@ -403,15 +403,15 @@
 	</joint>
 
     <!-- including the workspace urdf -->
-    <xacro:include filename="$(find thtr_robot_env)/urdf/inc/workspaces/space2_desc.xacro" />
+    <xacro:include filename="$(find tht_robot_env)/urdf/inc/workspaces/space2_desc.xacro" />
     <xacro:space2 base="${prefix}base_link"/>
     
     <!--Here another xacro:include for fixed_camera-->
-    <xacro:include filename="$(find thtr_robot_env)/urdf/inc/cameras/fixed_camera.xacro"/>
+    <xacro:include filename="$(find tht_robot_env)/urdf/inc/cameras/fixed_camera.xacro"/>
     <xacro:fixed_cam base="${prefix}base_link"/>
     
     <!--Here another xacro:include for gripper_camera-->
-    <!--xacro:include filename="$(find thtr_robot_env)/urdf/inc/cameras/gripper_camera.xacro"/>
+    <!--xacro:include filename="$(find tht_robot_env)/urdf/inc/cameras/gripper_camera.xacro"/>
     <xacro:gripper_cam base="${prefix}wrist_3_link"/-->
     
   </xacro:macro>

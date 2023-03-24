@@ -27,13 +27,13 @@
     	<visual>
     		<origin xyz= "0 0 0" rpy ="${pi/2.0} 0 ${pi/2.0}"/>
     		<geometry>
-    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    			<mesh filename="package://tht_robot_env/meshes/crate.dae"/>
     		</geometry>
     	</visual>
     	<collision>
     		<origin xyz= "0 0 0" rpy ="${pi/2.0} 0 ${pi/2.0}"/>
     		<geometry>
-    			<mesh filename="package://thtr_robot_env/meshes/crate.dae"/>
+    			<mesh filename="package://tht_robot_env/meshes/crate.dae"/>
     		</geometry>
     	</collision>
     </link>
