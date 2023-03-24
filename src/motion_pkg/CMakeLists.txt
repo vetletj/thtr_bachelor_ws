@@ -160,6 +160,7 @@ catkin_install_python(PROGRAMS
 	scripts/move_menu.py
 	scripts/OAK_pro_camera_test.py
 	scripts/test_aruco.py
+	scripts/calib_test.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

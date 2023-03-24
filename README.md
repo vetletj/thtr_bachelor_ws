@@ -31,7 +31,7 @@ roslaunch tht_depthai tht_rgb_publisher.launch
     ```
 * Realsense D435i:
 ```bash 
-roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30
+roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
 ```
 5. Launch charuco tracker:
 * For OAK-D camera: 
@@ -49,6 +49,10 @@ roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_moveme
 7. Launch easy hand publish calibration:
 ```bash 
 roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OAK_camera calibration_file:=
+```
+8. Launch aruco tracking:
+```bash 
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
 ```
 
 
