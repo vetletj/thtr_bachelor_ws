@@ -83,7 +83,8 @@ class HandeyeCalibration(object):
     """
     Stores parameters and transformation of a hand-eye calibration for publishing.
     """
-    DIRECTORY = os.path.expanduser('~/.ros/easy_handeye')
+    ##'~/.ros/easy_handeye' --> '/home/thtr/thtr_bachelor_ws/src/tht_robot_env/urdf/inc/cameras'
+    DIRECTORY = os.path.expanduser('/home/thtr/thtr_bachelor_ws/src/tht_robot_env/urdf/inc/cameras')
     """Default directory for calibration yaml files."""
 
     # TODO: use the HandeyeCalibration message instead, this should be HandeyeCalibrationConversions
