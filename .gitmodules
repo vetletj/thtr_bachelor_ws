@@ -1,6 +1,7 @@
 [submodule "src/realsense-ros"]
 	path = src/realsense-ros
 	url = https://github.com/IntelRealSense/realsense-ros.git
+	branch = ros1-legacy
 [submodule "src/Universal_Robots_ROS_Driver"]
 	path = src/Universal_Robots_ROS_Driver
 	url = https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git
