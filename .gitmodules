@@ -13,3 +13,6 @@
 	path = src/image_pipeline
 	url = https://github.com/ros-perception/image_pipeline.git
 	branch = noetic
+[submodule "src/easy_aruco"]
+	path = src/easy_aruco
+	url = https://github.com/marcoesposito1988/easy_aruco
