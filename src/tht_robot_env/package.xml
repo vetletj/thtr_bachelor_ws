@@ -3,16 +3,18 @@
   <name>thtr_robot_env</name>
   <version>1.2.5</version>
   <description>
-      URDF description for thtRobotics workspace
+      URDF description for thtRobotics workspace and motion scripts
   </description>
 
-  <author>Hassan Shehawy</author>
-  <author>Revy</author>
-  <maintainer email="hassan@thtrobotics.com">H. Shehawy</maintainer>
+  <author>Vetle</author>
+  <maintainer email="vetle.tjohansen@gmail.com">vetletj</maintainer>
 
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>ros-noetic-rgbd-launch</depend>
 
   <exec_depend>joint_state_publisher_gui</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
