@@ -20,3 +20,6 @@
 	path = src/depthai-ros
 	url = https://github.com/luxonis/depthai-ros.git
 	branch = noetic
+[submodule "src/easy_handeye"]
+	path = src/easy_handeye
+	url = https://github.com/IFL-CAMP/easy_handeye.git
