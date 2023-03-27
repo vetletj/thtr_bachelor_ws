@@ -1,5 +1,0 @@
-universal_robot/ur5e_moveit_config
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur5e_moveit_config/cmake.lock /home/thtstation1/thtr_bachelor_ws/devel/./cmake.lock
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur5e_moveit_config/lib/pkgconfig/ur5e_moveit_config.pc /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/ur5e_moveit_config.pc
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur5e_moveit_config/share/ur5e_moveit_config/cmake/ur5e_moveit_configConfig.cmake /home/thtstation1/thtr_bachelor_ws/devel/share/ur5e_moveit_config/cmake/ur5e_moveit_configConfig.cmake
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur5e_moveit_config/share/ur5e_moveit_config/cmake/ur5e_moveit_configConfig-version.cmake /home/thtstation1/thtr_bachelor_ws/devel/share/ur5e_moveit_config/cmake/ur5e_moveit_configConfig-version.cmake

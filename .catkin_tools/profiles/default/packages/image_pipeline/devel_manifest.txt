@@ -1,2 +1,0 @@
-image_pipeline/image_pipeline
-/home/thtstation1/thtr_bachelor_ws/devel/.private/image_pipeline/cmake.lock /home/thtstation1/thtr_bachelor_ws/devel/./cmake.lock

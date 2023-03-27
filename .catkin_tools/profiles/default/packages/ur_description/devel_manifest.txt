@@ -1,5 +1,0 @@
-universal_robot/ur_description
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur_description/cmake.lock /home/thtstation1/thtr_bachelor_ws/devel/./cmake.lock
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur_description/lib/pkgconfig/ur_description.pc /home/thtstation1/thtr_bachelor_ws/devel/lib/pkgconfig/ur_description.pc
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur_description/share/ur_description/cmake/ur_descriptionConfig.cmake /home/thtstation1/thtr_bachelor_ws/devel/share/ur_description/cmake/ur_descriptionConfig.cmake
-/home/thtstation1/thtr_bachelor_ws/devel/.private/ur_description/share/ur_description/cmake/ur_descriptionConfig-version.cmake /home/thtstation1/thtr_bachelor_ws/devel/share/ur_description/cmake/ur_descriptionConfig-version.cmake
