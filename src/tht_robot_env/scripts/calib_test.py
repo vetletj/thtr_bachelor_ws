@@ -4,6 +4,7 @@ import tf2_ros
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
+import time
 
 # Initialize ROS node
 rospy.init_node('move_robot_aruco_pose', anonymous=True)
@@ -19,7 +20,7 @@ scene = moveit_commander.PlanningSceneInterface()
 # Set up MoveIt! planning group
 robot = moveit_commander.RobotCommander()
 group_name = 'manipulator'
-group = moveit_commander.MoveGroupCommander(group_name)
+move_group = moveit_commander.MoveGroupCommander(group_name)
 
 # Set up loop rate
 rate = rospy.Rate(10.0)
@@ -44,24 +45,32 @@ while not rospy.is_shutdown():
     marker_pose.pose.orientation.y = marker_transform.transform.rotation.y
     marker_pose.pose.orientation.z = marker_transform.transform.rotation.z
     marker_pose.pose.orientation.w = marker_transform.transform.rotation.w
-    print("PoseStamped: ")
-    print(marker_pose)
     
-    pose_goal = geometry_msgs.msg.Pose()
-    pose_goal.orientation.w = marker_pose.pose.orientation.w
-    pose_goal.position.x = marker_pose.pose.position.x
-    pose_goal.position.y = marker_pose.pose.position.y
-    pose_goal.position.z = marker_pose.pose.position.z
-    print("Pose: ")
-    print(pose_goal)
+    # Converting from PoseStamped to pose for moveit_commander.MoveGroupCommander
+    pose = marker_pose.pose 
     
-
+    print("------------------------Pose-------------------------------")
+    print(pose)
+    
     # Set the target pose for the MoveIt! planning group
-    group.set_pose_target(pose_goal)
+    move_group.set_pose_target(pose)
+    
+    # `go()` returns a boolean indicating whether the planning and execution was successful.
+    success = move_group.go(wait=True)
+    
+    # Calling `stop()` ensures that there is no residual movement
+    move_group.stop()
+    # It is always good to clear your targets after planning with poses.
+    # Note: there is no equivalent function for clear_joint_value_targets().
+    move_group.clear_pose_targets()
     
     # Plan and execute the trajectory
-    plan = group.plan()
-    group.execute(plan)
+    plan = move_group.plan()
+    
+    if success:
+        move_group.execute(plan, wait=True)
+    else:
+        print("Planning failed")
     
     # Sleep for the loop rate
     rate.sleep()
