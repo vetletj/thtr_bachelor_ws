@@ -8,9 +8,9 @@ catkin_package()
 catkin_install_python(PROGRAMS
 	scripts/movement_camera_calibration.py
 	scripts/move_menu.py
-	scripts/OAK_pro_camera_test.py
-	scripts/test_aruco.py
 	scripts/calib_test.py
+	scripts/print_tf_pose.py
+	scripts/ur10e_test_hand_to_eye_calib.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
