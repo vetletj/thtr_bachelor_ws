@@ -31,6 +31,13 @@
 		<parent link="${base}" />
       		<child link="OAK_camera" />
 	</joint>
+
+	<link name="OAK_camera_rot"/>
+    <joint name="OAK_to_rot" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
+      <parent link="OAK_camera"/>
+      <child link="OAK_camera_rot"/>
+    </joint>
 	
 	<link name="camera_stand2">
 		<visual>
