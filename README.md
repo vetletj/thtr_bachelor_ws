@@ -52,7 +52,7 @@ roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OA
 ```
 8. Launch aruco tracking:
 ```bash 
-roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
 ```
 
 
