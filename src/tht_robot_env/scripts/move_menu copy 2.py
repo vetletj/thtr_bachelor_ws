@@ -59,6 +59,7 @@ class MoveGroupInterface:
         def go_to_joint_state(self, j1, j2, j3, j4, j5, j6):
             move_group = self.move_group
 
+            
             ## Planning to a Joint Goal
             # We get the joint values from the group and change some of the values:
             joint_goal = move_group.get_current_joint_values()
@@ -75,7 +76,10 @@ class MoveGroupInterface:
 
             # Calling ``stop()`` ensures that there is no residual movement
             move_group.stop()
-            
+
+            # For testing:
+            current_joints = move_group.get_current_joint_values()
+            return all_close(joint_goal, current_joints, 0.01)
 
 def main():
     tutorial = MoveGroupPythonInterface()

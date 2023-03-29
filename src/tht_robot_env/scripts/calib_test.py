@@ -54,7 +54,7 @@ while not rospy.is_shutdown():
     
     # Get the transform from the ArUco marker to the base_link frame
     try:
-        marker_transform = tfBuffer.lookup_transform('world', 'marker_7', rospy.Time(0), rospy.Duration(1.0))
+        marker_transform = tfBuffer.lookup_transform('world', 'marker_7_flipped', rospy.Time(0), rospy.Duration(1.0))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         # If there is an exception while getting the transform, skip to the next iteration of the loop
         continue
@@ -78,14 +78,14 @@ while not rospy.is_shutdown():
     # print(pose)
     
     # set orientation constraint
-    oc = OrientationConstraint()
-    oc.link_name = "end_effector_2"
-    oc.header.frame_id = "world"
-    oc.orientation = Quaternion(0.707, 0.0, 0.0, 0.707)  # set the orientation to align with the x-axis
-    oc.absolute_x_axis_tolerance = 0.1
-    oc.absolute_y_axis_tolerance = 3.14
-    oc.absolute_z_axis_tolerance = 3.14
-    oc.weight = 1.0
+    # oc = OrientationConstraint()
+    # oc.link_name = "end_effector_2"
+    # oc.header.frame_id = "world"
+    # oc.orientation = Quaternion(0.707, 0.0, 0.0, 0.707)  # set the orientation to align with the x-axis
+    # oc.absolute_x_axis_tolerance = 0.1
+    # oc.absolute_y_axis_tolerance = 3.14
+    # oc.absolute_z_axis_tolerance = 3.14
+    # oc.weight = 1.0
     
     
     
@@ -93,9 +93,9 @@ while not rospy.is_shutdown():
     move_group.set_pose_target(pose)
     
     # Set the path constraints for the move group
-    constraints = Constraints()
-    constraints.orientation_constraints.append(oc)
-    move_group.set_path_constraints(constraints)
+    # constraints = Constraints()
+    # constraints.orientation_constraints.append(oc)
+    # move_group.set_path_constraints(constraints)
     
     
     
