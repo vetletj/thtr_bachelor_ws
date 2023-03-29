@@ -6,6 +6,8 @@ import moveit_msgs.msg
 import geometry_msgs.msg
 import time
 from math import pi
+from moveit_msgs.msg import Constraints, OrientationConstraint
+from geometry_msgs.msg import Pose, Quaternion
 
 # Initialize ROS node
 rospy.init_node('move_robot_aruco_pose', anonymous=True)
@@ -22,6 +24,7 @@ scene = moveit_commander.PlanningSceneInterface()
 robot = moveit_commander.RobotCommander()
 group_name = 'manipulator'
 move_group = moveit_commander.MoveGroupCommander(group_name)
+move_group.set_end_effector_link("end_effector_2")
 
 # Set up loop rate
 rate = rospy.Rate(10.0)
@@ -51,7 +54,7 @@ while not rospy.is_shutdown():
     
     # Get the transform from the ArUco marker to the base_link frame
     try:
-        marker_transform = tfBuffer.lookup_transform('base_link', 'marker_7', rospy.Time(0), rospy.Duration(1.0))
+        marker_transform = tfBuffer.lookup_transform('world', 'marker_7', rospy.Time(0), rospy.Duration(1.0))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         # If there is an exception while getting the transform, skip to the next iteration of the loop
         continue
@@ -59,7 +62,7 @@ while not rospy.is_shutdown():
     # Create a PoseStamped message with the marker pose in the base_link frame
     marker_pose = geometry_msgs.msg.PoseStamped()
     marker_pose.header.stamp = rospy.Time.now()
-    marker_pose.header.frame_id = 'base_link'
+    marker_pose.header.frame_id = 'world'
     marker_pose.pose.position.x = marker_transform.transform.translation.x
     marker_pose.pose.position.y = marker_transform.transform.translation.y
     marker_pose.pose.position.z = marker_transform.transform.translation.z
@@ -71,11 +74,30 @@ while not rospy.is_shutdown():
     # Converting from PoseStamped to pose for moveit_commander.MoveGroupCommander
     pose = marker_pose.pose 
     
-    print("------------------------Pose-------------------------------")
-    print(pose)
+    # print("------------------------Pose-------------------------------")
+    # print(pose)
+    
+    # set orientation constraint
+    oc = OrientationConstraint()
+    oc.link_name = "end_effector_2"
+    oc.header.frame_id = "world"
+    oc.orientation = Quaternion(0.707, 0.0, 0.0, 0.707)  # set the orientation to align with the x-axis
+    oc.absolute_x_axis_tolerance = 0.1
+    oc.absolute_y_axis_tolerance = 3.14
+    oc.absolute_z_axis_tolerance = 3.14
+    oc.weight = 1.0
+    
+    
     
     # Set the target pose for the MoveIt! planning group
     move_group.set_pose_target(pose)
+    
+    # Set the path constraints for the move group
+    constraints = Constraints()
+    constraints.orientation_constraints.append(oc)
+    move_group.set_path_constraints(constraints)
+    
+    
     
     # `go()` returns a boolean indicating whether the planning and execution was successful.
     success = move_group.go(wait=True)

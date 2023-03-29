@@ -11,6 +11,7 @@ catkin_install_python(PROGRAMS
 	scripts/calib_test.py
 	scripts/print_tf_pose.py
 	scripts/ur10e_test_hand_to_eye_calib.py
+	scripts/marker_tf_transformer.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
