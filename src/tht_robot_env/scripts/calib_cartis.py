@@ -83,7 +83,7 @@ while not rospy.is_shutdown():
     pose = marker_pose.pose 
     waypoints = []
     waypoints.append(origPose)
-    waypoints.append(marker_pose)
+    waypoints.append(pose)
     
     # We want the Cartesian path to be interpolated at a resolution of 1 cm
     # which is why we will specify 0.01 as the eef_step in Cartesian

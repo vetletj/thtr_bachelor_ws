@@ -9,6 +9,7 @@ catkin_install_python(PROGRAMS
 	scripts/movement_camera_calibration.py
 	scripts/move_menu.py
 	scripts/calib_test.py
+	scripts/calib_cartis.py
 	scripts/print_tf_pose.py
 	scripts/ur10e_test_hand_to_eye_calib.py
 	scripts/marker_tf_transformer.py
