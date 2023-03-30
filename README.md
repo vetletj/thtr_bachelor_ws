@@ -36,23 +36,23 @@ roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 
 5. Launch charuco tracker (hand to eye calibration):
 * For OAK-D camera: 
 ```bash
-roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/tht_rgb_node/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
+roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/tht_rgb_node/color/ camera_frame:=OAK_camera_rot dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
 ```
 * For realsense camera:
 ```bash
-roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
+roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color camera_frame:=OAK_camera_rot dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
 ```
 6. Launch easy_handeye calibration and rviz:
 ```bash 
-roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=calib_board tracking_base_frame:=OAK_camera tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
+roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=calib_board tracking_base_frame:=OAK_camera_rot tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
 ```
 7. Launch easy_handeye publish calibration:
 ```bash 
-roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OAK_camera calibration_file:=
+roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OAK_camera_rot calibration_file:=don't know yet
 ```
 8. Launch aruco tracking for marker target pose:
 ```bash 
-roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera_rot dictionary:=DICT_6X6_250 marker_size:=0.1
 ```
 9. Launch marker flip (for pose planner):
 ```bash 
