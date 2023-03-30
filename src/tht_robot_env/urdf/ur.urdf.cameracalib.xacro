@@ -18,6 +18,7 @@
      safety_limits="false"
      safety_pos_margin="0.15"
      safety_k_position="20"
+     end_effector_type="$(arg end_effector_type)"
      />
        
  

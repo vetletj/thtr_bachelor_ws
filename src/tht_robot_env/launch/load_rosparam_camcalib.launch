@@ -11,6 +11,8 @@
   <arg name="safety_pos_margin" default="0.15" doc="The lower/upper limits in the safety controller" />
   <arg name="safety_k_position" default="20" doc="Used to set k position in the safety controller" />
 
+  <arg name="end_effector_type" default="2" doc="Choose end-effector type, 1: calib_board, 2: pointer_tool" />
+
   
   <param name="robot_description" command="$(find xacro)/xacro '$(find tht_robot_env)/urdf/ur.urdf.cameracalib.xacro'
     joint_limit_params:=$(arg joint_limit_params)
@@ -20,6 +22,7 @@
     transmission_hw_interface:=$(arg transmission_hw_interface)
     safety_limits:=$(arg safety_limits)
     safety_pos_margin:=$(arg safety_pos_margin)
-    safety_k_position:=$(arg safety_k_position)"
+    safety_k_position:=$(arg safety_k_position)
+    end_effector_type:=$(arg end_effector_type)"
     />
 </launch>

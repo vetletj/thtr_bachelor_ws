@@ -42,19 +42,19 @@
 	<link name="camera_stand2">
 		<visual>
 			<geometry>
-    				<cylinder radius="0.02" length="1.0"/>
+    				<cylinder radius="0.02" length="0.70"/>
     			</geometry>
     			<material name="black"/>
 		</visual>
 		<collision>
 			<geometry>
-    				<cylinder radius="0.02" length="0.9"/>
+    				<cylinder radius="0.02" length="0.70"/>
     			</geometry>
 		</collision>
 	</link>
 	
 	<joint name="stand2_to_camera" type="fixed">
-		<origin xyz="0 -0.5 0" rpy="-${pi/2.0} 0 0"/>
+		<origin xyz="0 -0.35 0" rpy="-${pi/2.0} 0 0"/>
       		<parent link="OAK_camera" />
       		<child link="camera_stand2" />
     	</joint>
@@ -62,19 +62,19 @@
 	<link name="camera_stand1">
 		<visual>
 			<geometry>
-    			<cylinder radius="0.02" length="1.6"/>
+    			<cylinder radius="0.02" length="1.86"/>
     		</geometry>
     		<material name="black"/>
 		</visual>
 		<collision>
 			<geometry>
-    			<cylinder radius="0.01" length="1.55"/>
+    			<cylinder radius="0.01" length="1.86"/>
     		</geometry>
 		</collision>
 	</link>
 	
     <joint name="stand1_to_stand2" type="fixed">
-    	<origin xyz="0 -0.78 -0.49" rpy="${pi/2.0} 0 0"/>
+    	<origin xyz="0 -0.93 -0.35" rpy="${pi/2.0} 0 0"/>
       <parent link="camera_stand2" />
       <child link="camera_stand1" />
     </joint> 
