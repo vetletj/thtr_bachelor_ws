@@ -62,7 +62,7 @@ while not rospy.is_shutdown():
     
     # Get the transform from the ArUco marker to the base_link frame
     try:
-        marker_transform = tfBuffer.lookup_transform('world', 'marker_7_flipped', rospy.Time(0), rospy.Duration(1.0))
+        marker_transform = tfBuffer.lookup_transform('world', 'target_marker', rospy.Time(0), rospy.Duration(1.0))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         # If there is an exception while getting the transform, skip to the next iteration of the loop
         continue

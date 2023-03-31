@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="0" />
+  <arg name="qx" default="0" />
+  <arg name="qy" default="0" />
+  <arg name="qz" default="0" />
+  <arg name="qw" default="0" />
+  <arg name="parent_frame_id" default="marker_7" />
+  <arg name="child_frame_id" default="marker_7_flipped" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="tf_frame_broadcaster"
+        args="$(arg x) $(arg y) $(arg z) $(arg qx) $(arg qy) $(arg qz) $(arg qw) $(arg parent_frame_id) $(arg child_frame_id)" />
+</launch>
