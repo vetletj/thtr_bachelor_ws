@@ -42,23 +42,8 @@ def deg_to_rad(rad):
 
 # Main loop
 while not rospy.is_shutdown():
-    
-    # We get the joint values from the group and change some of the values:
-    joint_goal = move_group.get_current_joint_values()
     origPose = move_group.get_current_pose().pose
-    joint_goal[0] = deg_to_rad(-90)
-    joint_goal[1] = deg_to_rad(-40)
-    joint_goal[2] = deg_to_rad(-140)
-    joint_goal[3] = deg_to_rad(-60)
-    joint_goal[4] = deg_to_rad(90)
-    joint_goal[5] = deg_to_rad(90)
-    
-    # The go command can be called with joint values, poses, or without any
-    # parameters if you have already set the pose or joint target for the group
-    move_group.go(joint_goal, wait=True)
-
-    # Calling ``stop()`` ensures that there is no residual movement
-    move_group.stop()
+   
     
     # Get the transform from the ArUco marker to the base_link frame
     try:

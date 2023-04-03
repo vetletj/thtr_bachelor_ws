@@ -7,6 +7,7 @@ import moveit_msgs.msg
 import geometry_msgs.msg
 import tf2_ros
 from math import pi
+import copy
 
 class MoveGroupPythonInterface:
     def __init__(self):
@@ -146,24 +147,16 @@ class MoveGroupPythonInterface:
         '''
         Function that plans and execute motion to given pose with pose planner
         ''' 
-        move_group = self.move_group
-        
         # Converting from PoseStamped to pose for moveit_commander.MoveGroupCommander
         pose_goal = self.get_marker_transform(reference_frame, target_frame).pose
         
-        # Set the target pose for the MoveIt! planning group
-        move_group.set_pose_target(pose_goal) 
-        
-        # `go()` returns a boolean indicating whether the planning and execution was successful.
-        success = move_group.go(wait=True)
-        
-        # Calling `stop()` ensures that there is no residual movement
-        move_group.stop()        
-        # It is always good to clear your targets after planning with poses.
-        # Note: there is no equivalent function for clear_joint_value_targets().
-        move_group.clear_pose_targets()
+        self.go_to_pose_goal(pose_goal.position.x, pose_goal.position.y, pose_goal.position.z,
+                            pose_goal.orientation.x, pose_goal.orientation.y, pose_goal.orientation.z, pose_goal.orientation.w)
         
     def get_marker_transform(self, reference_frame, target_frame):
+        '''
+        Function that calculates the pose of target_frame in the reference frame coordinate system
+        ''' 
         # Set up TF buffer and listener
         tfBuffer = tf2_ros.Buffer()
         listener = tf2_ros.TransformListener(tfBuffer)
@@ -189,42 +182,51 @@ class MoveGroupPythonInterface:
         marker_pose.pose.orientation.w = marker_transform.transform.rotation.w
         
         return marker_pose
-        
-            
-    def plan_cartesian_path(self, x, y, z, qx, qy, qz, qw):
-        '''
-        Function that plans and execute motion to given pose with cartesian paths
-        ''' 
-        try:
-            move_group = self.move_group
-            # Cartesian Paths
-            waypoints = []
-            current_pose = move_group.get_current_pose().pose
-            wpose = geometry_msgs.msg.Pose()
-            wpose.position.x = current_pose.position.x + x
-            wpose.position.y = current_pose.position.y + y
-            wpose.position.z = current_pose.position.z + z
-            wpose.orientation.x = current_pose.orientation.x + qx
-            wpose.orientation.y = current_pose.orientation.y + qy
-            wpose.orientation.z = current_pose.orientation.z + qz
-            wpose.orientation.w = current_pose.orientation.w + qw
-            waypoints.append(wpose)
-
-            # Plan cartesian path
-            plan, fraction = move_group.compute_cartesian_path(
-                waypoints, 0.01, 0.0
-            )
-
-            return plan, fraction
-        except KeyboardInterrupt:
-            print("Interrupted!")
-            return
     
-    def display_trajectory(self, plan):
+    def plan_cartesian_path(self, x, y, z, qx, qy, qz, qw):
+        move_group = self.move_group
+        waypoints = []
+        wpose = move_group.get_current_pose().pose
+        wpose.position.z += z  # First move up (z)
+        wpose.position.x += x  # Second move forward/backwards in (x)
+        wpose.position.y += y  # and sideways (y)
+        waypoints.append(copy.deepcopy(wpose))
+        (plan, fraction) = move_group.compute_cartesian_path(
+            waypoints, 0.01, 0.0  # waypoints to follow  # eef_step
+        )  # jump_threshold
+
+        # Note: We are just planning, not asking move_group to actually move the robot yet:
+        return plan, fraction
+    
+    def plan_cartesian_path_pose(self, target_pose):
         '''
-        Function that takes given plan and display it's trajectory in Rviz
+        Function that plans cartesian path to pose goal
         ''' 
-        ## Displaying a Trajectory ---->
+        move_group = self.move_group
+        
+        waypoints = []
+        
+        # Get the current pose of the end-effector
+        start_pose = move_group.get_current_pose().pose
+
+        # Append the current pose as the first waypoint
+        waypoints.append(copy.deepcopy(start_pose))
+
+        # Append the target pose as the second waypoint
+        waypoints.append(copy.deepcopy(target_pose))
+        
+        (plan, fraction) = move_group.compute_cartesian_path(
+            waypoints, 0.01, 0.0)  # waypoints to follow, eef_step, jump_threshold
+
+        # Note: We are just planning, not asking move_group to actually move the robot yet:
+        return plan, fraction
+
+    def display_trajectory(self, plan):
+        robot = self.robot
+        display_trajectory_publisher = self.display_trajectory_publisher
+
+        ## Displaying a Trajectory
+        ## ^^^^^^^^^^^^^^^^^^^^^^^
         ## You can ask RViz to visualize a plan (aka trajectory) for you. But the
         ## group.plan() method does this automatically so this is not that useful
         ## here (it just displays the same trajectory again):
@@ -232,19 +234,21 @@ class MoveGroupPythonInterface:
         ## A `DisplayTrajectory`_ msg has two primary fields, trajectory_start and trajectory.
         ## We populate the trajectory_start with our current robot state to copy over
         ## any AttachedCollisionObjects and add our plan to the trajectory.
-        display_trajectory_publisher = self.display_trajectory_publisher
-
-        # Create a `DisplayTrajectory` msg
         display_trajectory = moveit_msgs.msg.DisplayTrajectory()
-
-        # Populate `trajectory_start` with the current robot state
-        display_trajectory.trajectory_start = self.robot.get_current_state()
-
-        # Add the plan to the trajectory
+        display_trajectory.trajectory_start = robot.get_current_state()
         display_trajectory.trajectory.append(plan)
-
-        # Publish the trajectory to RViz
+        # Publish
         display_trajectory_publisher.publish(display_trajectory)
+
+    def execute_plan(self, plan):
+        move_group = self.move_group
+        ## Executing a Plan
+        ## ^^^^^^^^^^^^^^^^
+        ## Use execute if you would like the robot to follow
+        ## the plan that has already been computed:
+        move_group.execute(plan, wait=True)
+
+        ## **Note:** The robot's current joint state must be within some tolerance of the first waypoint in the `RobotTrajectory`_ or ``execute()`` will fail
     
     def move_cartesian(self, x, y, z, qx, qy, qz, qw):
         if (x != 0 or y != 0 or z != 0):    
@@ -400,7 +404,8 @@ class PrintMenu:
         2: 'Offset position',
         3: 'Offset rotation',
         4: 'Offset pos and rot',
-        5: 'Back to main menu'
+        5: 'Go to marker pose',
+        6: 'Back to main menu'
         }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
@@ -515,7 +520,7 @@ def main():
                 print('Wrong input. Please enter a number ...')
             #Check what choice was entered and act accordingly
             if option == 1:
-                print(move_robot.move_group.get_current_pose().pose)
+                print(move_robot.move_group.get_current_pose())
             elif option == 2:
                 # Go to pose
                 x = float(input("Enter x-position: "))
@@ -535,12 +540,53 @@ def main():
                 print('Invalid option. Please enter a number between 1 and 3.')
                 
     def option5():
-        x = float(input("Enter x-offest: "))
-        y = float(input("Enter y-offset: "))
-        z = float(input("Enter z-offset: "))
-        cartesian_plan, fraction = move_robot.plan_cartesian_path(x, y, z)
-        move_robot.display_trajectory(cartesian_plan)
-        move_robot.move_group.execute(cartesian_plan, wait=True)
+        while True:
+            print_menu.print_menu_5()
+            option = ''
+            try:
+                option = int(input('Enter your choice: '))
+            except:
+                print('Wrong input. Please enter a number ...')
+            #Check what choice was entered and act accordingly
+            if option == 1:
+                move_robot.move_group
+                print(move_robot.move_group.get_current_pose().pose)
+            elif option == 2:
+                x = float(input("Enter x-offest: "))
+                y = float(input("Enter y-offset: "))
+                z = float(input("Enter z-offset: "))
+                plan, fraction = move_robot.plan_cartesian_path(x, y, z, 0, 0, 0, 1)
+                move_robot.display_trajectory(plan)
+                move_robot.execute_plan(plan)
+            elif option == 3:           
+                qx = float(input("Enter x-orientation: "))
+                qy = float(input("Enter y-orientation: "))
+                qz = float(input("Enter z-orientation: "))
+                qw = float(input("Enter w-orientation: "))
+                plan, fraction = move_robot.plan_cartesian_path(0, 0, 0, qx, qy, qz, qw)
+                move_robot.display_trajectory(plan)
+                move_robot.execute_plan(plan)
+            elif option == 4:
+                x = float(input("Enter x-offest: "))
+                y = float(input("Enter y-offset: "))
+                z = float(input("Enter z-offset: "))
+                qx = float(input("Enter x-orientation: "))
+                qy = float(input("Enter y-orientation: "))
+                qz = float(input("Enter z-orientation: "))
+                qw = float(input("Enter w-orientation: "))
+                plan, fraction = move_robot.plan_cartesian_path(x, y, z, qx, qy, qz, qw)
+                move_robot.display_trajectory(plan)
+                move_robot.execute_plan(plan)
+            elif option == 5:
+                target_pose = move_robot.get_marker_transform('world', 'target_marker').pose
+                plan, fraction = move_robot.plan_cartesian_path_pose(target_pose)
+                move_robot.display_trajectory(plan)
+                move_robot.execute_plan(plan)
+            elif option == 6:
+                break
+            else:
+                print('Invalid option. Please enter a number between 1 and 6.')
+                
         
     def exit_program():
         print("")

@@ -9,7 +9,7 @@ roslaunch tht_robot_env tht_bachelor_bringup.launch
 ```
 * For simulated robot:
 ```bash 
-roslaunch tht_robot_env load_rosparam_robot_description.launch
+roslaunch tht_robot_env load_rosparam_robot_description.launch end_effector_type:=1
 ```
 2. Launch MoveIt planner:
 * For physical robot:
@@ -43,16 +43,26 @@ roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/tht_rgb_node/
 roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color camera_frame:=OAK_camera_rot dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
 ```
 6. Launch easy_handeye calibration and rviz:
+* For physical robot
 ```bash 
 roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=calib_board tracking_base_frame:=OAK_camera_rot tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
 ```
+* For simulated enviorment
+```bash 
+roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_base_frame:=world robot_effector_frame:=end_effector_1 tracking_base_frame:=OAK_camera_rot tracking_marker_frame:=target_marker publish_dummy:=false start_rviz:=false
+```
 7. Launch easy_handeye publish calibration:
 ```bash 
-roslaunch easy_handeye publish.launch eye_on_hand:=false tracking_base_frame:=OAK_camera_rot calibration_file:=don't know yet
+roslaunch easy_handeye publish.launch eye_on_hand:=false robot_effector_frame:=end_effector_1 robot_base_frame:=world tracking_base_frame:=OAK_camera_rot calibration_file:=/home/thtstation1/.ros/easy_handeye/easy_handeye_eye_on_base.yam
 ```
 8. Launch aruco tracking for marker target pose:
+* For physical enviorment
 ```bash 
 roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera_rot dictionary:=DICT_6X6_250 marker_size:=0.1
+```
+* For simulated enviorment
+```bash 
+roslaunch tht_robot_env tf_pub.launch x:=-0.2 y:=0.1 z:=0.4 qw:=1 parent_frame_id:=OAK_camera child_frame_id:=target_marker
 ```
 9. Launch marker flip (for pose planner):
 ```bash 
