@@ -135,28 +135,41 @@ class MoveGroupPythonInterface:
         ## Now, we call the planner to compute the plan and execute it.
         # `go()` returns a boolean indicating whether the planning and execution was successful.
         success = move_group.go(wait=True)
-        plan = move_group.plan()
-        
-        if success:
-            move_group.execute(plan, wait=True)
-        else:
-            print("Planning failed")
-        # Calling `stop()` ensures that there is no residual movement
-        move_group.stop() 
             
         # Calling `stop()` ensures that there is no residual movement
         move_group.stop()
         # It is always good to clear your targets after planning with poses.
         # Note: there is no equivalent function for clear_joint_value_targets().
         move_group.clear_pose_targets()
-        return
 
     def go_to_marker_pose(self, reference_frame, target_frame):
+        '''
+        Function that plans and execute motion to given pose with pose planner
+        ''' 
         move_group = self.move_group
-                
+        
+        # Converting from PoseStamped to pose for moveit_commander.MoveGroupCommander
+        pose_goal = self.get_marker_transform(reference_frame, target_frame).pose
+        
+        # Set the target pose for the MoveIt! planning group
+        move_group.set_pose_target(pose_goal) 
+        
+        # `go()` returns a boolean indicating whether the planning and execution was successful.
+        success = move_group.go(wait=True)
+        
+        # Calling `stop()` ensures that there is no residual movement
+        move_group.stop()        
+        # It is always good to clear your targets after planning with poses.
+        # Note: there is no equivalent function for clear_joint_value_targets().
+        move_group.clear_pose_targets()
+        
+    def get_marker_transform(self, reference_frame, target_frame):
         # Set up TF buffer and listener
         tfBuffer = tf2_ros.Buffer()
         listener = tf2_ros.TransformListener(tfBuffer)
+        
+        if (reference_frame != self.move_group.get_planning_frame()):
+            print("-------Given reference frame not equal to move_group reference frame-------") 
     
         try:
             marker_transform = tfBuffer.lookup_transform(reference_frame, target_frame, rospy.Time(0), rospy.Duration(1.0))
@@ -175,32 +188,9 @@ class MoveGroupPythonInterface:
         marker_pose.pose.orientation.z = marker_transform.transform.rotation.z
         marker_pose.pose.orientation.w = marker_transform.transform.rotation.w
         
-        # Converting from PoseStamped to pose for moveit_commander.MoveGroupCommander
-        pose = marker_pose.pose
+        return marker_pose
         
-        # Set the target pose for the MoveIt! planning group
-        move_group.set_pose_target(pose) 
-        
-        # `go()` returns a boolean indicating whether the planning and execution was successful.
-        success = move_group.go(wait=True)
-        # It is always good to clear your targets after planning with poses.
-        # Note: there is no equivalent function for clear_joint_value_targets().
-        move_group.clear_pose_targets()
-        
-        # Plan and execute the trajectory
-        plan = move_group.plan()
-        
-        # Increase planning time to 10 seconds
-        move_group.set_planning_time(10)
-        
-        if success:
-            #move_robot.display_trajectory(plan)
-            move_group.execute(plan, wait=True)
-        else:
-            print("Planning failed")
-        # Calling `stop()` ensures that there is no residual movement
-        move_group.stop() 
-        
+            
     def plan_cartesian_path(self, x, y, z, qx, qy, qz, qw):
         '''
         Function that plans and execute motion to given pose with cartesian paths
