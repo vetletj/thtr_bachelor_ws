@@ -1,6 +1,66 @@
 # tht_bachelor_ws
 Workspace for bachelor assignment at tht robotics
 
+## Installation Instructions and setup of workspace
+   ### Step 1: Install the ROS distribution
+   - #### Install [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu) on Ubuntu 20.04.
+   #### Step 2: Clone bachelor repo   
+```bash 
+git clone -b vetle_dev https://github.com/vetletj/thtr_bachelor_ws.git
+```
+   #### Step 3: Clone UR Robot ROS Driver
+```bash 
+# clone the driver
+$ git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
+
+# clone the description. Currently, it is necessary to use the melodic-devel branch.
+$ git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
+```
+   #### Step 4: Clone Intel RealSense Camera Driver
+```bash
+git clone https://github.com/IntelRealSense/realsense-ros.git src/realsense-ros/
+
+cd realsense-ros/
+
+git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`
+
+cd ../..
+```
+   #### Step 5: Clone Image Pipeline
+```bash
+git clone -b noetic https://github.com/vetletj/image_pipeline.git src/image_pipeline/
+```
+   #### Step 6: Clone Easy Aruco Package
+```bash
+# install script dependencies
+pip3 install --user fpdf
+
+# check out the repository, satisfy the dependencies and build
+git clone https://github.com/marcoesposito1988/easy_aruco src/easy_aruco/
+
+rosdep install -yir --from-paths src
+```
+   #### Step 6: Clone Easy Handeye Package
+```bash
+cd ~/catkin_ws/src  # replace with path to your workspace
+git clone https://github.com/IFL-CAMP/easy_handeye src/easy_handeye
+
+# now we are inside ~/thtr_bachelor_ws
+rosdep install -iyr --from-paths src
+```
+   #### Step 7: Build workspace
+   ```bash
+  catkin_make clean
+  catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
+  catkin_make install
+  ```
+
+  ```bash
+  echo "source ~/thtr_bachelor_ws/devel/setup.bash" >> ~/.bashrc
+  source ~/.bashrc
+  ```
+
+
 ## Full launch sequence for hand-to-eye calibration with OAK-D camera
 1. Launch robot description.
 * For physical robot:
