@@ -7,6 +7,9 @@ Workspace for bachelor assignment at tht robotics
    #### Step 2: Clone bachelor repo   
 ```bash 
 git clone -b vetle_dev https://github.com/vetletj/thtr_bachelor_ws.git
+
+# Go to workspace
+cd thtr_bachelor_ws
 ```
    #### Step 3: Clone UR Robot ROS Driver
 ```bash 
@@ -20,7 +23,7 @@ $ git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.g
 ```bash
 git clone https://github.com/IntelRealSense/realsense-ros.git src/realsense-ros/
 
-cd realsense-ros/
+cd src/realsense-ros/
 
 git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`
 
@@ -42,7 +45,6 @@ rosdep install -yir --from-paths src
 ```
    #### Step 6: Clone Easy Handeye Package
 ```bash
-cd ~/catkin_ws/src  # replace with path to your workspace
 git clone https://github.com/IFL-CAMP/easy_handeye src/easy_handeye
 
 # now we are inside ~/thtr_bachelor_ws
