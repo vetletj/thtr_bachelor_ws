@@ -11,7 +11,7 @@
   <arg name="safety_pos_margin" default="0.15" doc="The lower/upper limits in the safety controller" />
   <arg name="safety_k_position" default="20" doc="Used to set k position in the safety controller" />
   
-  <arg name="end_effector_type" default="2" doc="Choose end-effector type, 1: calib_board, 2: pointer_tool" />
+  <arg name="end_effector_type" default="1" doc="Choose end-effector type, 1: calib_board, 2: pointer_tool" />
   <arg name="parent_link" default="world" doc="Choose parent link for your system" />
 
   <param name="robot_description" command="$(find xacro)/xacro '$(find tht_bachelor_ur_launch)/urdf/ur3.urdf.bachelor.xacro'
