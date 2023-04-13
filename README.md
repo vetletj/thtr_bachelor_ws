@@ -62,6 +62,18 @@ rosdep install -iyr --from-paths src
   source ~/.bashrc
   ```
 
+## Launch sequence for UR3 (Ikke ferdig - problemer med visual_parameters.yaml)
+1. Launch robot description.
+* For physical robot:
+```bash 
+roslaunch tht_bachelor_ur_launch ur3_bachelor_bringup.launch
+```
+2. Launch MoveIt planner:
+* For physical robot:
+```bash 
+roslaunch ur3_moveit_config moveit_planning_execution.launch
+```
+
 
 ## Full launch sequence for hand-to-eye calibration with OAK-D camera
 1. Launch robot description.
