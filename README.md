@@ -14,10 +14,10 @@ cd thtr_bachelor_ws
    #### Step 3: Clone UR Robot ROS Driver
 ```bash 
 # clone the driver
-$ git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
+git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
 
 # clone the description. Currently, it is necessary to use the melodic-devel branch.
-$ git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
+git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
 ```
    #### Step 4: Clone Intel RealSense Camera Driver
 ```bash
