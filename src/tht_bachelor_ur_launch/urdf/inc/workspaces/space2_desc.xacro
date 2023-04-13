@@ -45,6 +45,19 @@
       <child link="robot_table" />
       <origin xyz="0 0 -${table['height'] / 2.0}" rpy="0 0 0" />
     </joint>
+
+    <xacro:support_box
+    	name="table"
+    	vis_size_xyz= "1.20 0.45 0.735"
+    	coll_size_xyz= "1.22 0.47 0.737"
+    	box_col="black" />
+    	
+    <joint name="table to world" type="fixed">
+      <parent link="base_link" />
+      <child link="table" />
+      <origin xyz="0 0.375 -0.57" rpy="0 0 0" />
+    </joint>
+
     
         <!-- REVY -->
     <!-- REVY -->

@@ -42,13 +42,13 @@
 	<link name="camera_stand2">
 		<visual>
 			<geometry>
-    				<cylinder radius="0.02" length="0.70"/>
+    				<cylinder radius="0.02" length="0.60"/>
     			</geometry>
     			<material name="black"/>
 		</visual>
 		<collision>
 			<geometry>
-    				<cylinder radius="0.02" length="0.70"/>
+    				<cylinder radius="0.02" length="0.60"/>
     			</geometry>
 		</collision>
 	</link>
@@ -62,13 +62,13 @@
 	<link name="camera_stand1">
 		<visual>
 			<geometry>
-    			<cylinder radius="0.02" length="1.86"/>
+    			<cylinder radius="0.02" length="1.90"/>
     		</geometry>
     		<material name="black"/>
 		</visual>
 		<collision>
 			<geometry>
-    			<cylinder radius="0.01" length="1.86"/>
+    			<cylinder radius="0.02" length="1.90"/>
     		</geometry>
 		</collision>
 	</link>
