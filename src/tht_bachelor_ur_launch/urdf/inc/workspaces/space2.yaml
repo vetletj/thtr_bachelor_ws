@@ -1,8 +1,8 @@
 #Measurements for the Second workspace
 
 robot_table:
-  height: 0.82
-  side: 0.26
+  height: 1.02
+  side: 0.08
 
 front_box1:
   height: 0.648
