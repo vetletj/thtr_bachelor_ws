@@ -36,14 +36,14 @@
     <!-- creating the box under the robot arm -->
     <xacro:support_box
     	name="robot_table"
-    	vis_size_xyz= "45 45 ${table['height']}"
-    	coll_size_xyz= "45 45 ${table['height'] - 0.001}"
+    	vis_size_xyz= "0.45 0.45 ${table['height']}"
+    	coll_size_xyz= "0.45 0.45 ${table['height']}"
     	box_col="grey" />
     	
     <joint name="robot_table_to_world" type="fixed">
       <parent link="${base}" />
       <child link="robot_table" />
-      <origin xyz="0 -37 -${table['height'] / 2.0}" rpy="0 0 0" />
+      <origin xyz="0 -0.37 -${table['height'] / 2.0}" rpy="0 0 0" />
     </joint>
 
     <xacro:support_box
