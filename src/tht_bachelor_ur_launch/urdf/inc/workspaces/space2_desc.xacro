@@ -55,8 +55,21 @@
     <joint name="table to world" type="fixed">
       <parent link="base_link" />
       <child link="table" />
-      <origin xyz="0 0.375 -0.57" rpy="0 0 0" />
+      <origin xyz="0 0.29 -0.29" rpy="0 0 0" />
     </joint>
+
+     <xacro:support_box
+    	name="box"
+    	vis_size_xyz= "0.45 0.425 ${table['height']}"
+    	coll_size_xyz= "0.45 0.425 ${table['height']}"
+    	box_col="black" />
+    	
+    <joint name="box to world" type="fixed">
+      <parent link="base_link" />
+      <child link="table" />
+      <origin xyz="0 -0.425/2 -${table['height'] / 2.0}" rpy="0 0 0" />
+    </joint>
+    
 
     
         <!-- REVY -->
