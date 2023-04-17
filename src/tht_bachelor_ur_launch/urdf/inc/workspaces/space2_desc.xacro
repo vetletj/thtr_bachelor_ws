@@ -81,6 +81,33 @@
     <child link="foot2" />
     <origin xyz="0 0 0" rpy="0 0 1.5708" />
   </joint>
+
+  <!-- Controller holder base -->
+  <xacro:support_box
+    name="controller_holder_base"
+    vis_size_xyz="0.21 0.13 0.005"
+    coll_size_xyz="0.21 0.13 0.005"
+    box_col="grey" />
+    
+  <joint name="controller_holder_to_base" type="fixed">
+    <parent link="robot_base" />
+    <child link="controller_holder_base" />
+    <origin xyz="${0.21/2} 0 ${robot_base['height'] / 2.0}" rpy="0 0 0" />
+  </joint>
+
+  <!-- Controller holder rot -->
+  <xacro:support_box
+    name="controller_holder_rot"
+    vis_size_xyz="0.25 0.36 0.02"
+    coll_size_xyz="0.25 0.36 0.02"
+    box_col="grey" />
+    
+  <joint name="controller_holder_rot_to_base" type="fixed">
+    <parent link="controller_holder_base" />
+    <child link="controller_holder_rot" />
+    <origin xyz="0.2 0 -0.08" rpy="0 0.7854 0" />
+  </joint>
+  
       
 </xacro:macro>
     
