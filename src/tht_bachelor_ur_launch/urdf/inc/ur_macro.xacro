@@ -56,6 +56,7 @@
 
   <xacro:macro name="ur_robot" params="
     prefix
+    parent
     joint_limits_parameters_file
     kinematics_parameters_file
     physical_parameters_file
@@ -73,6 +74,8 @@
       physical_parameters_file="${physical_parameters_file}"
       visual_parameters_file="${visual_parameters_file}"/>
 
+
+    <link name="world" />
     
     <!-- Add URDF transmission elements (for ros_control) -->
     <xacro:ur_arm_transmission prefix="${prefix}" hw_interface="${transmission_hw_interface}" />
@@ -220,6 +223,13 @@
         <origin xyz="0.0 0.0 ${-0.5 * wrist_3_inertia_length}" rpy="0 0 0" />
       </xacro:cylinder_inertial>
     </link>
+
+    <!-- base_joint fixes base_link to the environment -->
+    <joint name="${prefix}base_joint" type="fixed">
+      <origin xyz="0 0 0.82" rpy="0 0 0" />
+      <parent link="${parent}" />
+      <child link="${prefix}base_link" />
+    </joint>
 
     <!-- joints: main serial chain -->
     <joint name="${prefix}base_link-base_link_inertia" type="fixed">
@@ -443,7 +453,7 @@
       </joint>
     </xacro:if>
     
-    <!-- <link name="ground">
+    <link name="ground">
 		<visual>
 			<geometry>
     				<box size="10 10 0.42"/>
@@ -455,13 +465,13 @@
     				<box size="4 4 0.32"/>
     			</geometry>
 		</collision>
-	</link> -->
+	</link>
 	
-	<!-- <joint name="ground_to_world" type="fixed">
+	<joint name="ground_to_world" type="fixed">
 		<origin xyz="0 0 -0.2" rpy="0 0 0"/>
 		<parent link="world" />
     <child link="ground" />
-	</joint> -->
+	</joint>
 
     <!-- including the workspace urdf -->
     <xacro:include filename="$(find tht_robot_env)/urdf/inc/workspaces/space2_desc.xacro" />

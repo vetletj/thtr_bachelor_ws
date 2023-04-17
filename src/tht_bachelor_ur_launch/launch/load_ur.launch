@@ -44,6 +44,7 @@
     safety_limits:=$(arg safety_limits)
     safety_pos_margin:=$(arg safety_pos_margin)
     safety_k_position:=$(arg safety_k_position)
-    end_effector_type:=$(arg end_effector_type)"
+    end_effector_type:=$(arg end_effector_type)
+    parent_link:=$(arg parent_link)"
     />
 </launch>
