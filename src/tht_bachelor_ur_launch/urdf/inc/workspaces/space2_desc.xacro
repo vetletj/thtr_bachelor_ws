@@ -3,43 +3,85 @@
 <!--NOTE: for some reason the robot arm is 0.82 above origin along the z axis -->
 
 <xacro:macro name="space2" params="base">
- <!-- including the workspace macro -->
-    <xacro:include filename="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/workspace_macro.xacro" />
+  <!-- including the workspace macro -->
+  <xacro:include filename="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/workspace_macro.xacro" />
   
-    <xacro:property name="value_file"    value="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/space2.yaml" />
-    <xacro:property name="measurements"   value="${xacro.load_yaml(value_file)}" />
+  <xacro:property name="value_file"    value="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/space2.yaml" />
+  <xacro:property name="measurements"   value="${xacro.load_yaml(value_file)}" />
 
-    <!-- measurements and parameters for robot_table-->
-    <xacro:property name="robot_base" value="${measurements['robot_base']}"/>
+  <!-- measurements and parameters for robot_table-->
+  <xacro:property name="robot_base" value="${measurements['robot_base']}"/>
     
-   <!--Loading table values from yaml file -->
-    <xacro:property name="table" value="${measurements['table']}"/>
-        
-    <!-- creating the box under the robot arm -->
-    <xacro:support_box
-    	name="robot_base"
-    	vis_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
-    	coll_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
-    	box_col="grey" />
-    	
-    <joint name="robot_base_to_world" type="fixed">
-      <parent link="${base}" />
-      <child link="robot_base" />
-      <origin xyz="0 0 -${robot_base['height'] / 2.0}" rpy="0 0 0" />
-    </joint>
+  <!--Loading table values from yaml file -->
+  <xacro:property name="table_top" value="${measurements['table_top']}"/>
+  <xacro:property name="table_legs" value="${measurements['table_legs']}"/>
 
-    <xacro:support_box
-    	name="table"
-    	vis_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
-    	coll_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
-    	box_col="table_brown" />
-    	
-    <joint name="table to world" type="fixed">
-      <parent link="base_link" />
-      <child link="table" />
-      <origin xyz="0 0.40 -${0.30+table['height'] / 2}" rpy="0 0 0" />
-    </joint>
-        
+  <!-- creating the box under the robot arm -->
+  <xacro:support_box
+      name="robot_base"
+      vis_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
+      coll_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
+      box_col="grey" />
+      
+  <joint name="robot_base_to_world" type="fixed">
+    <parent link="${base}" />
+    <child link="robot_base" />
+    <origin xyz="0 0 -${robot_base['height'] / 2.0}" rpy="0 0 -0.7854 " />
+  </joint>
+
+  <!-- Creating the table top -->
+  <xacro:support_box
+      name="table_top"
+      vis_size_xyz= "${table_top['length']} ${table_top['width']} ${table_top['height']}"
+      coll_size_xyz= "${table_top['length']} ${table_top['width']} ${table_top['height']}"
+      box_col="table_brown" />
+      
+  <joint name="table to world" type="fixed">
+    <parent link="base_link" />
+    <child link="table_top" />
+    <origin xyz="0 0.40 -${0.29+table_top['height'] / 2}" rpy="0 0 0" />
+  </joint>
+
+  <!-- Creating the two cylindrical legs -->
+  <xacro:support_cylinder name="leg1" radius="${table_legs['radius']}" length="${table_legs['height']}" color="table_brown" />
+  <xacro:support_cylinder name="leg2" radius="${table_legs['radius']}" length="${table_legs['height']}" color="table_brown" />
+
+  <joint name="leg1_to_table" type="fixed">
+    <parent link="table_top" />
+    <child link="leg1" />
+    <origin xyz="${table_top['length']/2-table_legs['radius']} 0 -${table_legs['height']}" rpy="0 0 0" />
+  </joint>
+
+  <joint name="leg2_to_table" type="fixed">
+    <parent link="table_top" />
+    <child link="leg2" />
+    <origin xyz="${-table_top['length']/2+table_legs['radius']} 0 -${table_legs['height']}" rpy="0 0 0" />
+  </joint>
+
+  <!-- Creating the two box-shaped feet -->
+  <xacro:support_box
+      name="foot1"
+      vis_size_xyz="0.6 0.03 0.03"
+      coll_size_xyz="0.6 0.03 0.03"
+      box_col="table_brown" />
+  <xacro:support_box
+      name="foot2"
+      vis_size_xyz="0.6 0.03 0.03"
+      coll_size_xyz="0.6 0.03 0.03"
+      box_col="table_brown" />
+
+  <joint name="foot1_to_leg1" type="fixed">
+    <parent link="leg1" />
+    <child link="foot1" />
+    <origin xyz="0 0 0" rpy="0 0 1.5708" />
+  </joint>
+
+  <joint name="foot2_to_leg2" type="fixed">
+    <parent link="leg2" />
+    <child link="foot2" />
+    <origin xyz="0 0 0" rpy="0 0 1.5708" />
+  </joint>
+      
 </xacro:macro>
     
 </robot>

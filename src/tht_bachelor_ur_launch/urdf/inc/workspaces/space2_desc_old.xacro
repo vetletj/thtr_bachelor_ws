@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+<!--NOTE: for some reason the robot arm is 0.82 above origin along the z axis -->
+
+<xacro:macro name="space2" params="base">
+ <!-- including the workspace macro -->
+    <xacro:include filename="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/workspace_macro.xacro" />
+  
+    <xacro:property name="value_file"    value="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/space2.yaml" />
+    <xacro:property name="measurements"   value="${xacro.load_yaml(value_file)}" />
+
+    <!-- measurements and parameters for robot_table-->
+    <xacro:property name="robot_base" value="${measurements['robot_base']}"/>
+    
+   <!--Loading table values from yaml file -->
+    <xacro:property name="table" value="${measurements['table']}"/>
+        
+    <!-- creating the box under the robot arm -->
+    <xacro:support_box
+    	name="robot_base"
+    	vis_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
+    	coll_size_xyz= "${robot_base['side']} ${robot_base['side']} ${robot_base['height']}"
+    	box_col="grey" />
+    	
+    <joint name="robot_base_to_world" type="fixed">
+      <parent link="${base}" />
+      <child link="robot_base" />
+      <origin xyz="0 0 -${robot_base['height'] / 2.0}" rpy="0 0 0" />
+    </joint>
+
+    <xacro:support_box
+    	name="table"
+    	vis_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
+    	coll_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
+    	box_col="table_brown" />
+    	
+    <joint name="table to world" type="fixed">
+      <parent link="base_link" />
+      <child link="table" />
+      <origin xyz="0 0.40 -${0.30+table['height'] / 2}" rpy="0 0 0" />
+    </joint>
+        
+</xacro:macro>
+    
+</robot>

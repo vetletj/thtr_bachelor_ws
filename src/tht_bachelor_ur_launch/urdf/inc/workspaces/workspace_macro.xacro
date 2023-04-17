@@ -18,6 +18,25 @@
     		</geometry>
     	</collision>
     </link>
+ </xacro:macro>
+
+ <!-- centre point of the cylinder is at (0, 0, length/2) -->
+ <xacro:macro name="support_cylinder" params="name radius length color">
+   <link name="${name}">
+        <visual>
+            <origin xyz="0 0 ${length / 2}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${length}"/>
+            </geometry>
+            <material name="${color}"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${length / 2}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${length}"/>
+            </geometry>
+        </collision>
+    </link>
  </xacro:macro> 
 
 </robot>

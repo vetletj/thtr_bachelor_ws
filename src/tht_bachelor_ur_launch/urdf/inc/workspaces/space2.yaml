@@ -4,8 +4,12 @@ robot_base:
   height: 1.025
   side: 0.08
 
-table:
-  height: 0.74
+table_top:
+  height: 0.02
   width: 0.45
   length: 0.735
+
+table_legs:
+  height: 0.725
+  radius: 0.025
 
