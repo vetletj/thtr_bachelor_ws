@@ -2,7 +2,7 @@
 
 robot_table:
   height: 1.02
-  side: 0.08
+  side: 0.01
 
 front_box1:
   height: 0.648

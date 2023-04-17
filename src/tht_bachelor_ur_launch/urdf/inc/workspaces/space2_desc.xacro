@@ -36,8 +36,8 @@
     <!-- creating the box under the robot arm -->
     <xacro:support_box
     	name="robot_table"
-    	vis_size_xyz= "0.45 0.45 ${table['height']}"
-    	coll_size_xyz= "0.45 0.45 ${table['height']}"
+    	vis_size_xyz= "${table['side']} ${table['side']} ${table['height']}"
+    	coll_size_xyz= "${table['side']} ${table['side']} ${table['height']}"
     	box_col="grey" />
     	
     <joint name="robot_table_to_world" type="fixed">
