@@ -6,12 +6,7 @@ dimensions:
 
 #obtained after calibration procedure, with respect to base link
 cam1_coords:
-  x: -0.05
-  y: 0.36
-  z: 0.82
+  x: 0.00
+  y: 0.40
+  z: 1.00
 
-#currently obtained through geometry, must be confirmed with calibration
-cam2_coords:
-  x: -0.0835
-  y: 0.0
-  z: 0.0

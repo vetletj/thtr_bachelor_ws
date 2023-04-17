@@ -37,7 +37,7 @@
     <joint name="table to world" type="fixed">
       <parent link="base_link" />
       <child link="table" />
-      <origin xyz="0 0.40 -0.295" rpy="0 0 0" />
+      <origin xyz="0 0.40 -${0.30+table['height'] / 2}" rpy="0 0 0" />
     </joint>
         
 </xacro:macro>

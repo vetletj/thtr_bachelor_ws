@@ -351,8 +351,12 @@
     <material name="black">
     	<color rgba="0.01 0.01 0.01 1"/>
     </material>
+
+    <material name="light_gray">
+    	<color rgba="0.8 0.8 0.8 1"/>
+    </material>
   
-     <material name="grey">
+    <material name="grey">
     	<color rgba="0.5 0.5 0.5 1"/>
     </material> 
 
@@ -458,7 +462,7 @@
 			<geometry>
     				<box size="10 10 0.42"/>
     			</geometry>
-    			<material name="umber"/>
+    			<material name="light_gray"/>
 		</visual>
 		<collision>
 			<geometry>

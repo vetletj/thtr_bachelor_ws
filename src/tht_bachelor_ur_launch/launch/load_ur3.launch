@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
   <!--ur3 parameters files -->
-  <arg name="joint_limit_params" default="$(find ur_description)/config/ur3/joint_limits.yaml"/>
-  <arg name="kinematics_params" default="$(find ur_description)/config/ur3/default_kinematics.yaml"/>
-  <arg name="physical_params" default="$(find ur_description)/config/ur3/physical_parameters.yaml"/>
-  <arg name="visual_params" default="$(find ur_description)/config/ur3/visual_parameters.yaml"/>
+  <arg name="joint_limit_params" default="$(find tht_bachelor_ur_launch)/config/ur3/joint_limits.yaml"/>
+  <arg name="kinematics_params" default="$(find tht_bachelor_ur_launch)/config/ur3/default_kinematics.yaml"/>
+  <arg name="physical_params" default="$(find tht_bachelor_ur_launch)/config/ur3/physical_parameters.yaml"/>
+  <arg name="visual_params" default="$(find tht_bachelor_ur_launch)/config/ur3/visual_parameters.yaml"/>
   <!--common parameters -->
   <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
   <arg name="safety_limits" default="false" doc="If True, enable the safety limits controller"/>

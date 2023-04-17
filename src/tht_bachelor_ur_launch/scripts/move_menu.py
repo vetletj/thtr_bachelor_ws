@@ -354,18 +354,20 @@ class PrintMenu:
         Prints joint goal menu.
         1: 'Home position',
         2: 'Up position',
-        3: 'Calibration position',
-        4: 'Testing position',
-        5: 'Back to main menu'
+        3: 'Calibration position ur10e',
+        4: 'Calibration position ur3',
+        5: 'Testing position',
+        6: 'Back to main menu'
         '''
         print("")
         print('Joint goal sub-menu: ')
         menu_options = {
         1: 'Home position',
         2: 'Up position',
-        3: 'Calibration position',
-        4: 'Testing position',
-        5: 'Back to main menu'
+        3: 'Calibration position ur10e',
+        4: 'Calibration position ur3',
+        5: 'Testing position',
+        6: 'Back to main menu'
         }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
@@ -463,8 +465,10 @@ def main():
             elif option == 3:
                 move_robot.go_to_joint_state(90, -60, 90, -120, 90, 90)
             elif option == 4:
-                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+                move_robot.go_to_joint_state(-74, -176, 99, -193, -91, -15)
             elif option == 5:
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+            elif option == 6:
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 5.')

@@ -39,7 +39,7 @@
       <child link="OAK_camera_rot"/>
     </joint>
 	
-	<link name="camera_stand2">
+	<!-- <link name="camera_stand2">
 		<visual>
 			<geometry>
     				<cylinder radius="0.02" length="0.60"/>
@@ -77,7 +77,7 @@
     	<origin xyz="0 -0.93 -0.35" rpy="${pi/2.0} 0 0"/>
       <parent link="camera_stand2" />
       <child link="camera_stand1" />
-    </joint> 
+    </joint>  -->
 
 </xacro:macro>
 </robot>
