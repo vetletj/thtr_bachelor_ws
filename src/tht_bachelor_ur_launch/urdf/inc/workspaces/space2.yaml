@@ -1,11 +1,11 @@
 #Measurements for the Second workspace
 
 robot_base:
-  height: 1.02
+  height: 1.025
   side: 0.08
 
 table:
-  height: 0.73
+  height: 0.74
   width: 0.45
   length: 0.735
 

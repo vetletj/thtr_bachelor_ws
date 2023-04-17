@@ -32,7 +32,7 @@
     	name="table"
     	vis_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
     	coll_size_xyz= "${table['height']} ${table['width']} ${table['length']}"
-    	box_col="black" />
+    	box_col="table_brown" />
     	
     <joint name="table to world" type="fixed">
       <parent link="base_link" />

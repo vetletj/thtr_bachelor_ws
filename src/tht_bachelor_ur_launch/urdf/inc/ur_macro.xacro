@@ -226,7 +226,7 @@
 
     <!-- base_joint fixes base_link to the environment -->
     <joint name="${prefix}base_joint" type="fixed">
-      <origin xyz="0 0 0.82" rpy="0 0 0" />
+      <origin xyz="0 0 1.025" rpy="0 0 0" />
       <parent link="${parent}" />
       <child link="${prefix}base_link" />
     </joint>
@@ -360,35 +360,39 @@
     	<color rgba="0.5 0.5 0.5 1"/>
     </material> 
 
-     <material name="darkgrey">
+    <material name="darkgrey">
     	<color rgba="0.1 0.1 0.1 1"/>
     </material> 
     
-     <material name="green">
+    <material name="green">
     	<color rgba="0 1 0 1"/>
     </material> 
 
-     <material name="red">
+    <material name="red">
     	<color rgba="1 0 0 1"/>
     </material> 
 
-     <material name="silver">
+    <material name="silver">
     	<color rgba="0.75 0.75 0.75 1"/>
     </material> 
 
-     <material name="gold">
+    <material name="gold">
     	<color rgba="1 0.843 0 1"/>
     </material> 
 
-     <material name="beige">
+    <material name="beige">
     	<color rgba="0.861 0.861 0.763 1"/>
     </material> 
     
-     <material name="brown">
+    <material name="brown">
     	<color rgba="0.588 0.294 0 1"/>
-    </material>     
+    </material>
+
+    <material name="table_brown">
+      <color rgba="0.6 0.4 0.2 1"/>
+    </material>
     
-     <material name="umber">
+    <material name="umber">
     	<color rgba="0.43 0.149 0.055 1"/>
     </material>     
 
@@ -457,7 +461,7 @@
       </joint>
     </xacro:if>
     
-    <link name="ground">
+    <!-- <link name="ground">
 		<visual>
 			<geometry>
     				<box size="10 10 0.42"/>
@@ -475,7 +479,7 @@
 		<origin xyz="0 0 -0.2" rpy="0 0 0"/>
 		<parent link="world" />
     <child link="ground" />
-	</joint>
+	</joint> -->
 
     <!-- including the workspace urdf -->
     <xacro:include filename="$(find tht_bachelor_ur_launch)/urdf/inc/workspaces/space2_desc.xacro" />
