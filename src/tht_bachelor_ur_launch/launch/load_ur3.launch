@@ -14,5 +14,5 @@
   <arg name="robot_model" value="ur3" />
 
   <!-- use common launch file and pass all arguments to it -->
-  <include file="$(find ur_description)/launch/load_ur.launch" pass_all_args="true"/>
+  <include file="$(find tht_bachelor_ur_launch)/launch/load_ur.launch" pass_all_args="true"/>
 </launch>

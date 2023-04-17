@@ -13,6 +13,10 @@
 
   <arg name="robot_model" />
 
+  <arg name="end_effector_type" default="1" doc="Choose end-effector type, 1: calib_board, 2: pointer_tool" />
+  <arg name="parent_link" default="world" doc="Choose parent link for your system" />
+
+
   <!-- Load the top-level (ie: stand-alone and complete) xacro for the UR
        variant defined by the set of yaml parameter files (so to load a UR5
        onto the ROS parameter server, provide paths to the .yaml files which
@@ -30,7 +34,7 @@
        include the ur_macro.xacro file into it. Then write a new .launch file
        to load it onto the parameter server.
   -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find ur_description)/urdf/ur.xacro'
+  <param name="robot_description" command="$(find xacro)/xacro '$(find tht_bachelor_ur_launch)/urdf/ur.xacro'
     robot_model:=$(arg robot_model)
     joint_limit_params:=$(arg joint_limit_params)
     kinematics_params:=$(arg kinematics_params)
@@ -39,6 +43,7 @@
     transmission_hw_interface:=$(arg transmission_hw_interface)
     safety_limits:=$(arg safety_limits)
     safety_pos_margin:=$(arg safety_pos_margin)
-    safety_k_position:=$(arg safety_k_position)"
+    safety_k_position:=$(arg safety_k_position)
+    end_effector_type:=$(arg end_effector_type)"
     />
 </launch>
