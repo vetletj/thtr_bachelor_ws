@@ -119,7 +119,7 @@ roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color 
 6. Launch easy_handeye calibration and rviz:
 * For physical robot
 ```bash 
-roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=calib_board tracking_base_frame:=OAK_camera_rot tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
+roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=end_effector_1 tracking_base_frame:=OAK_camera_rot tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
 ```
 * For simulated enviorment
 ```bash 
