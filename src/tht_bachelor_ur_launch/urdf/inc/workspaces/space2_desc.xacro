@@ -43,8 +43,16 @@
   </joint>
 
   <!-- Creating the two cylindrical legs -->
-  <xacro:support_cylinder name="leg1" radius="${table_legs['radius']}" length="${table_legs['height']}" color="table_brown" />
-  <xacro:support_cylinder name="leg2" radius="${table_legs['radius']}" length="${table_legs['height']}" color="table_brown" />
+  <xacro:support_cylinder
+      name="leg1"
+      radius="${table_legs['radius']}"
+      length="${table_legs['height']}"
+      color="table_brown" />
+  <xacro:support_cylinder
+      name="leg2" 
+      radius="${table_legs['radius']}" 
+      length="${table_legs['height']}" 
+      color="table_brown" />
 
   <joint name="leg1_to_table" type="fixed">
     <parent link="table_top" />
