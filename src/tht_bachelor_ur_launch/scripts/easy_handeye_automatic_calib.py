@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 import rospy
 from easy_handeye_msgs.srv import TakeSample, ComputeCalibration, SaveCalibration
 from easy_handeye.rqt_easy_handeye.src.rqt_easy_handeye.rqt_calibrationmovements import CalibrationMovementsGUI
-from easy_handeye.easy_handeye.src.easy_handeye.handeye_client
+#from easy_handeye.easy_handeye.src.easy_handeye.handeye_client
 def main():
     rospy.init_node("automated_calibration")
 

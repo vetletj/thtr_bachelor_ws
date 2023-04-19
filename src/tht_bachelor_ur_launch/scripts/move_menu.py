@@ -316,9 +316,32 @@ class MoveGroupPythonInterface:
         self.joint_rotate_offset(4,pi/6)
         input("!same state as before Press any key to continue...")
         
-        self.move_cartesian(0.125, 0, 0, 0, 0, 0, 0)
+        self.move_cartesian(-0.125, 0, 0, 0, 0, 0, 0)
         self.move_cartesian(0, 0, -0.125, 0, 0, 0, 0)
         
+        self.joint_rotate_offset(4,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,pi/6)
+        input("!same state as before Press any key to continue...")
     def cameraCalibration(self):       
         self.rotationCalibration()
         self.move_cartesian(0.25, 0, 0, 0, 0, 0, 0)
