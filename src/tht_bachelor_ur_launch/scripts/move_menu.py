@@ -15,7 +15,7 @@ class MoveGroupPythonInterface:
         rospy.init_node('move_group_interface')
 
         # Get parameters
-        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_2')
+        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_1')
         self.move_group_name = rospy.get_param('~move_group_name', 'manipulator')
 
         # Instantiate objects
@@ -190,6 +190,10 @@ class MoveGroupPythonInterface:
         wpose.position.z += z  # First move up (z)
         wpose.position.x += x  # Second move forward/backwards in (x)
         wpose.position.y += y  # and sideways (y)
+        wpose.orientation.x += qx
+        wpose.orientation.y += qy
+        wpose.orientation.z += qz
+        wpose.orientation.w += qw
         waypoints.append(copy.deepcopy(wpose))
         (plan, fraction) = move_group.compute_cartesian_path(
             waypoints, 0.01, 0.0  # waypoints to follow  # eef_step
@@ -251,7 +255,7 @@ class MoveGroupPythonInterface:
         ## **Note:** The robot's current joint state must be within some tolerance of the first waypoint in the `RobotTrajectory`_ or ``execute()`` will fail
     
     def move_cartesian(self, x, y, z, qx, qy, qz, qw):
-        if (x != 0 or y != 0 or z != 0):    
+        if (x != 0 or y != 0 or z != 0 or qx !=0 or qy!=0 or qz!=0 or qw!=0):    
             try:
                 cartesian_plan, fraction = self.plan_cartesian_path(x, y, z, qx, qy, qz, qw)
                 self.display_trajectory(cartesian_plan)
@@ -286,6 +290,35 @@ class MoveGroupPythonInterface:
         self.move_cartesian(0, 0, 0.25, 0, 0, 0, 0)
         self.move_cartesian(-0.25 ,0 ,0, 0, 0, 0, 0)
     
+    
+    def easyhandeye(self):
+        self.joint_rotate_offset(4,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,-pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(3,pi/6)
+        input("Press any key to continue...")
+        
+        self.joint_rotate_offset(4,pi/6)
+        input("!same state as before Press any key to continue...")
+        
+        self.move_cartesian(0.125, 0, 0, 0, 0, 0, 0)
+        self.move_cartesian(0, 0, -0.125, 0, 0, 0, 0)
+        
     def cameraCalibration(self):       
         self.rotationCalibration()
         self.move_cartesian(0.25, 0, 0, 0, 0, 0, 0)
@@ -337,14 +370,15 @@ class PrintMenu:
     def print_cam_cali_menu(self): 
         '''Prints camera calibration menu.'''
         print("")
-        print('Camera calibration sub-menu: ')
+        print('Calibration sub-menu: ')
         menu_options = {
-        1: 'Run whole calibration',
-        2: 'Run calibration for x',
-        3: 'Run calibration for y',
-        4: 'Run calibration for desitance',
-        5: 'Run calibration for scew',
-        6: 'Back to main menu'
+        1: 'Run camera calibration',
+        2: 'Run camera calibration for x',
+        3: 'Run camera calibration for y',
+        4: 'Run camera calibration for desitance',
+        5: 'Run camera calibration for scew',
+        6: 'Run hand to eye calibration',
+        7: 'Back to main menu'
         }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
@@ -442,8 +476,10 @@ def main():
             elif option == 4:
                 move_robot.moveSquare()
             elif option == 5:
-                move_robot.rotationCalibration()    
-            elif option == 6:
+                move_robot.rotationCalibration()
+            elif option ==6:
+                move_robot.easyhandeye()   
+            elif option == 7:
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 6.')

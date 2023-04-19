@@ -7,7 +7,7 @@ robot_base:
 table_top:
   height: 0.02
   width: 0.45
-  length: 0.735
+  length: 1.20
 
 table_legs:
   height: 0.725

@@ -37,9 +37,9 @@
       box_col="table_brown" />
       
   <joint name="table to world" type="fixed">
-    <parent link="base_link" />
+    <parent link="${base}"  />
     <child link="table_top" />
-    <origin xyz="0 0.40 -${0.29+table_top['height'] / 2}" rpy="0 0 0" />
+    <origin xyz="-0.03 0.30 -${0.29+table_top['height'] / 2}" rpy="0 0 0" />
   </joint>
 
   <!-- Creating the two cylindrical legs -->
