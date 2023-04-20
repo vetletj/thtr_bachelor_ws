@@ -15,7 +15,7 @@ class MoveGroupPythonInterface:
         rospy.init_node('move_group_interface')
 
         # Get parameters
-        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_1')
+        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_2')
         self.move_group_name = rospy.get_param('~move_group_name', 'manipulator')
 
         # Instantiate objects
@@ -317,10 +317,13 @@ class MoveGroupPythonInterface:
         input("!same state as before Press any key to continue...")
         
         self.move_cartesian(-0.125, 0, 0, 0, 0, 0, 0)
-        self.move_cartesian(0, 0, -0.125, 0, 0, 0, 0)
+        self.joint_rotate_offset(5, pi/6)
+        input("Press any key to continue...")   
+        self.joint_rotate_offset(5, pi/6)
+        input("Press any key to continue...") 
         
         self.joint_rotate_offset(4,pi/6)
-        input("Press any key to continue...")
+        input("Press any key to continue...")   
         
         self.joint_rotate_offset(3,pi/6)
         input("Press any key to continue...")
@@ -595,7 +598,7 @@ def main():
                 qw = float(input("Enter w-orientation: "))
                 move_robot.go_to_pose_goal(x, y, z, qx, qy, qz, qw)
             elif option == 3:
-                move_robot.go_to_marker_pose('world', 'target_marker')
+                move_robot.go_to_marker_pose('world', 'marker_7_flipped')
                 
             elif option == 4:
                 break
@@ -641,7 +644,7 @@ def main():
                 move_robot.display_trajectory(plan)
                 move_robot.execute_plan(plan)
             elif option == 5:
-                target_pose = move_robot.get_marker_transform('world', 'target_marker').pose
+                target_pose = move_robot.get_marker_transform('world', 'marker_7_flipped').pose
                 plan, fraction = move_robot.plan_cartesian_path_pose(target_pose)
                 move_robot.display_trajectory(plan)
                 move_robot.execute_plan(plan)
