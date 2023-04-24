@@ -9,8 +9,28 @@
   <xacro:property name="camera" value="${measurements['dimensions']}"/>
     
   <!-- measurements for camera coordinates-->
-  <xacro:property name="coords" value="${measurements['cam1_coords']}"/>
-    
+  <xacro:property name="cam_translation" value="${measurements['translation']}"/>
+  <xacro:property name="cam_rotation" value="${measurements['rotation']}"/>
+
+<!-- computing quaternion to rpy -->
+<xacro:macro name="quaternion_to_rpy" params="qx qy qz qw">
+        <!-- See: https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Source_code_2 -->
+
+        <xacro:property name="sinr_cosp" value="${2 * (qw * qx + qy * qz)}"/>
+        <xacro:property name="cosr_cosp" value="${1 - 2 * (qx * qx + qy * qy)}"/>
+        <xacro:property name="roll" value="${atan2(sinr_cosp, cosr_cosp)}" scope="parent"/>
+
+        <xacro:property name="sinp" value="${2 * (qw * qy - qz * qx)}"/>
+        <xacro:property name="pitch" value="${copysign(pi / 2, sinp) if fabs(sinp) >= 1 else asin(sinp)}"
+                        scope="parent"/>
+
+        <xacro:property name="siny_cosp" value="${2 * (qw * qz + qx * qy)}"/>
+        <xacro:property name="cosy_cosp" value="${1 - 2 * (qy * qy + qz * qz)}"/>
+        <xacro:property name="yaw" value="${atan2(siny_cosp, cosy_cosp)}" scope="parent"/>
+    </xacro:macro>
+	
+<xacro:quaternion_to_rpy qx="${cam_rotation['x']}" qy="${cam_rotation['y']}" qz="${cam_rotation['z']}" qw="${cam_rotation['w']}"/>
+
 <xacro:macro name="fixed_cam" params="base">
 	<link name="OAK_camera">
 		<visual>
@@ -27,17 +47,19 @@
 	</link>
 	
 	<joint name="camera_to_world" type="fixed">
-		<origin xyz="${coords['x']} ${coords['y']} ${coords['z']}" rpy="${-pi} 0 0"/>
+		<origin xyz="${cam_translation['x']} ${cam_translation['y']} ${cam_translation['z']}"
+				rpy="${roll} ${pitch} ${yaw}"/> 
 		<parent link="${base}" />
       		<child link="OAK_camera" />
 	</joint>
+	
 
-	<link name="OAK_camera_rot"/>
+	<!-- <link name="OAK_camera_rot"/>
     <joint name="OAK_to_rot" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
       <parent link="OAK_camera"/>
       <child link="OAK_camera_rot"/>
-    </joint>
+    </joint> -->
 	
 	<!-- <link name="camera_stand2">
 		<visual>

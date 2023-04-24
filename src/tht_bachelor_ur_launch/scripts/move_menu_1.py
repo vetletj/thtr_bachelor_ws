@@ -15,7 +15,7 @@ class MoveGroupPythonInterface:
         rospy.init_node('move_group_interface')
 
         # Get parameters
-        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_2')
+        self.end_effector_link = rospy.get_param('~end_effector_link', 'end_effector_1')
         self.move_group_name = rospy.get_param('~move_group_name', 'manipulator')
 
         # Instantiate objects
@@ -527,7 +527,7 @@ def main():
             elif option == 3:
                 move_robot.go_to_joint_state(90, -60, 90, -120, 90, 90)
             elif option == 4:
-                move_robot.go_to_joint_state(-74, -176, 99, -193, -91, -15)
+                move_robot.go_to_joint_state(-57, -176, 98, -192, -91, -29)
             elif option == 5:
                 move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
             elif option == 6:

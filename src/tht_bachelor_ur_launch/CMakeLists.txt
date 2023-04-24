@@ -158,7 +158,8 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/move_menu.py
+  scripts/move_menu_1.py
+  scripts/move_menu_2.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

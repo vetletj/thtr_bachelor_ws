@@ -1,0 +1,3 @@
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tht_bachelor_ur_launch)/config/bachelor_rviz_config.rviz" />
+</launch>

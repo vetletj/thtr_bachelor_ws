@@ -5,8 +5,16 @@ dimensions:
   height: 0.0311
 
 #obtained after calibration procedure, with respect to base link
-cam1_coords:
-  x: 0.00
-  y: 0.40
-  z: 1.00
+translation: 
+  x: -0.07177551263237397
+  y: 0.2991587094970601
+  z: 0.9519417771702147
+rotation: 
+  x: -0.019871962425688276
+  y: 0.9995638134627904
+  z: -0.020178738427154286
+  w: 0.008372958889427531
+
+  
+
 
