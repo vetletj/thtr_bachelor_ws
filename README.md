@@ -62,16 +62,66 @@ rosdep install -iyr --from-paths src
   source ~/.bashrc
   ```
 
-## Launch sequence for UR3 (Ikke ferdig - problemer med visual_parameters.yaml)
+## Launch sequences for UR3 
+### hand-to-eye calibration
 1. Launch robot description.
-* For physical robot:
 ```bash 
-roslaunch tht_bachelor_ur_launch ur3_bachelor_bringup.launch
+roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=1
 ```
 2. Launch MoveIt planner:
-* For physical robot:
 ```bash 
 roslaunch ur3_moveit_config moveit_planning_execution.launch
+```
+3. Launch camera.
+```bash 
+roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
+```
+4. Launch charuco tracker:
+```bash 
+roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
+```
+5. Launch rviz:
+```bash 
+roslaunch tht_bachelor_ur_launch load_rviz_bachelor.launch
+```
+6. Launch hand-to-eye calibration:
+```bash 
+roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=end_effector_1 tracking_base_frame:=OAK_camera tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
+```
+7. Start move menu with for calibration board (end_effector_1):
+```bash 
+rosrun tht_bachelor_ur_launch move_menu_1.py
+```
+### test hand-to-eye calibration
+1. Update /urdf/inc/cameras/cam_info.yaml with calibration data.
+
+2. Launch robot description.
+```bash 
+roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=2
+```
+3. Launch MoveIt planner:
+```bash 
+roslaunch ur3_moveit_config moveit_planning_execution.launch
+```
+4. Launch camera.
+```bash 
+roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
+```
+5. Launch aruco tracker:
+```bash 
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
+```
+5. Launch marker flip:
+```bash 
+roslaunch tht_bachelor_ur_launch marker_flip_y_axis.launch 
+```
+5. Launch rviz:
+```bash 
+roslaunch tht_bachelor_ur_launch load_rviz_bachelor.launch
+```
+7. Start move menu with for pointer tool (end_effector_2):
+```bash 
+rosrun tht_bachelor_ur_launch move_menu_2.py
 ```
 
 
