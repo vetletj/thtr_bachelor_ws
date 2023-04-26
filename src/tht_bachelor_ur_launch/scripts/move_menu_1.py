@@ -8,6 +8,9 @@ import geometry_msgs.msg
 import tf2_ros
 from math import pi
 import copy
+from tf.transformations import quaternion_multiply, quaternion_from_euler
+import numpy as np
+
 
 class MoveGroupPythonInterface:
     def __init__(self):
@@ -345,6 +348,7 @@ class MoveGroupPythonInterface:
         
         self.joint_rotate_offset(4,pi/6)
         input("!same state as before Press any key to continue...")
+        
     def cameraCalibration(self):       
         self.rotationCalibration()
         self.move_cartesian(0.25, 0, 0, 0, 0, 0, 0)
@@ -373,6 +377,64 @@ class MoveGroupPythonInterface:
         self.rotationCalibration()
         self.move_cartesian(0, 0, 0.25, 0, 0, 0, 0)
         self.move_cartesian(-0.25 ,0 ,0, 0, 0, 0, 0)
+        
+    def euler_to_quaternion(self, roll, pitch, yaw):
+        qx, qy, qz, qw = quaternion_from_euler(roll, pitch, yaw)
+        return qx, qy, qz, qw
+    
+    def easyhandeye_dynamic(self, n_poses, rot_deg):
+        rot_rad = rot_deg * pi / 180
+        
+        n_poses_per_axis = n_poses // 3
+
+        rotations = np.linspace(-rot_rad, rot_rad, n_poses_per_axis)
+
+        # Perform rotations
+        for rot in rotations:
+            self.joint_rotate_offset(3, rot)
+            input("Press any key to continue...")
+            self.joint_rotate_offset(3, -rot)
+
+        for rot in rotations:
+            self.joint_rotate_offset(4, rot)
+            input("Press any key to continue...")
+            self.joint_rotate_offset(4, -rot)
+
+        for rot in rotations:
+            self.joint_rotate_offset(5, rot)
+            input("Press any key to continue...")
+            self.joint_rotate_offset(5, -rot)
+            
+    def easyhandeye_dynamic_cartesian(self, n_poses, rot_deg):
+        rot_rad = rot_deg * pi / 180
+
+        n_poses_per_axis = n_poses // 3
+
+        rotations = np.linspace(-rot_rad, rot_rad, n_poses_per_axis)
+
+        # Perform rotations
+        for rot in rotations:
+            qx, qy, qz, qw = quaternion_from_euler(rot, 0, 0)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+            input("Press any key to continue...")
+            qx, qy, qz, qw = quaternion_from_euler(-rot, 0, 0)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+
+        for rot in rotations:
+            qx, qy, qz, qw = quaternion_from_euler(0, rot, 0)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+            input("Press any key to continue...")
+            qx, qy, qz, qw = quaternion_from_euler(0, -rot, 0)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+
+        for rot in rotations:
+            qx, qy, qz, qw = quaternion_from_euler(0, 0, rot)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+            input("Press any key to continue...")
+            qx, qy, qz, qw = quaternion_from_euler(0, 0, -rot)
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
+        
+    
     
     
 class PrintMenu:
@@ -404,7 +466,9 @@ class PrintMenu:
         4: 'Run camera calibration for desitance',
         5: 'Run camera calibration for scew',
         6: 'Run hand to eye calibration',
-        7: 'Back to main menu'
+        7: 'Run hand to eye calibration with n poses (joint)',
+        8: 'Run hand to eye calibration with n poses (cartesian)',
+        9: 'Back to main menu'
         }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
@@ -503,9 +567,23 @@ def main():
                 move_robot.moveSquare()
             elif option == 5:
                 move_robot.rotationCalibration()
-            elif option ==6:
+            elif option == 6:
                 move_robot.easyhandeye()   
             elif option == 7:
+                move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
+                print("Start position for calibration reached..")
+                n_poses = int(input('Enter number of poses: '))
+                rot_deg = int(input('Enter degree of rotation around each axis: '))
+                move_robot.easyhandeye_dynamic(n_poses, rot_deg)
+                move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
+            elif option == 8:
+                move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
+                print("Start position for calibration reached..")
+                n_poses = int(input('Enter number of poses: '))
+                rot_deg = int(input('Enter degree of rotation around each axis: '))
+                move_robot.easyhandeye_dynamic_cartesian(n_poses, rot_deg)
+                move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
+            elif option == 9:
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 6.')
@@ -527,7 +605,7 @@ def main():
             elif option == 3:
                 move_robot.go_to_joint_state(90, -60, 90, -120, 90, 90)
             elif option == 4:
-                move_robot.go_to_joint_state(-57, -176, 98, -192, -91, -29)
+                move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
             elif option == 5:
                 move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
             elif option == 6:
