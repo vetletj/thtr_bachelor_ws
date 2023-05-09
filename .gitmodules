@@ -18,7 +18,7 @@
 	url = https://github.com/marcoesposito1988/easy_aruco
 [submodule "src/depthai-ros"]
 	path = src/depthai-ros
-	url = https://github.com/luxonis/depthai-ros.git
+	url = https://github.com/vetletj/depthai-ros.git
 	branch = noetic
 [submodule "src/easy_handeye"]
 	path = src/easy_handeye

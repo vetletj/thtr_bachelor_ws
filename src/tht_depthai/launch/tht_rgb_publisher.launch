@@ -41,6 +41,5 @@
         <remap from="rgb_image" to="/rgb_publisher/color/image"/>
     </node>             -->
     
-
-rgb_subscriber_node
+    
 </launch>
