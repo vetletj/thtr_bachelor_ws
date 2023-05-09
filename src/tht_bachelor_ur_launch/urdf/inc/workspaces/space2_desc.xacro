@@ -39,7 +39,7 @@
   <joint name="table to world" type="fixed">
     <parent link="${base}"  />
     <child link="table_top" />
-    <origin xyz="-0.03 0.30 -0.2949" rpy="0 0 0" />
+    <origin xyz="0 ${table_top['width']/2+0.065} -0.2949" rpy="0 0 0" />
     <!-- world frame til base_link = 1.025 (z-axis)
          world frame til bord (topp) = 0,7401
          bordtopp høyde = 0,02

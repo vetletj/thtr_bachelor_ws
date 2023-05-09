@@ -440,11 +440,14 @@ def main():
         
         print("Number of poses: ")
         menu_options = {
-            1: 'start position',
-            2: '5 poses',
-            3: '10 poses',
-            4: '15 poses',
-            5: '20 poses',
+            1: 'start position 80cm',
+            2: 'start position 70cm',
+            3: 'start position 60cm',
+            4: 'start position 50cm',
+            5: 'poses',
+            10: 'poses',
+            15: 'poses',
+            20: 'poses',
             9: 'quit'
         }
         for key in menu_options.keys():
@@ -456,17 +459,23 @@ def main():
             print('Wrong input. Please enter a number ...')
         
         if(option == 1):
-            move_robot.go_to_joint_state(-49, -218, 106, -158, -91, 321)    
+            move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
         elif(option == 2):
-            move_robot.five_poses()
+            move_robot.go_to_joint_state(51, 32, -73, 131, -89, -135)
         elif(option == 3):
-            move_robot.ten_poses()
+            move_robot.go_to_joint_state(46, 16, -78, 152, -89, -130)
         elif(option == 4):
-            move_robot.fifteen_poses()
+            move_robot.go_to_joint_state(41, -3, -54, 147, -89, -126)            
         elif(option == 5):
+            move_robot.five_poses()
+        elif(option == 10):
+            move_robot.ten_poses()
+        elif(option == 15):
+            move_robot.fifteen_poses()
+        elif(option == 20):
             move_robot.twenty_poses()
         elif(option == 9):
-            break
+            sys.exit()
         else:
             print('Invalid option. Please enter a number between 1 and 4, 9 to quit.')
 

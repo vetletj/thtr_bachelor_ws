@@ -77,12 +77,12 @@ roslaunch ur3_moveit_config moveit_planning_execution.launch
 ```bash 
 roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
 ```
-* OAK-D Pro
+* OAK-D PRO
 ```bash 
-roslaunch depthai_examples rgb_publisher_no_urdf.launch
+roslaunch tht_depthai tht_rgb_publisher.launch
 ```
 ```bash 
-ROS_NAMESPACE=/rgb_publisher/color/ rosrun image_proc image_proc
+ROS_NAMESPACE=/tht_rgb_node/color/ rosrun image_proc image_proc
 ```
 4. Launch charuco tracker:
 * Realsense
@@ -91,7 +91,7 @@ roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color/
 ```
 * OAK-D Pro
 ```bash 
-roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/rgb_publisher/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
+roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/tht_rgb_node/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
 ```
 5. Launch rviz:
 ```bash 
@@ -99,12 +99,22 @@ roslaunch tht_bachelor_ur_launch load_rviz_bachelor.launch
 ```
 6. Launch hand-to-eye calibration:
 ```bash 
-roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=false robot_effector_frame:=end_effector_1 tracking_base_frame:=OAK_camera tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
+roslaunch easy_handeye calibrate.launch eye_on_hand:=false freehand_robot_movement:=true robot_effector_frame:=end_effector_1 tracking_base_frame:=OAK_camera tracking_marker_frame:=board publish_dummy:=false start_rviz:=false
 ```
 7. Start move menu with for calibration board (end_effector_1):
 ```bash 
 rosrun tht_bachelor_ur_launch move_menu_1.py
 ```
+```bash 
+rosrun tht_bachelor_ur_launch calibration_roll_pitch_yaw.py
+```
+### FAST hand-to-eye calibration test
+1. Launch easy_handeye publish calibration:
+```bash 
+roslaunch easy_handeye publish.launch eye_on_hand:=false robot_effector_frame:=end_effector_1 robot_base_frame:=world tracking_base_frame:=OAK_camera calibration_file:=/home/thtr/.ros/easy_handeye/21_TsaiLenz.yaml
+```
+2.
+
 ### test hand-to-eye calibration
 1. Update /urdf/inc/cameras/cam_info.yaml with calibration data.
 
@@ -117,12 +127,25 @@ roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=2
 roslaunch ur3_moveit_config moveit_planning_execution.launch
 ```
 4. Launch camera.
+* Intel Realsense
 ```bash 
 roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
 ```
+* OAK-D PRO
+```bash 
+roslaunch tht_depthai tht_rgb_publisher.launch
+```
+```bash 
+ROS_NAMESPACE=/tht_rgb_node/color/ rosrun image_proc image_proc
+```
 5. Launch aruco tracker:
+* Intel Realsense
 ```bash 
 roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
+```
+* OAK-D PRO
+```bash 
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.1
 ```
 5. Launch marker flip:
 ```bash 
