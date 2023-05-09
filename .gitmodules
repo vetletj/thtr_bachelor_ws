@@ -19,7 +19,3 @@
 [submodule "src/easy_handeye"]
 	path = src/easy_handeye
 	url = https://github.com/IFL-CAMP/easy_handeye.git
-[submodule "src/depthai-ros"]
-	path = src/depthai-ros
-	url = https://github.com/vetletj/depthai-ros.git
-	branch = noetic
