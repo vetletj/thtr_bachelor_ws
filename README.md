@@ -73,12 +73,25 @@ roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=1
 roslaunch ur3_moveit_config moveit_planning_execution.launch
 ```
 3. Launch camera.
+* Realsense
 ```bash 
 roslaunch realsense2_camera rs_rgbd.launch color_height:=1080 color_width:=1920 color_fps:=30 publish_tf:=false
 ```
+* OAK-D Pro
+```bash 
+roslaunch depthai_examples rgb_publisher_no_urdf.launch
+```
+```bash 
+ROS_NAMESPACE=/rgb_publisher/color/ rosrun image_proc image_proc
+```
 4. Launch charuco tracker:
+* Realsense
 ```bash 
 roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/camera/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
+```
+* OAK-D Pro
+```bash 
+roslaunch easy_aruco track_charuco_board.launch camera_namespace:=/rgb_publisher/color/ camera_frame:=OAK_camera dictionary:=DICT_6X6_250 square_number_x:=7 square_number_y:=9 square_size:=0.024 marker_size:=0.016
 ```
 5. Launch rviz:
 ```bash 

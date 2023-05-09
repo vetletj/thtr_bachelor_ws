@@ -160,6 +160,9 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/move_menu_1.py
   scripts/move_menu_2.py
+  scripts/calibration_roll_pitch_yaw.py
+  scripts/easy_handeye_automatic_calib.py
+  scripts/calibration_x_y.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

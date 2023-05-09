@@ -1,3 +1,0 @@
-<launch>
-    <remap from="camera_info" to="tht_camera/camera_info" />
-</launch>

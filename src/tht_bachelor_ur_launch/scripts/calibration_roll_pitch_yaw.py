@@ -440,10 +440,11 @@ def main():
         
         print("Number of poses: ")
         menu_options = {
-            1: '5 poses',
-            2: '10 poses',
-            3: '15 poses',
-            4: '20 poses',
+            1: 'start position',
+            2: '5 poses',
+            3: '10 poses',
+            4: '15 poses',
+            5: '20 poses',
             9: 'quit'
         }
         for key in menu_options.keys():
@@ -453,14 +454,16 @@ def main():
             option = int(input('Enter your choice: '))
         except:
             print('Wrong input. Please enter a number ...')
-            
+        
         if(option == 1):
-            move_robot.five_poses()
+            move_robot.go_to_joint_state(-49, -218, 106, -158, -91, 321)    
         elif(option == 2):
-            move_robot.ten_poses()
+            move_robot.five_poses()
         elif(option == 3):
-            move_robot.fifteen_poses()
+            move_robot.ten_poses()
         elif(option == 4):
+            move_robot.fifteen_poses()
+        elif(option == 5):
             move_robot.twenty_poses()
         elif(option == 9):
             break
