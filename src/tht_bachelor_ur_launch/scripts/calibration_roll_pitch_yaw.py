@@ -504,19 +504,99 @@ class MoveGroupPythonInterface:
         print("----------YAW----------")
         print("Go to pose 5")
         self.offset_pose_goal(0, 0, 0, 0, 10, 0)
-        self.offset_pose_goal(0, 0, 0, 0, 0, 10)
+        self.offset_pose_goal(0, 0, 0, 0, 0, 20)
         print("Take sample! 5 seconds until next pose.")
         rospy.sleep(5)
         print(" ")
         
         print("Go to pose 6")
-        self.offset_pose_goal(0, 0, 0, 0, 0, -20)
+        self.offset_pose_goal(0, 0, 0, 0, 0, -40)
         print("Take sample! 5 seconds until next pose.")
         rospy.sleep(5)
         print(" ")
         
         print("done")
+    
+    def twelve_poses_ik(self):
+        print(" ")
+        print("----------ROLL----------")
+        print("Go to pose 1")
+        self.offset_pose_goal(0, 0, 0, 20, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
         
+        print("Go to pose 2")
+        self.offset_pose_goal(0, 0, 0, -10, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 3")
+        self.offset_pose_goal(0, 0, 0, -30, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 4")
+        self.offset_pose_goal(0, 0, 0, 10, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("----------PITCH----------")
+        print("Go to pose 5")
+        self.offset_pose_goal(0, 0, 0, 10, 0, 0)
+        self.offset_pose_goal(0, 0, 0, 0, 20, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 6")
+        self.offset_pose_goal(0, 0, 0, 0, -10, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 7")
+        self.offset_pose_goal(0, 0, 0, 0, -30, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 8")
+        self.offset_pose_goal(0, 0, 0, 0, 10, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("----------YAW----------")
+        print("Go to pose 9")
+        self.offset_pose_goal(0, 0, 0, 0, 10, 0)
+        self.offset_pose_goal(0, 0, 0, 0, 0, 40)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 10")
+        self.offset_pose_goal(0, 0, 0, 0, 0, -20)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 11")
+        self.offset_pose_goal(0, 0, 0, 0, 0, -60)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 12")
+        self.offset_pose_goal(0, 0, 0, 0, 0, 20)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("done")
         
         
                                               
@@ -535,6 +615,7 @@ def main():
             5: 'poses',
             6: 'poses IK',
             10: 'poses',
+            12: 'poses IK',
             15: 'poses',
             20: 'poses',
             9: 'quit'
@@ -564,6 +645,11 @@ def main():
             move_robot.six_poses_ik()
         elif(option == 10):
             move_robot.ten_poses()
+        elif(option == 12):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.twelve_poses_ik()
         elif(option == 15):
             move_robot.fifteen_poses()
         elif(option == 20):
