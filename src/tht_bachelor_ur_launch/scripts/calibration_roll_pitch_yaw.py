@@ -8,7 +8,7 @@ import geometry_msgs.msg
 import tf2_ros
 from math import pi
 import copy
-from tf.transformations import quaternion_multiply, quaternion_from_euler
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import numpy as np
 
 
@@ -133,6 +133,47 @@ class MoveGroupPythonInterface:
         pose_goal.orientation.y = qy        
         pose_goal.orientation.z = qz
         pose_goal.orientation.w = qw
+
+        move_group.set_pose_target(pose_goal)
+
+        ## Now, we call the planner to compute the plan and execute it.
+        # `go()` returns a boolean indicating whether the planning and execution was successful.
+        success = move_group.go(wait=True)
+            
+        # Calling `stop()` ensures that there is no residual movement
+        move_group.stop()
+        # It is always good to clear your targets after planning with poses.
+        # Note: there is no equivalent function for clear_joint_value_targets().
+        move_group.clear_pose_targets()
+        
+    def offset_pose_goal(self, x, y, z, roll, pitch, yaw):
+        '''
+        Function that offsets from current pose
+        '''
+        roll = roll*pi/180
+        pitch = pitch*pi/180
+        yaw = yaw*pi/180
+        
+        current_pose = self.move_group.get_current_pose().pose
+        current_orientation = euler_from_quaternion([current_pose.orientation.x, 
+                                                    current_pose.orientation.y, 
+                                                    current_pose.orientation.z, 
+                                                    current_pose.orientation.w])
+        
+        roll = current_orientation[0] + roll
+        pitch = current_orientation[1] + pitch
+        yaw = current_orientation[2] + yaw
+         
+        move_group = self.move_group
+        pose_goal = geometry_msgs.msg.Pose()
+        pose_goal.position.x = current_pose.position.x + x
+        pose_goal.position.y = current_pose.position.y + y
+        pose_goal.position.z = current_pose.position.z + z
+        q = quaternion_from_euler(roll, pitch, yaw)
+        pose_goal.orientation.x = q[0]
+        pose_goal.orientation.y = q[1]        
+        pose_goal.orientation.z = q[2]
+        pose_goal.orientation.w = q[3]
 
         move_group.set_pose_target(pose_goal)
 
@@ -316,8 +357,7 @@ class MoveGroupPythonInterface:
         print("Moving to pose 10")
         self.joint_rotate_offset(4,pi/6)
         rospy.sleep(5)
-        
-        
+           
     def fifteen_poses(self):
         print('Moving to pose 1')
         self.joint_rotate_offset(4,pi/6)
@@ -430,12 +470,60 @@ class MoveGroupPythonInterface:
         rospy.sleep(5)  
         print("Moving to pose 20")
         self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)  
+        rospy.sleep(5)
+    
+    def six_poses_ik(self):
+        print(" ")
+        print("----------ROLL----------")
+        print("Go to pose 1")
+        self.offset_pose_goal(0, 0, 0, 10, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 2")
+        self.offset_pose_goal(0, 0, 0, -20, 0, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("----------PITCH----------")
+        print("Go to pose 3")
+        self.offset_pose_goal(0, 0, 0, 10, 0, 0)
+        self.offset_pose_goal(0, 0, 0, 0, 10, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 4")
+        self.offset_pose_goal(0, 0, 0, 0, -20, 0)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("----------YAW----------")
+        print("Go to pose 5")
+        self.offset_pose_goal(0, 0, 0, 0, 10, 0)
+        self.offset_pose_goal(0, 0, 0, 0, 0, 10)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("Go to pose 6")
+        self.offset_pose_goal(0, 0, 0, 0, 0, -20)
+        print("Take sample! 5 seconds until next pose.")
+        rospy.sleep(5)
+        print(" ")
+        
+        print("done")
+        
+        
+        
                                               
 def main():
 # Main loop
+    move_robot = MoveGroupPythonInterface()
     while(True):
-        move_robot = MoveGroupPythonInterface()
         option = ''
         
         print("Number of poses: ")
@@ -445,6 +533,7 @@ def main():
             3: 'start position 60cm',
             4: 'start position 50cm',
             5: 'poses',
+            6: 'poses IK',
             10: 'poses',
             15: 'poses',
             20: 'poses',
@@ -468,6 +557,11 @@ def main():
             move_robot.go_to_joint_state(41, -3, -54, 147, -89, -126)            
         elif(option == 5):
             move_robot.five_poses()
+        elif(option == 6):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.six_poses_ik()
         elif(option == 10):
             move_robot.ten_poses()
         elif(option == 15):
