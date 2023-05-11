@@ -482,38 +482,68 @@ class MoveGroupPythonInterface:
     def six_poses_ik(self):
         print(" ")
         print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 10, 0, 0)
-        self.execute_poses(2, 0, 0, 0, -20, 0, 0)
+        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
+        self.execute_poses(2, 0, 0, 0, -90, 0, 0) # -45 degrees around x-axis
         
         print("----------PITCH----------")
-        self.execute_poses(3, 0, 0, 0, 10, 10, 0)
-        self.execute_poses(4, 0, 0, 0, 0, -20, 0)
+        self.execute_poses(3, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
+        self.execute_poses(4, 0, 0, 0, 0, -90, 0) # -45 degrees around y-axis
         
         print("----------YAW----------")
-        self.execute_poses(5, 0, 0, 0, 0, 10, 20)
-        self.execute_poses(6, 0, 0, 0, 0, 0, -40)
+        self.execute_poses(5, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
+        self.execute_poses(6, 0, 0, 0, 0, 0, -90) # -45 degrees around z-axis
         
         print("Calibration done!")
     
     def twelve_poses_ik(self):
         print(" ")
         print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 20, 0, 0)
-        self.execute_poses(2, 0, 0, 0, -10, 0, 0)
-        self.execute_poses(3, 0, 0, 0, -30, 0, 0)
-        self.execute_poses(4, 0, 0, 0, 10, 0, 0)
+        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
+        self.execute_poses(2, 0, 0, 0, -15, 0, 0) # 30 degrees around x-axis
+        self.execute_poses(3, 0, 0, 0, -60, 0, 0) # -30 degrees around x-axis
+        self.execute_poses(4, 0, 0, 0, -15, 0, 0) # -45 degrees around x-axis
         
         print("----------PITCH----------")
-        self.execute_poses(5, 0, 0, 0, 10, 20, 0)
-        self.execute_poses(6, 0, 0, 0, 0, -10, 0)
-        self.execute_poses(7, 0, 0, 0, 0, -30, 0)
-        self.execute_poses(8, 0, 0, 0, 0, 10, 0)
+        self.execute_poses(5, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
+        self.execute_poses(6, 0, 0, 0, 0, -15, 0) # 30 degrees around y-axis
+        self.execute_poses(7, 0, 0, 0, 0, -60, 0) # -30 degrees around y-axis
+        self.execute_poses(8, 0, 0, 0, 0, -15, 0) # -45 degrees around y-axis
         
         print("----------YAW----------")
-        self.execute_poses(9, 0, 0, 0, 0, 10, 40)
-        self.execute_poses(10, 0, 0, 0, 0, 0, -20)
-        self.execute_poses(11, 0, 0, 0, 0, 0, -60)
-        self.execute_poses(12, 0, 0, 0, 0, 0, 20)
+        self.execute_poses(9, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
+        self.execute_poses(10, 0, 0, 0, 0, 0, -15) # 30 degrees around z-axis
+        self.execute_poses(11, 0, 0, 0, 0, 0, -60) # -30 degrees around z-axis
+        self.execute_poses(12, 0, 0, 0, 0, 0, -15) # -45 degrees around z-axis
+        
+        print("Calibration done!")
+    
+    def sixteen_poses_ik(self):
+        print(" ")
+        print("----------ROLL----------")
+        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
+        self.execute_poses(2, 0, 0, 0, -15, 0, 0) # 30 degrees around x-axis
+        self.execute_poses(3, 0, 0, 0, -60, 0, 0) # -30 degrees around x-axis
+        self.execute_poses(4, 0, 0, 0, -15, 0, 0) # -45 degrees around x-axis
+        
+        print("----------PITCH----------")
+        self.execute_poses(5, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
+        self.execute_poses(6, 0, 0, 0, 0, -15, 0) # 30 degrees around y-axis
+        self.execute_poses(7, 0, 0, 0, 0, -60, 0) # -30 degrees around y-axis
+        self.execute_poses(8, 0, 0, 0, 0, -15, 0) # -45 degrees around y-axis
+        
+        print("----------YAW----------")
+        self.execute_poses(9, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
+        self.execute_poses(10, 0, 0, 0, 0, 0, -15) # 30 degrees around z-axis
+        self.execute_poses(11, 0, 0, 0, 0, 0, -60) # -30 degrees around z-axis
+        self.execute_poses(12, 0, 0, 0, 0, 0, -15) # -45 degrees around z-axis
+        
+        print("----------ROLL + PITCH----------")
+        self.execute_poses(13, 0, 0, 0, 20, 20, 45) # X = 20, Y = 20, Z = 0
+        self.execute_poses(14, 0, 0, 0, 0, -40, 0) # X = 20, Y = -20, Z = 0
+        self.execute_poses(15, 0, 0, 0, -40, 0, 0) # X = -20, Y = -20, Z = 0
+        self.execute_poses(16, 0, 0, 0, 0, 40, 0) # X = -20, Y = 20, Z = 0
+        self.execute_poses(16, 0, 0, 0, 20, 0, 30) # X = 0, Y = 20, Z = 30
+        self.execute_poses(16, 0, 0, 0, 0, 0, 30) # X = 0, Y = 20, Z = 60
         
         print("Calibration done!")
         
@@ -625,6 +655,7 @@ def main():
             3: 'start position 60cm',
             4: 'start position 50cm',
             5: 'start position',
+            6: 'move out of camera view',
             10: 'roll poses',
             11: 'pitch poses',
             12: 'yaw poses',
@@ -632,7 +663,8 @@ def main():
             14: 'roll+pitch poses 2',
             20: '6 poses IK',
             21: '12 poses IK',
-            22: '24 poses IK',
+            22: '16 poses IK',
+            23: '24 poses IK',
             30: '5 poses',
             31: '10 poses',
             32: '15 poses',
@@ -656,7 +688,9 @@ def main():
         elif(option == 4):
             move_robot.go_to_joint_state(41, -3, -54, 147, -89, -126)
         elif(option == 5):
-            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+        elif(option == 6):
+            move_robot.go_to_joint_state(-72, -60, 13, -133, 85, 0)
         elif(option == 10):
             move_robot.roll_poses_ik()
         elif(option == 11):
@@ -671,16 +705,29 @@ def main():
             print(" ")
             print("Go to start position")
             move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
             move_robot.six_poses_ik()
         elif(option == 21):
             print(" ")
             print("Go to start position")
-            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
             move_robot.twelve_poses_ik()
         elif(option == 22):
             print(" ")
             print("Go to start position")
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.sixteen_poses_ik()
+        elif(option == 23):
+            print(" ")
+            print("Go to start position")
             move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
             move_robot.twentyfour_poses_ik()
         elif(option == 30):
             move_robot.five_poses()            
