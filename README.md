@@ -65,12 +65,22 @@ rosdep install -iyr --from-paths src
 ## Launch sequences for UR3 
 ### hand-to-eye calibration
 1. Launch robot description.
+* Physical robot:
 ```bash 
 roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=1
 ```
+* Simulated robot:
+```bash 
+roslaunch tht_bachelor_ur_launch ur3_bringup.launch
+```
 2. Launch MoveIt planner:
+* Physical robot:
 ```bash 
 roslaunch ur3_moveit_config moveit_planning_execution.launch
+```
+* Simulated robot:
+```bash 
+roslaunch ur3_moveit_config demo.launch load_robot_description:=false
 ```
 3. Launch camera.
 * Realsense
