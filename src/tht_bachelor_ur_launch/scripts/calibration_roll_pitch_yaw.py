@@ -79,10 +79,21 @@ class MoveGroupPythonInterface:
         joint_goal[4] = j5*pi/180 
         joint_goal[5] = j6*pi/180
 
+        ## Now, we call the planner to compute the plan and execute it.
+        # `go()` returns a boolean indicating whether the planning and execution was successful.
         # The go command can be called with joint values, poses, or without any
         # parameters if you have already set the pose or joint target for the group
-        move_group.go(joint_goal, wait=True)
+        success = move_group.go(joint_goal, wait=True)
+        
+        while not success and not rospy.is_shutdown():
+            rospy.loginfo("Planning failed. Trying again...")
+            success = move_group.go(joint_goal, wait=True)
 
+            if rospy.is_shutdown():
+                rospy.loginfo("ROS is shutting down. Stopping planning...")
+                move_group.stop()
+                return
+            
         # Calling ``stop()`` ensures that there is no residual movement
         move_group.stop()
         return
@@ -180,9 +191,16 @@ class MoveGroupPythonInterface:
         ## Now, we call the planner to compute the plan and execute it.
         # `go()` returns a boolean indicating whether the planning and execution was successful.
         success = move_group.go(wait=True)
-            
-        # Calling `stop()` ensures that there is no residual movement
-        move_group.stop()
+        
+        while not success and not rospy.is_shutdown():
+            rospy.loginfo("Planning failed. Trying again...")
+            success = move_group.go(wait=True)
+
+            if rospy.is_shutdown():
+                rospy.loginfo("ROS is shutting down. Stopping planning...")
+                move_group.stop()
+                return
+                
         # It is always good to clear your targets after planning with poses.
         # Note: there is no equivalent function for clear_joint_value_targets().
         move_group.clear_pose_targets()
@@ -480,174 +498,244 @@ class MoveGroupPythonInterface:
         print(" ")
     
     def six_poses_ik(self):
-        print(" ")
-        print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
-        self.execute_poses(2, 0, 0, 0, -90, 0, 0) # -45 degrees around x-axis
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 45, 0, 0), # 45 degrees around x-axis
+                ("ROLL", 0, 0, 0, -90, 0, 0), # -45 degrees around x-axis
+                ("PITCH", 0, 0, 0, 45, 45, 0), # 45 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -90, 0), # -45 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 45, 45), # 45 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -90), # -45 degrees around z-axis
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
         
-        print("----------PITCH----------")
-        self.execute_poses(3, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
-        self.execute_poses(4, 0, 0, 0, 0, -90, 0) # -45 degrees around y-axis
-        
-        print("----------YAW----------")
-        self.execute_poses(5, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
-        self.execute_poses(6, 0, 0, 0, 0, 0, -90) # -45 degrees around z-axis
-        
-        print("Calibration done!")
-    
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
+            
     def twelve_poses_ik(self):
-        print(" ")
-        print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
-        self.execute_poses(2, 0, 0, 0, -15, 0, 0) # 30 degrees around x-axis
-        self.execute_poses(3, 0, 0, 0, -60, 0, 0) # -30 degrees around x-axis
-        self.execute_poses(4, 0, 0, 0, -15, 0, 0) # -45 degrees around x-axis
-        
-        print("----------PITCH----------")
-        self.execute_poses(5, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
-        self.execute_poses(6, 0, 0, 0, 0, -15, 0) # 30 degrees around y-axis
-        self.execute_poses(7, 0, 0, 0, 0, -60, 0) # -30 degrees around y-axis
-        self.execute_poses(8, 0, 0, 0, 0, -15, 0) # -45 degrees around y-axis
-        
-        print("----------YAW----------")
-        self.execute_poses(9, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
-        self.execute_poses(10, 0, 0, 0, 0, 0, -15) # 30 degrees around z-axis
-        self.execute_poses(11, 0, 0, 0, 0, 0, -60) # -30 degrees around z-axis
-        self.execute_poses(12, 0, 0, 0, 0, 0, -15) # -45 degrees around z-axis
-        
-        print("Calibration done!")
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 45, 0, 0), # 45 degrees around x-axis
+                ("ROLL", 0, 0, 0, -15, 0, 0), # 30 degrees around x-axis
+                ("ROLL", 0, 0, 0, -60, 0, 0), # -30 degrees around x-axis
+                ("ROLL", 0, 0, 0, -15, 0, 0), # -45 degrees around x-axis
+                ("PITCH", 0, 0, 0, 45, 45, 0), # 45 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -15, 0), # 30 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -60, 0), # -30 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -15, 0), # -45 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 45, 45), # 45 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -15), # 30 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -60), # -30 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -15), # -45 degrees around z-axis
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+                       
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
     
-    def sixteen_poses_ik(self):
-        print(" ")
-        print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 45, 0, 0) # 45 degrees around x-axis
-        self.execute_poses(2, 0, 0, 0, -15, 0, 0) # 30 degrees around x-axis
-        self.execute_poses(3, 0, 0, 0, -60, 0, 0) # -30 degrees around x-axis
-        self.execute_poses(4, 0, 0, 0, -15, 0, 0) # -45 degrees around x-axis
-        
-        print("----------PITCH----------")
-        self.execute_poses(5, 0, 0, 0, 45, 45, 0) # 45 degrees around y-axis
-        self.execute_poses(6, 0, 0, 0, 0, -15, 0) # 30 degrees around y-axis
-        self.execute_poses(7, 0, 0, 0, 0, -60, 0) # -30 degrees around y-axis
-        self.execute_poses(8, 0, 0, 0, 0, -15, 0) # -45 degrees around y-axis
-        
-        print("----------YAW----------")
-        self.execute_poses(9, 0, 0, 0, 0, 45, 45) # 45 degrees around z-axis
-        self.execute_poses(10, 0, 0, 0, 0, 0, -15) # 30 degrees around z-axis
-        self.execute_poses(11, 0, 0, 0, 0, 0, -60) # -30 degrees around z-axis
-        self.execute_poses(12, 0, 0, 0, 0, 0, -15) # -45 degrees around z-axis
-        
-        print("----------ROLL + PITCH----------")
-        self.execute_poses(13, 0, 0, 0, 20, 20, 45) # X = 20, Y = 20, Z = 0
-        self.execute_poses(14, 0, 0, 0, 0, -40, 0) # X = 20, Y = -20, Z = 0
-        self.execute_poses(15, 0, 0, 0, -40, 0, 0) # X = -20, Y = -20, Z = 0
-        self.execute_poses(16, 0, 0, 0, 0, 40, 0) # X = -20, Y = 20, Z = 0
-        self.execute_poses(16, 0, 0, 0, 20, 0, 30) # X = 0, Y = 20, Z = 30
-        self.execute_poses(16, 0, 0, 0, 0, 0, 30) # X = 0, Y = 20, Z = 60
-        
-        print("Calibration done!")
-        
+    def eighteen_poses_ik(self):
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 45, 0, 0), # 45 degrees around x-axis
+                ("ROLL", 0, 0, 0, -15, 0, 0), # 30 degrees around x-axis
+                ("ROLL", 0, 0, 0, -60, 0, 0), # -30 degrees around x-axis
+                ("ROLL", 0, 0, 0, -15, 0, 0), # -45 degrees around x-axis
+                ("PITCH", 0, 0, 0, 45, 45, 0), # 45 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -15, 0), # 30 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -60, 0), # -30 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -15, 0), # -45 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 45, 45), # 45 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -15), # 30 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -60), # -30 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -15), # -45 degrees around z-axis
+                ("ROLL + PITCH", 0, 0, 0, 20, 20, 45), # X = 20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 0, -40, 0), # X = 20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -40, 0, 0), # X = -20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 0, 40, 0), # X = -20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 20, 0, 30), # X = 0, Y = 20, Z = 30
+                ("ROLL + PITCH", 0, 0, 0, 0, 0, 30), # X = 0, Y = 20, Z = 60
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+                       
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
+            
     def twentyfour_poses_ik(self):
-        print(" ")
-        print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 60, 0, 0) #60 DEGREES AROUND X-AXIS
-        self.execute_poses(2, 0, 0, 0, -20, 0, 0) #40 DEGREES AROUND X-AXIS
-        self.execute_poses(3, 0, 0, 0, -20, 0, 0) #20 DEGREES AROUND X-AXIS
-        self.execute_poses(4, 0, 0, 0, -80, 0, 0) #-60 DEGREES AROUND X-AXIS
-        self.execute_poses(5, 0, 0, 0, 20, 0, 0) #-40 DEGREES AROUND X-AXIS
-        self.execute_poses(6, 0, 0, 0, 20, 0, 0) #-20 DEGREES AROUND X-AXIS
-        
-        print("----------PITCH----------")
-        self.execute_poses(7, 0, 0, 0, 20, 60, 0) #60 DEGREES AROUND Y-AXIS
-        self.execute_poses(8, 0, 0, 0, 0, -20, 0) #40 DEGREES AROUND Y-AXIS
-        self.execute_poses(9, 0, 0, 0, 0, -20, 0) #20 DEGREES AROUND Y-AXIS
-        self.execute_poses(10, 0, 0, 0, 0, -80, 0) #-60 DEGREES AROUND Y-AXIS
-        self.execute_poses(11, 0, 0, 0, 0, 20, 0) #-40 DEGREES AROUND Y-AXIS
-        self.execute_poses(12, 0, 0, 0, 0, 20, 0) #-20 DEGREES AROUND Y-AXIS
-        
-        print("----------YAW----------")
-        self.execute_poses(13, 0, 0, 0, 0, 20, 60) #60 DEGREES AROUND Z-AXIS
-        self.execute_poses(14, 0, 0, 0, 0, 0, -20) #40 DEGREES AROUND Z-AXIS
-        self.execute_poses(15, 0, 0, 0, 0, 0, -20) #20 DEGREES AROUND Z-AXIS
-        self.execute_poses(16, 0, 0, 0, 0, 0, -80) #-60 DEGREES AROUND Z-AXIS
-        self.execute_poses(17, 0, 0, 0, 0, 0, 20) #-40 DEGREES AROUND Z-AXIS
-        self.execute_poses(18, 0, 0, 0, 0, 0, 20) #-20 DEGREES AROUND Z-AXIS
-        
-        print("----------ROLL + PITCH----------")
-        self.execute_poses(19, 0, 0, 0, 20, 20, 20) # X = 20, Y = 20
-        self.execute_poses(20, 0, 0, 0, 0, -40, 0) # X = 20, Y = -20
-        self.execute_poses(21, 0, 0, 0, -40, 0, 0) # X = -20, Y = -20
-        self.execute_poses(22, 0, 0, 0, 0, 40, 0) # X = -20, Y = 20
-        self.execute_poses(23, 0, 0, 0, 70, 30, 0) # X = 50, Y = 50
-        self.execute_poses(24, 0, 0, 0, 0, -100, 0) # X = 50, Y = -50
-        self.execute_poses(25, 0, 0, 0, -100, 0, 0) # X = -50, Y = -50
-        self.execute_poses(26, 0, 0, 0, 0, 100, 0) # X = -50, Y = 50
-        
-        print("Calibration done!")    
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 60, 0, 0), # 60 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 40 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 20 degrees around x-axis
+                ("ROLL", 0, 0, 0, -80, 0, 0), # -60 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -40 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -20 degrees around x-axis
+                ("PITCH", 0, 0, 0, 20, 60, 0), # 60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 20 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -80, 0), # -60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -20 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 20, 60), # 60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 20 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -80), # -60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -20 degrees around z-axis
+                ("ROLL + PITCH", 0, 0, 0, 20, 20, 20), # X = 20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 0, -40, 0), # X = 20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -40, 0, 0), # X = -20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 0, 40, 0), # X = -20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 70, 30, 30), # X = 50, Y = 50, Z = 30
+                ("ROLL + PITCH", 0, 0, 0, 0, -100, 30), # X = 50, Y = -50, Z = 60
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+                       
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")    
     
-    def roll_poses_ik(self):
-        print(" ")
-        print("----------ROLL----------")
-        self.execute_poses(1, 0, 0, 0, 60, 0, 0) #60 DEGREES AROUND X-AXIS
-        self.execute_poses(2, 0, 0, 0, -20, 0, 0) #40 DEGREES AROUND X-AXIS
-        self.execute_poses(3, 0, 0, 0, -20, 0, 0) #20 DEGREES AROUND X-AXIS
-        self.execute_poses(4, 0, 0, 0, -80, 0, 0) #-60 DEGREES AROUND X-AXIS
-        self.execute_poses(5, 0, 0, 0, 20, 0, 0) #-40 DEGREES AROUND X-AXIS
-        self.execute_poses(6, 0, 0, 0, 20, 0, 0) #-20 DEGREES AROUND X-AXIS
-        self.execute_poses(7, 0, 0, 0, 20, 0, 0) #0 DEGREES AROUND X-AXIS
-        print("ROLL DONE!")
-        
-    def pitch_poses_ik(self):
-        print(" ")
-        print("----------PITCH----------")
-        self.execute_poses(1, 0, 0, 0, 0, 60, 0) #60 DEGREES AROUND Y-AXIS
-        self.execute_poses(2, 0, 0, 0, 0, -20, 0) #40 DEGREES AROUND Y-AXIS
-        self.execute_poses(3, 0, 0, 0, 0, -20, 0) #20 DEGREES AROUND Y-AXIS
-        self.execute_poses(4, 0, 0, 0, 0, -80, 0) #-60 DEGREES AROUND Y-AXIS
-        self.execute_poses(5, 0, 0, 0, 0, 20, 0) #-40 DEGREES AROUND Y-AXIS
-        self.execute_poses(6, 0, 0, 0, 0, 20, 0) #-20 DEGREES AROUND Y-AXIS
-        self.execute_poses(7, 0, 0, 0, 0, 20, 0) #0 DEGREES AROUND Y-AXIS
-        print("PITCH DONE!")      
+    def thirty_poses_ik(self):
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 60, 0, 0), # 60 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 40 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 20 degrees around x-axis
+                ("ROLL", 0, 0, 0, -80, 0, 0), # -60 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -40 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -20 degrees around x-axis
+                ("PITCH", 0, 0, 0, 20, 60, 0), # 60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 20 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -80, 0), # -60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -20 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 20, 60), # 60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 20 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -80), # -60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -20 degrees around z-axis
+                
+                ("ROLL + PITCH", 0, 0, 0, 20, 20, 0), # X = 20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 50, Y = 50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -30, -70, 0), # X = 20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -70, 30, 0), # X = -20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, 30, 70, 0), # X = -20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -50, Y = 50, Z = 0
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+            
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
     
-    def yaw_poses_ik(self):
-        print(" ")
-        print("----------YAW----------")
-        self.execute_poses(1, 0, 0, 0, 0, 0, 45) #45 DEGREES AROUND Z-AXIS
-        self.execute_poses(2, 0, 0, 0, 0, 0, 90) #135 DEGREES AROUND Z-AXIS
-        self.execute_poses(3, 0, 0, 0, 0, 0, 90) #225 DEGREES AROUND Z-AXIS
-        self.execute_poses(4, 0, 0, 0, 0, 0, 90) #315 DEGREES AROUND Z-AXIS
-        self.execute_poses(5, 0, 0, 0, 0, 0, -315) #0 DEGREES AROUND Z-AXIS
-        print("YAW DONE!")    
-    
-    def roll_pitch_poses_ik_1(self):
-        print(" ")
-        print("----------ROLL + PITCH----------")
-        self.execute_poses(1, 0, 0, 0, 20, 20, 0) # X = 20, Y = 20
-        self.execute_poses(2, 0, 0, 0, 0, -40, 0) # X = 20, Y = -20
-        self.execute_poses(3, 0, 0, 0, -40, 0, 0) # X = -20, Y = -20
-        self.execute_poses(4, 0, 0, 0, 0, 40, 0) # X = -20, Y = 20
-        self.execute_poses(5, 0, 0, 0, 20, -20, 0) # X = 0, Y = 0         
-        print("ROLL + PITCH DONE!")
-        
-    def roll_pitch_poses_ik_2(self):
-        print(" ")
-        print("----------ROLL + PITCH----------")
-        self.execute_poses(5, 0, 0, 0, 50, 50, 0) # X = 50, Y = 50
-        self.execute_poses(6, 0, 0, 0, 0, -100, 0) # X = 50, Y = -50
-        self.execute_poses(7, 0, 0, 0, -100, 0, 0) # X = -50, Y = -50
-        self.execute_poses(8, 0, 0, 0, 0, 100, 0) # X = -50, Y = 50
-        self.execute_poses(9, 0, 0, 0, 50, -50, 0) # X = , Y = 0
-        print("ROLL + PITCH DONE!")    
-        
-        
-        
+    def test_poses_ik(self):
+        try:
+            poses  = [
+                ("ROLL + PITCH", 0, 0, 0, 20, 20, 0), # X = 20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 50, Y = 50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -30, -70, 0), # X = 20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -70, 30, 0), # X = -20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, 30, 70, 0), # X = -20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -50, Y = 50, Z = 0
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+                       
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
                                               
 def main():
 # Main loop
     move_robot = MoveGroupPythonInterface()
-    while(True):
-        option = ''
-        
+    while not rospy.is_shutdown():
         print("Number of poses: ")
         menu_options = {
             1: 'start position 80cm',
@@ -661,24 +749,29 @@ def main():
             12: 'yaw poses',
             13: 'roll+pitch poses 1',
             14: 'roll+pitch poses 2',
-            20: '6 poses IK',
-            21: '12 poses IK',
-            22: '16 poses IK',
-            23: '24 poses IK',
+            20: 'test poses IK',
+            21: '6 poses IK',
+            22: '12 poses IK',
+            23: '18 poses IK',
+            24: '24 poses IK',
+            25: '30 poses IK',
             30: '5 poses',
             31: '10 poses',
             32: '15 poses',
             33: '20 poses',
             9: 'quit'
         }
+        # Printing menu options
         for key in menu_options.keys():
             print(key, '--', menu_options[key]) 
-            
+        
+        option = ""
         try:
             option = int(input('Enter your choice: '))
         except:
             print('Wrong input. Please enter a number ...')
         
+        #Check what choice was entered and act accordingly
         if(option == 1):
             move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
         elif(option == 2):
@@ -704,31 +797,45 @@ def main():
         elif(option == 20):
             print(" ")
             print("Go to start position")
-            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
-            move_robot.six_poses_ik()
+            move_robot.test_poses_ik()
         elif(option == 21):
             print(" ")
             print("Go to start position")
             move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
-            move_robot.twelve_poses_ik()
+            move_robot.six_poses_ik()
         elif(option == 22):
             print(" ")
             print("Go to start position")
             move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
-            move_robot.sixteen_poses_ik()
+            move_robot.twelve_poses_ik()
         elif(option == 23):
             print(" ")
             print("Go to start position")
-            move_robot.go_to_joint_state(46, 16, -78, 152, -89, 47)
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.eighteen_poses_ik()
+        elif(option == 24):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
             move_robot.twentyfour_poses_ik()
+        elif(option == 25):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.thirty_poses_ik()
         elif(option == 30):
             move_robot.five_poses()            
         elif(option == 31):
@@ -738,19 +845,17 @@ def main():
         elif(option == 33):
             move_robot.twenty_poses()
         elif(option == 9):
-            sys.exit()
+            return
         else:
-            print('Invalid option. Please enter a number between 1 and 4, 9 to quit.')
-
+            print('Invalid option. Please try again...')
+            
+        if rospy.is_shutdown():
+            print("ROS interrupt. Exiting program...")
+            return
 
 
 if __name__ == '__main__':
     try:
-        while True:
-            main()
-            rospy.spin()
+        main()
     except KeyboardInterrupt:
         print('Keyboard interrupt. Exiting program...')
-    except rospy.ROSInterruptException:
-        pass
-    

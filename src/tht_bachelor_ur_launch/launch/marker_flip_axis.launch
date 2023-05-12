@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="target_marker" default="marker_7" doc="Target marker" />
-  <arg name="target_marker_flipped" default="marker_7_flipped" doc="Target marker flipped name" />
+  <arg name="target_marker" default="marker_1" doc="Target marker" />
+  <arg name="target_marker_flipped" default="marker_1_flipped" doc="Target marker flipped name" />
 
   <node pkg="tf2_ros" type="static_transform_publisher" name="marker_flip_broadcaster"
         args="0 0 0 0 -0.7071068 0 0.7071068 $(arg target_marker) $(arg target_marker_flipped)" />

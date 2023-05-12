@@ -132,10 +132,19 @@ class MoveGroupPythonInterface:
         pose_goal.orientation.w = qw
 
         move_group.set_pose_target(pose_goal)
-
+        
         ## Now, we call the planner to compute the plan and execute it.
         # `go()` returns a boolean indicating whether the planning and execution was successful.
         success = move_group.go(wait=True)
+        
+        while not success and not rospy.is_shutdown():
+            rospy.loginfo("Planning failed. Trying again...")
+            success = move_group.go(wait=True)
+
+            if rospy.is_shutdown():
+                rospy.loginfo("ROS is shutting down. Stopping planning...")
+                move_group.stop()
+                return
             
         # Calling `stop()` ensures that there is no residual movement
         move_group.stop()
@@ -598,7 +607,39 @@ def main():
                 qw = float(input("Enter w-orientation: "))
                 move_robot.go_to_pose_goal(x, y, z, qx, qy, qz, qw)
             elif option == 3:
-                move_robot.go_to_marker_pose('world', 'marker_7_flipped')
+                print("Go to start position")
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+                
+                print("Go to marker 1")
+                move_robot.go_to_marker_pose('world', 'marker_3_flipped')
+                rospy.sleep(5)
+                
+                print("Go to start position")
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+                rospy.sleep(5)
+                
+                print("Go to marker 2")
+                move_robot.go_to_marker_pose('world', 'marker_1_flipped')
+                rospy.sleep(5)
+                
+                print("Go to start position")
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+                rospy.sleep(5)
+                
+                print("Go to marker 3")
+                move_robot.go_to_marker_pose('world', 'marker_3_flipped')
+                rospy.sleep(5)
+                
+                print("Go to start position")
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+                rospy.sleep(5)
+                
+                print("Go to marker 4")
+                move_robot.go_to_marker_pose('world', 'marker_4_flipped')
+                rospy.sleep(5)
+                
+                print("Go to start position")
+                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
                 
             elif option == 4:
                 break

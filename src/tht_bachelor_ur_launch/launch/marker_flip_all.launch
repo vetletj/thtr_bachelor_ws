@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="marker_flip_broadcaster_1"
+        args="0 0 0 0 -0.7071068 0 0.7071068 marker_1 marker_1_flipped" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="marker_flip_broadcaster_2"
+        args="0 0 0 0 -0.7071068 0 0.7071068 marker_2 marker_2_flipped" />
+  
+  <node pkg="tf2_ros" type="static_transform_publisher" name="marker_flip_broadcaster_3"
+        args="0 0 0 0 -0.7071068 0 0.7071068 marker_3 marker_3_flipped" />
+  
+  <node pkg="tf2_ros" type="static_transform_publisher" name="marker_flip_broadcaster_4"
+        args="0 0 0 0 -0.7071068 0 0.7071068 marker_4 marker_4_flipped" />
+  
+</launch>

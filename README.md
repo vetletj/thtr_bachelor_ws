@@ -119,12 +119,23 @@ rosrun tht_bachelor_ur_launch move_menu_1.py
 rosrun tht_bachelor_ur_launch calibration_roll_pitch_yaw.py
 ```
 ### FAST hand-to-eye calibration test
-1. Launch easy_handeye publish calibration:
+1. Launch aruco tracker
+* Intel Realsense
 ```bash 
-roslaunch easy_handeye publish.launch eye_on_hand:=false robot_effector_frame:=end_effector_1 robot_base_frame:=world tracking_base_frame:=OAK_camera calibration_file:=/home/thtr/.ros/easy_handeye/21_TsaiLenz.yaml
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/camera/color camera_frame:=OAK_camera dictionary:=DICT_6X6_250 marker_size:=0.15
 ```
-2.
-
+* OAK-D PRO
+```bash
+roslaunch easy_aruco track_aruco_marker.launch camera_namespace:=/tht_rgb_node/color camera_frame:=OAK_camera dictionary:=DICT_4X4_50 marker_size:=0.15
+```
+2. Launch easy_handeye publish calibration:
+```bash 
+roslaunch easy_handeye publish.launch eye_on_hand:=false robot_effector_frame:=end_effector_1 robot_base_frame:=base_link tracking_base_frame:=OAK_camera calibration_file:=/home/thtr/.ros/easy_handeye/12_poses_TsaiLenz.yaml
+```
+3. Check position of markers for each calibration
+```bash
+rosrun tf tf_echo base_link marker_1
+```
 ### test hand-to-eye calibration
 1. Update /urdf/inc/cameras/cam_info.yaml with calibration data.
 
