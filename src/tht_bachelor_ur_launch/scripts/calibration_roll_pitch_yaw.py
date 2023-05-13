@@ -316,180 +316,6 @@ class MoveGroupPythonInterface:
 
         ## **Note:** The robot's current joint state must be within some tolerance of the first waypoint in the `RobotTrajectory`_ or ``execute()`` will fail
     
-    def move_cartesian(self, x, y, z, qx, qy, qz, qw):
-        if (x != 0 or y != 0 or z != 0 or qx !=0 or qy!=0 or qz!=0 or qw!=0):    
-            try:
-                cartesian_plan, fraction = self.plan_cartesian_path(x, y, z, qx, qy, qz, qw)
-                self.display_trajectory(cartesian_plan)
-                self.move_group.execute(cartesian_plan, wait=True)
-            except KeyboardInterrupt:
-                return
-    
-    def five_poses(self):
-        print('Moving to pose 1')
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 2")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 3")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 4")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 5")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        
-    def ten_poses(self):
-        print('Moving to pose 1')
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 2")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 3")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 4")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 5")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 6")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 7")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 8")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 9")
-        self.joint_rotate_offset(3,pi/6)
-        self.joint_rotate_offset(4,pi/6)
-        self.joint_rotate_offset(5,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 10")
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-           
-    def fifteen_poses(self):
-        print('Moving to pose 1')
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 2")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 3")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 4")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 5")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 6")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 7")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 8")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 9")
-        self.joint_rotate_offset(3,pi/6)
-        self.joint_rotate_offset(4,pi/6)
-        self.joint_rotate_offset(5,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 10")
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 11")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 12")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 13")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 14")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 15")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        
-    def twenty_poses(self):
-        print('Moving to pose 1')
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 2")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 3")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 4")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 5")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 6")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 7")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 8")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 9")
-        self.joint_rotate_offset(3,pi/6)
-        self.joint_rotate_offset(4,pi/6)
-        self.joint_rotate_offset(5,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 10")
-        self.joint_rotate_offset(4,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 11")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 12")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 13")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 14")
-        self.joint_rotate_offset(3,pi/3)
-        rospy.sleep(5)
-        print("Moving to pose 15")
-        self.joint_rotate_offset(4,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 16")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)   
-        print("Moving to pose 17")
-        self.joint_rotate_offset(3,-pi/6)
-        rospy.sleep(5)
-        print("Moving to pose 18")
-        self.joint_rotate_offset(3,pi/6)
-        self.joint_rotate_offset(5,-pi/3)
-        rospy.sleep(5)   
-        print("Moving to pose 19")
-        self.joint_rotate_offset(3,pi/6)
-        rospy.sleep(5)  
-        print("Moving to pose 20")
-        self.joint_rotate_offset(3,-pi/3)
-        rospy.sleep(5)
-    
     def execute_poses(self, pose_num, x, y, z, roll, pitch, yaw):
         print(f"Go to pose {pose_num}")
         self.offset_pose_goal(x, y, z, roll, pitch, yaw)
@@ -696,6 +522,69 @@ class MoveGroupPythonInterface:
         except rospy.ROSInterruptException:
             print("ROS interrupt. Exiting program...")
     
+    def z_roll_pitch_yaw_poses(self):
+        try:
+            poses  = [
+                ("ROLL", 0, 0, 0, 45, 0, 0), # 45 degrees around x-axis
+                ("ROLL", 0, 0, 0, -90, 0, 0), # -45 degrees around x-axis
+                ("PITCH", 0, 0, 0, 45, 45, 0), # 45 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -90, 0), # -45 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 45, 45), # 45 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -90), # -45 degrees around z-axis
+                
+                
+                ("ROLL", 0, 0, 0, 60, 0, 0), # 60 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 40 degrees around x-axis
+                ("ROLL", 0, 0, 0, -20, 0, 0), # 20 degrees around x-axis
+                ("ROLL", 0, 0, 0, -80, 0, 0), # -60 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -40 degrees around x-axis
+                ("ROLL", 0, 0, 0, 20, 0, 0), # -20 degrees around x-axis
+                ("PITCH", 0, 0, 0, 20, 60, 0), # 60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -20, 0), # 20 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, -80, 0), # -60 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -40 degrees around y-axis
+                ("PITCH", 0, 0, 0, 0, 20, 0), # -20 degrees around y-axis
+                ("YAW", 0, 0, 0, 0, 20, 60), # 60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -20), # 20 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, -80), # -60 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -40 degrees around z-axis
+                ("YAW", 0, 0, 0, 0, 0, 20), # -20 degrees around z-axis
+                
+                ("ROLL + PITCH", 0, 0, 0, 20, 20, 0), # X = 20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 50, Y = 50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -30, -70, 0), # X = 20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, -70, 30, 0), # X = -20, Y = -20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -35, Y = -35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -50, Y = -50, Z = 0
+                
+                ("ROLL + PITCH", 0, 0, 0, 30, 70, 0), # X = -20, Y = 20, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -35, Y = 35, Z = 0
+                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -50, Y = 50, Z = 0
+                ]
+            
+            current_pose = ""
+            for i, pose in enumerate(poses):
+                pose_name, x, y, z, roll, pitch, yaw = pose
+                if rospy.is_shutdown():
+                    print("ROS interrupt. Exiting program...")
+                    return
+                elif pose_name != current_pose:
+                    print(f"\n----------{pose_name}----------")
+                    current_pose = pose_name
+                self.execute_poses(i+1, x, y, z, roll, pitch, yaw)
+                
+            print("Calibration done!")
+            
+        except rospy.ROSInterruptException:
+            print("ROS interrupt. Exiting program...")
+    
     def test_poses_ik(self):
         try:
             poses  = [
@@ -731,6 +620,9 @@ class MoveGroupPythonInterface:
                        
         except rospy.ROSInterruptException:
             print("ROS interrupt. Exiting program...")
+    
+    
+    
                                               
 def main():
 # Main loop
@@ -836,14 +728,6 @@ def main():
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
             move_robot.thirty_poses_ik()
-        elif(option == 30):
-            move_robot.five_poses()            
-        elif(option == 31):
-            move_robot.ten_poses()
-        elif(option == 32):
-            move_robot.fifteen_poses()
-        elif(option == 33):
-            move_robot.twenty_poses()
         elif(option == 9):
             return
         else:
