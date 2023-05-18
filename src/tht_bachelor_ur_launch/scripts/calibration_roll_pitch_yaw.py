@@ -287,6 +287,15 @@ class MoveGroupPythonInterface:
         # Note: We are just planning, not asking move_group to actually move the robot yet:
         return plan, fraction
 
+    def move_cartesian(self, x, y, z, qx, qy, qz, qw):
+        if (x != 0 or y != 0 or z != 0 or qx !=0 or qy!=0 or qz!=0 or qw!=0):    
+            try:
+                cartesian_plan, fraction = self.plan_cartesian_path(x, y, z, qx, qy, qz, qw)
+                self.display_trajectory(cartesian_plan)
+                self.move_group.execute(cartesian_plan, wait=True)
+            except KeyboardInterrupt:
+                return
+
     def display_trajectory(self, plan):
         robot = self.robot
         display_trajectory_publisher = self.display_trajectory_publisher
@@ -522,7 +531,7 @@ class MoveGroupPythonInterface:
         except rospy.ROSInterruptException:
             print("ROS interrupt. Exiting program...")
     
-    def z_roll_pitch_yaw_poses(self):
+    def xy_roll_pitch_yaw_poses(self):
         try:
             poses  = [
                 ("ROLL", 0, 0, 0, 45, 0, 0), # 45 degrees around x-axis
@@ -588,21 +597,7 @@ class MoveGroupPythonInterface:
     def test_poses_ik(self):
         try:
             poses  = [
-                ("ROLL + PITCH", 0, 0, 0, 20, 20, 0), # X = 20, Y = 20, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 35, Y = 35, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, 15, 15, 0), # X = 50, Y = 50, Z = 0
-                
-                ("ROLL + PITCH", 0, 0, 0, -30, -70, 0), # X = 20, Y = -20, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 35, Y = -35, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, 15, -15, 0), # X = 50, Y = -50, Z = 0
-                
-                ("ROLL + PITCH", 0, 0, 0, -70, 30, 0), # X = -20, Y = -20, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -35, Y = -35, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, -15, -15, 0), # X = -50, Y = -50, Z = 0
-                
-                ("ROLL + PITCH", 0, 0, 0, 30, 70, 0), # X = -20, Y = 20, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -35, Y = 35, Z = 0
-                ("ROLL + PITCH", 0, 0, 0, -15, 15, 0), # X = -50, Y = 50, Z = 0
+                ("X + Y", 0.01, -0.01, 0, 0, 0, 0)
                 ]
             
             current_pose = ""
@@ -621,7 +616,8 @@ class MoveGroupPythonInterface:
         except rospy.ROSInterruptException:
             print("ROS interrupt. Exiting program...")
     
-    
+    def moveSquare(self):       
+        self.move_cartesian(0.2, 0.1, 0, 0, 0, 0, 0)
     
                                               
 def main():
@@ -647,10 +643,9 @@ def main():
             23: '18 poses IK',
             24: '24 poses IK',
             25: '30 poses IK',
-            30: '5 poses',
-            31: '10 poses',
-            32: '15 poses',
-            33: '20 poses',
+            26: '6 poses IK + translation x, y-axis',
+            27: '6 poses IK + translation z-axis',
+            28: '6 poses IK + translation x,y,z-axis',
             9: 'quit'
         }
         # Printing menu options
@@ -676,16 +671,29 @@ def main():
             move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
         elif(option == 6):
             move_robot.go_to_joint_state(-72, -60, 13, -133, 85, 0)
-        elif(option == 10):
-            move_robot.roll_poses_ik()
-        elif(option == 11):
-            move_robot.pitch_poses_ik()
-        elif(option == 12):
-            move_robot.yaw_poses_ik()
-        elif(option == 13):
-            move_robot.roll_pitch_poses_ik_1()
-        elif(option == 14):
-            move_robot.roll_pitch_poses_ik_2()
+        elif(option == 7):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.six_poses_ik()
+            print("Go to next position") 
+            move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 45)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0, -0.15, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(-0.35, 0, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0, 0.13, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
         elif(option == 20):
             print(" ")
             print("Go to start position")
@@ -728,6 +736,49 @@ def main():
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
             move_robot.thirty_poses_ik()
+        elif(option == 26):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.six_poses_ik()
+            print("Go to next position") 
+            move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 45)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0, -0.15, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(-0.35, 0, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0, 0.13, 0, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+        elif(option == 27):
+            print(" ")
+            print("Go to start position")
+            move_robot.go_to_joint_state(52, 40, -17, 67, -90, -140)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0, 0, 0.2, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            print("Go to next position")
+            move_robot.offset_pose_goal(0.05, -0.05, 0.2, 0, 0, 0)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            move_robot.six_poses_ik()
+            print("Go to next position")
+            move_robot.offset_pose_goal(0.02, 0, 0.2, 0, 0, 45)
+            print("Take sample! 5 seconds until next pose.")
+            rospy.sleep(5)
+            
         elif(option == 9):
             return
         else:

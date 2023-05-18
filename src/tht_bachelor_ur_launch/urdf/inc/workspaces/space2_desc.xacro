@@ -110,8 +110,8 @@
   <!-- Controller holder rot -->
   <xacro:support_box
     name="controller_holder_rot"
-    vis_size_xyz="0.25 0.36 0.02"
-    coll_size_xyz="0.25 0.36 0.02"
+    vis_size_xyz="0.25 0.36 0.06"
+    coll_size_xyz="0.25 0.36 0.06"
     box_col="grey" />
     
   <joint name="controller_holder_rot_to_base" type="fixed">
