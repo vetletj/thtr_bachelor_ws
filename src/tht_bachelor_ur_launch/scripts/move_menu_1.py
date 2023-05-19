@@ -32,17 +32,17 @@ class MoveGroupPythonInterface:
         # Set object variables
         move_group.set_end_effector_link(self.end_effector_link)
         
-        ## Getting Basic Information
-        ## ^^^^^^^^^^^^^^^^^^^^^^^^^
+        ## Printing Basic Information To Terminal
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         # We can get the name of the reference frame for this robot:
         planning_frame = move_group.get_planning_frame()
         print("============ Planning frame: %s" % planning_frame)
 
-        # We can also print the name of the end-effector link for this group:
+        # Print the name of the end-effector link for this group:
         eef_link = move_group.get_end_effector_link()
         print("============ End effector link: %s" % eef_link)
 
-        # We can get a list of all the groups in the robot:
+        # Get a list of all the groups in the robot:
         group_names = robot.get_group_names()
         print("============ Available Planning Groups:", robot.get_group_names())
 
@@ -293,7 +293,6 @@ class MoveGroupPythonInterface:
         self.move_cartesian(0, 0, 0.25, 0, 0, 0, 0)
         self.move_cartesian(-0.25 ,0 ,0, 0, 0, 0, 0)
     
-    
     def easyhandeye(self):
         self.joint_rotate_offset(4,pi/6)
         input("Press any key to continue...")
@@ -453,8 +452,7 @@ class PrintMenu:
         6: 'Exit'
         }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )
-    
+            print (key, '--', menu_options[key] )   
     def print_cam_cali_menu(self): 
         '''Prints camera calibration menu.'''
         print("")
@@ -471,8 +469,7 @@ class PrintMenu:
         9: 'Back to main menu'
         }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )
-            
+            print (key, '--', menu_options[key] )          
     def print_menu_2(self):
         '''
         Prints joint goal menu.
@@ -494,8 +491,7 @@ class PrintMenu:
         6: 'Back to main menu'
         }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )
-            
+            print (key, '--', menu_options[key] )           
     def print_menu_3(self):
         '''Prints joint rotation menu.'''
         print("")
@@ -506,8 +502,7 @@ class PrintMenu:
         3: 'Back to main menu'
         }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )
-            
+            print (key, '--', menu_options[key] )           
     def print_menu_4(self):
         '''Prints pose planner menu.'''
         print("")
@@ -519,8 +514,7 @@ class PrintMenu:
         4: 'Back to main menu'
         }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )
-            
+            print (key, '--', menu_options[key] )        
     def print_menu_5(self):
         '''Prints cartesian planner menu.'''
         print("")
@@ -539,7 +533,7 @@ class PrintMenu:
 def main():
     move_robot = MoveGroupPythonInterface()
     print_menu = PrintMenu()
-
+    
     def option1():
         while (True):
             print("")
@@ -586,8 +580,7 @@ def main():
             elif option == 9:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 6.')
-    
+                print('Invalid option. Please enter a number between 1 and 6.') 
     def option2():
         
         while(True):
@@ -652,8 +645,7 @@ def main():
             elif option == 3:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 3.')
-        
+                print('Invalid option. Please enter a number between 1 and 3.')  
     def option4():
         while(True):
             print_menu.print_menu_4()
@@ -681,8 +673,7 @@ def main():
             elif option == 4:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 3.')
-                
+                print('Invalid option. Please enter a number between 1 and 3.')               
     def option5():
         while True:
             print_menu.print_menu_5()
@@ -729,19 +720,15 @@ def main():
             elif option == 6:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 6.')
-                
-        
+                print('Invalid option. Please enter a number between 1 and 6.')                
     def exit_program():
         print("")
         print('Thank you! Come again!')
         exit()
     
-    
-    
     print("")
     print("----------------------------------------------------------")
-    print("Welcome to tht robotics calibration menu")
+    print("Welcome to tht robotics bachelor thesis calibration menu")
     print("----------------------------------------------------------")
     print("Press Ctrl+C to exit at any time")
     print("")    
@@ -765,7 +752,8 @@ def main():
             option = int(input('Enter your choice: '))
         except:
             print('Wrong input. Please enter a number ...')
-            
+        
+        # Printing selected menu form dictionary    
         if option in options:
             options[option]()
         else:

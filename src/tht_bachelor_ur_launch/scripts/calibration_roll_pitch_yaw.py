@@ -643,9 +643,9 @@ def main():
             23: '18 poses IK',
             24: '24 poses IK',
             25: '30 poses IK',
-            26: '6 poses IK + translation x, y-axis',
-            27: '6 poses IK + translation z-axis',
-            28: '6 poses IK + translation x,y,z-axis',
+            30: 'Translation x, y-axis',
+            31: 'Translation z-axis',
+            32: 'Translation x,y,z-axis',
             9: 'quit'
         }
         # Printing menu options
@@ -736,15 +736,16 @@ def main():
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
             move_robot.thirty_poses_ik()
-        elif(option == 26):
+        elif(option == 30):
             print(" ")
             print("Go to start position")
             move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
             print("Take sample! 5 seconds until next pose.")
+            
+            # Move calib board in X and Y axis
             rospy.sleep(5)
-            move_robot.six_poses_ik()
             print("Go to next position") 
-            move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 45)
+            move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 0)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
             print("Go to next position")
@@ -759,7 +760,7 @@ def main():
             move_robot.offset_pose_goal(0, 0.13, 0, 0, 0, 0)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
-        elif(option == 27):
+        elif(option == 31):
             print(" ")
             print("Go to start position")
             move_robot.go_to_joint_state(52, 40, -17, 67, -90, -140)
@@ -773,12 +774,11 @@ def main():
             move_robot.offset_pose_goal(0.05, -0.05, 0.2, 0, 0, 0)
             print("Take sample! 5 seconds until next pose.")
             rospy.sleep(5)
-            move_robot.six_poses_ik()
             print("Go to next position")
-            move_robot.offset_pose_goal(0.02, 0, 0.2, 0, 0, 45)
+            move_robot.offset_pose_goal(0.02, 0, 0.15, 0, 0, 0)
             print("Take sample! 5 seconds until next pose.")
-            rospy.sleep(5)
-            
+        elif(option == 32):
+            return
         elif(option == 9):
             return
         else:
