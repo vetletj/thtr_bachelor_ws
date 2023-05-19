@@ -163,6 +163,7 @@ catkin_install_python(PROGRAMS
   scripts/calibration_roll_pitch_yaw.py
   scripts/easy_handeye_automatic_calib.py
   scripts/calibration_x_y.py
+  scripts/marker_pos_tf.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
