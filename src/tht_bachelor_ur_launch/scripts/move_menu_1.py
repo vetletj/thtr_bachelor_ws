@@ -431,10 +431,7 @@ class MoveGroupPythonInterface:
             self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
             input("Press any key to continue...")
             qx, qy, qz, qw = quaternion_from_euler(0, 0, -rot)
-            self.move_cartesian(0, 0, 0, qx, qy, qz, qw)
-        
-    
-    
+            self.move_cartesian(0, 0, 0, qx, qy, qz, qw) 
     
 class PrintMenu:
     def __init__(self):
@@ -444,89 +441,117 @@ class PrintMenu:
         '''Prints main menu.'''
         print("")
         menu_options = {
-        1: 'Camera calibration',
-        2: 'Joint goal',
-        3: 'Joint rotation',
-        4: 'Pose goal',
-        5: 'Cartesian paths',
-        6: 'Exit'
-        }
+            1: 'Intrinsic camera calibration',
+            2: 'Hand-to-eye calibration',
+            3: 'Joint goal',
+            4: 'Joint rotation',
+            5: 'Pose goal',
+            6: 'Cartesian paths',
+            9: 'Exit program'
+            }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )   
-    def print_cam_cali_menu(self): 
-        '''Prints camera calibration menu.'''
+
+    def print_menu_1(self): 
+        '''Prints intrinsic camera calibration menu.'''
         print("")
         print('Calibration sub-menu: ')
         menu_options = {
-        1: 'Run camera calibration',
-        2: 'Run camera calibration for x',
-        3: 'Run camera calibration for y',
-        4: 'Run camera calibration for desitance',
-        5: 'Run camera calibration for scew',
-        6: 'Run hand to eye calibration',
-        7: 'Run hand to eye calibration with n poses (joint)',
-        8: 'Run hand to eye calibration with n poses (cartesian)',
-        9: 'Back to main menu'
-        }
+            1: 'Run camera calibration',
+            2: 'Run camera calibration for x',
+            3: 'Run camera calibration for y',
+            4: 'Run camera calibration for desitance',
+            5: 'Run camera calibration for scew',
+            6: 'Run hand to eye calibration',
+            7: 'Run hand to eye calibration with n poses (joint)',
+            8: 'Run hand to eye calibration with n poses (cartesian)',
+            9: 'Back to main menu'
+            }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )          
-    def print_menu_2(self):
-        '''
-        Prints joint goal menu.
-        1: 'Home position',
-        2: 'Up position',
-        3: 'Calibration position ur10e',
-        4: 'Calibration position ur3',
-        5: 'Testing position',
-        6: 'Back to main menu'
-        '''
+            print (key, '--', menu_options[key] )
+
+    def print_menu_2(self): 
+        '''Prints hand-to-eye calibration menu.'''
+        print("")
+        print('Calibration sub-menu: ')
+        menu_options = {
+            1: 'start position 80cm',
+            2: 'start position 70cm',
+            3: 'start position 60cm',
+            4: 'start position 50cm',
+            5: 'start position',
+            6: 'move out of camera view',
+            10: 'roll poses',
+            11: 'pitch poses',
+            12: 'yaw poses',
+            13: 'roll+pitch poses 1',
+            14: 'roll+pitch poses 2',
+            20: 'test poses IK',
+            21: '6 poses IK',
+            22: '12 poses IK',
+            23: '18 poses IK',
+            24: '24 poses IK',
+            25: '30 poses IK',
+            30: 'Translation x, y-axis',
+            31: 'Translation z-axis',
+            32: 'Translation x,y,z-axis',
+            9: 'Back to main menu'
+            }
+        for key in menu_options.keys():
+            print (key, '--', menu_options[key] )  
+
+    def print_menu_3(self):
+        '''Prints joint goal menu.'''
         print("")
         print('Joint goal sub-menu: ')
         menu_options = {
-        1: 'Home position',
-        2: 'Up position',
-        3: 'Calibration position ur10e',
-        4: 'Calibration position ur3',
-        5: 'Testing position',
-        6: 'Back to main menu'
-        }
+            1: 'Home position',
+            2: 'Up position',
+            3: 'Calibration position ur10e',
+            4: 'Calibration position ur3',
+            5: 'Testing position',
+            9: 'Back to main menu'
+            }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )           
-    def print_menu_3(self):
+            print (key, '--', menu_options[key] )  
+
+    def print_menu_4(self):
         '''Prints joint rotation menu.'''
         print("")
         print('Joint rotation sub-menu: ')
         menu_options = {
-        1: 'Set joint value',
-        2: 'Offset joint value',
-        3: 'Back to main menu'
-        }
+            1: 'Set joint value',
+            2: 'Offset joint value',
+            9: 'Back to main menu'
+            }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )           
-    def print_menu_4(self):
+            print (key, '--', menu_options[key] )      
+
+    def print_menu_5(self):
         '''Prints pose planner menu.'''
         print("")
         print("Pose goal sub-menu: ")
         menu_options = {
-        1: 'Print pose',
-        2: 'Set manual pose',
-        3: 'Go to marker pose',
-        4: 'Back to main menu'
-        }
+            1: 'Print pose',
+            2: 'Set manual pose',
+            3: 'Go to marker pose',
+            9: 'Back to main menu'
+            }
         for key in menu_options.keys():
-            print (key, '--', menu_options[key] )        
-    def print_menu_5(self):
+            print (key, '--', menu_options[key] )  
+
+    def print_menu_6(self):
         '''Prints cartesian planner menu.'''
         print("")
         print("Cartesian paths sub-menu: ")
         menu_options = {
-        1: 'Print pose',
-        2: 'Offset position',
-        3: 'Offset rotation',
-        4: 'Offset pos and rot',
-        5: 'Go to marker pose',
-        6: 'Back to main menu'
-        }
+            1: 'Print pose',
+            2: 'Offset position',
+            3: 'Offset rotation',
+            4: 'Offset pos and rot',
+            5: 'Go to marker pose',
+            9: 'Back to main menu'
+            }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
             
@@ -535,9 +560,10 @@ def main():
     print_menu = PrintMenu()
     
     def option1():
+        '''Function for handeling intrinsic camera calibration menu options.'''
         while (True):
             print("")
-            print_menu.print_cam_cali_menu()
+            print_menu.print_menu_1()
             option = ''
             try:
                 option = int(input('Enter your choice: '))
@@ -581,10 +607,150 @@ def main():
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 6.') 
+
     def option2():
-        
+        '''Function for handeling eye-to-hand menu options.'''
         while(True):
             print_menu.print_menu_2()
+            option = ''
+            try:
+                option = int(input('Enter your choice: '))
+            except:
+                print('Wrong input. Please enter a number ...')
+            #Check what choice was entered and act accordingly
+            if(option == 1):
+                move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
+            elif(option == 2):
+                move_robot.go_to_joint_state(51, 32, -73, 131, -89, -135)
+            elif(option == 3):
+                move_robot.go_to_joint_state(46, 16, -78, 152, -89, -130)
+            elif(option == 4):
+                move_robot.go_to_joint_state(41, -3, -54, 147, -89, -126)
+            elif(option == 5):
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+            elif(option == 6):
+                move_robot.go_to_joint_state(-72, -60, 13, -133, 85, 0)
+            elif(option == 7):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.six_poses_ik()
+                print("Go to next position") 
+                move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 45)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0, -0.15, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(-0.35, 0, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0, 0.13, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+            elif(option == 20):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.test_poses_ik()
+            elif(option == 21):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.six_poses_ik()
+            elif(option == 22):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.twelve_poses_ik()
+            elif(option == 23):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.eighteen_poses_ik()
+            elif(option == 24):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.twentyfour_poses_ik()
+            elif(option == 25):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(40, 13, -69, 146, -89, 53)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                move_robot.thirty_poses_ik()
+            elif(option == 30):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(52, 43, -60, 107, -90, -140)
+                print("Take sample! 5 seconds until next pose.")
+                
+                # Move calib board in X and Y axis
+                rospy.sleep(5)
+                print("Go to next position") 
+                move_robot.offset_pose_goal(0.18, 0.07, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0, -0.15, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(-0.35, 0, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0, 0.13, 0, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+            elif(option == 31):
+                print(" ")
+                print("Go to start position")
+                move_robot.go_to_joint_state(52, 40, -17, 67, -90, -140)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0, 0, 0.2, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0.05, -0.05, 0.2, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+                rospy.sleep(5)
+                print("Go to next position")
+                move_robot.offset_pose_goal(0.02, 0, 0.15, 0, 0, 0)
+                print("Take sample! 5 seconds until next pose.")
+            elif(option == 32):
+                return
+            elif(option == 9):
+                return
+            else:
+                print('Invalid option. Please try again...')
+                
+            if rospy.is_shutdown():
+                print("ROS interrupt. Exiting program...")
+                return
+
+    def option3():
+        '''Function for handeling joint goal menu options.'''
+        while(True):
+            print_menu.print_menu_3()
             option = ''
             try:
                 option = int(input('Enter your choice: '))
@@ -601,11 +767,12 @@ def main():
                 move_robot.go_to_joint_state(68, -10, -52, -209, -90, 206)
             elif option == 5:
                 move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
-            elif option == 6:
+            elif option == 9:
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 5.')
-    def option3():
+
+    def option4():
         while(True):
             print_menu.print_menu_3()
             option = ''
@@ -642,11 +809,12 @@ def main():
                         break
                     except ValueError:
                         print("Invalid input, try again")
-            elif option == 3:
+            elif option == 9:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 3.')  
-    def option4():
+                print('Invalid option. Please enter a number between 1 and 3.')
+
+    def option5():
         while(True):
             print_menu.print_menu_4()
             option = ''
@@ -670,11 +838,12 @@ def main():
             elif option == 3:
                 move_robot.go_to_marker_pose('world', 'marker_7_flipped')
                 
-            elif option == 4:
+            elif option == 9:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 3.')               
-    def option5():
+                print('Invalid option. Please enter a number between 1 and 3.')  
+
+    def option6():
         while True:
             print_menu.print_menu_5()
             option = ''
@@ -717,10 +886,11 @@ def main():
                 plan, fraction = move_robot.plan_cartesian_path_pose(target_pose)
                 move_robot.display_trajectory(plan)
                 move_robot.execute_plan(plan)
-            elif option == 6:
+            elif option == 9:
                 break
             else:
-                print('Invalid option. Please enter a number between 1 and 6.')                
+                print('Invalid option. Please enter a number between 1 and 6.') 
+
     def exit_program():
         print("")
         print('Thank you! Come again!')
@@ -740,7 +910,8 @@ def main():
         3: option3,
         4: option4,
         5: option5,
-        6: exit_program
+        6: option6,
+        9: exit_program
     }
     
     # Main loop
@@ -757,7 +928,7 @@ def main():
         if option in options:
             options[option]()
         else:
-            print('Invalid option. Please enter a number between 1 and 6.')
+            print('Invalid option. Please enter a number between 1 and 5 or 9 to exit the program.')
 
 
 
