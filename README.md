@@ -62,7 +62,17 @@ rosdep install -iyr --from-paths src
   source ~/.bashrc
   ```
 
-## Launch sequences for UR3 
+## UR3 robot settings
+1. Setup connection with physical robot
+    * Robot IP-adress: 169.254.1.200
+    * Robot Subnet mask: 255.255.0.0
+2. Test conntection: `ping 169.254.1.200`
+
+## OAK-D PRO Depth (sterio) Camera
+* Camera IP-adress: `169.254.1.222`
+* Test conntection: `ping 169.254.1.222`
+
+## Launch sequences for UR3, Intel Realsense D435i/OAK-D camera and hand-to-eye calibration with moveit! move menu
 ### hand-to-eye calibration
 1. Launch robot description.
 * Physical robot:
@@ -182,7 +192,7 @@ rosrun tht_bachelor_ur_launch move_menu_2.py
 ```
 
 
-## Full launch sequence for hand-to-eye calibration with OAK-D camera
+## Full launch sequence for UR10e, Intel Realsense D435i/OAK-D camera and hand-to-eye calibration
 1. Launch robot description.
 * For physical robot:
 ```bash 
