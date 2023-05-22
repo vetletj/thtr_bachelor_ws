@@ -746,7 +746,7 @@ class PrintMenu:
     def print_menu_1(self): 
         '''Prints intrinsic camera calibration menu.'''
         print("")
-        print('Calibration sub-menu: ')
+        print('Intrinsic camera calibration sub-menu: ')
         menu_options = {
             1: 'Run camera calibration',
             2: 'Run camera calibration for x',
@@ -763,7 +763,7 @@ class PrintMenu:
     def print_menu_2(self): 
         '''Prints hand-to-eye calibration menu.'''
         print("")
-        print('Calibration sub-menu: ')
+        print('Hand-to-eye calibration sub-menu: ')
         menu_options = {
             1: 'start position 80cm',
             2: 'start position 70cm',
@@ -1064,7 +1064,7 @@ def main():
 
     def option4():
         while(True):
-            print_menu.print_menu_3()
+            print_menu.print_menu_4()
             option = ''
             try:
                 option = int(input('Enter your choice: '))
@@ -1106,7 +1106,7 @@ def main():
 
     def option5():
         while(True):
-            print_menu.print_menu_4()
+            print_menu.print_menu_5()
             option = ''
             try:
                 option = int(input('Enter your choice: '))
@@ -1135,7 +1135,7 @@ def main():
 
     def option6():
         while True:
-            print_menu.print_menu_5()
+            print_menu.print_menu_6()
             option = ''
             try:
                 option = int(input('Enter your choice: '))
