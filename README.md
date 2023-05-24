@@ -81,7 +81,7 @@ roslaunch tht_bachelor_ur_launch ur3_bringup.launch end_effector_type:=1
 ```
 * Simulated robot:
 ```bash 
-roslaunch tht_bachelor_ur_launch ur3_bringup.launch
+roslaunch tht_bachelor_ur_launch load_ur3.launch
 ```
 2. Launch MoveIt planner:
 * Physical robot:
