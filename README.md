@@ -272,3 +272,15 @@ rosrun tht_robot_env move_menu.py
 
 ## OAK-D PRO Depth (sterio) Camera
 * Camera IP-adress: `169.254.1.222`
+
+
+## Generating Aruco and ChArUco marker
+* 7x9 ChArUco board (dictionary 6X6_250), squares 24mm and markers 16mm big
+```bash 
+rosrun easy_aruco create_charuco_board.py --dictionary  DICT_6X6_250 --squares_x 7 --squares_y 9 --square_size 24 --marker_size 16 --output_path ~/charuco_board.pdf
+```
+* Aruco marker (dictionary 4X4_50), marker id 3 and marker size 150mm
+```bash 
+rosrun easy_aruco create_aruco_marker.py --dictionary DICT_4X4_50 --marker_id 3 --marker_size 150 --output_path /home/thtr/Desktop/ThtR_Bachelor/aruco_tag_4x4_50_3_150mm.pdf
+```
+
