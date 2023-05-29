@@ -460,8 +460,12 @@ class PrintMenu:
         menu_options = {
         1: 'Print pose',
         2: 'Set manual pose',
-        3: 'Go to marker pose',
-        4: 'Back to main menu'
+        3: 'Go to marker 1',
+        4: 'Go to marker 2',
+        5: 'Go to marker 3',
+        6: 'Go to marker 4',
+        7: 'Go start pos',
+        9: 'Back to main menu'
         }
         for key in menu_options.keys():
             print (key, '--', menu_options[key] )
@@ -607,41 +611,24 @@ def main():
                 qw = float(input("Enter w-orientation: "))
                 move_robot.go_to_pose_goal(x, y, z, qx, qy, qz, qw)
             elif option == 3:
-                print("Go to start position")
-                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
-                
                 print("Go to marker 1")
-                move_robot.go_to_marker_pose('world', 'marker_3_flipped')
-                rospy.sleep(5)
-                
-                print("Go to start position")
-                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
-                rospy.sleep(5)
-                
-                print("Go to marker 2")
                 move_robot.go_to_marker_pose('world', 'marker_1_flipped')
                 rospy.sleep(5)
-                
-                print("Go to start position")
-                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
+            elif option == 4:
+                print("Go to marker 2")
+                move_robot.go_to_marker_pose('world', 'marker_2_flipped')
                 rospy.sleep(5)
-                
+            elif option == 5:
                 print("Go to marker 3")
                 move_robot.go_to_marker_pose('world', 'marker_3_flipped')
                 rospy.sleep(5)
-                
-                print("Go to start position")
-                move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
-                rospy.sleep(5)
-                
+            elif option == 6:
                 print("Go to marker 4")
                 move_robot.go_to_marker_pose('world', 'marker_4_flipped')
                 rospy.sleep(5)
-                
-                print("Go to start position")
+            elif option == 7:
                 move_robot.go_to_joint_state(-90, -35, -100, -110, 90, 90)
-                
-            elif option == 4:
+            elif option == 9:
                 break
             else:
                 print('Invalid option. Please enter a number between 1 and 3.')
